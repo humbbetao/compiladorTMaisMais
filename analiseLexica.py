@@ -7,65 +7,65 @@
 
 import ply.lex as lex
 
-class analiseLexica:
+class AnaliseLexica:
 	
 	def __init__(self):
        		self.lexer = lex.lex(debug=True, module=self, optimize=False)
+
 	keywords = {
-		u'função': 'DEF',
-		u'externa': 'EXTERN',
 		u'se': 'se',
-		u'então': 'então',
-		u'senão': 'senão',
+		u'então': 'entao',
+		u'senão': 'senao',
 		u'fim': 'fim',
-		u'repita': 'então',
+		u'repita': 'repita',
 		u'flutuante': 'flutuante',
 		u'retorna': 'retorna',
-		u'até': 'até',
+		u'até': 'ate',
 		u'leia': 'leia',
-		u'escreve': 'se',
-		u'inteiro': 'então',
-		u'senão': 'senão',
-	    }
+		u'escreve': 'escreve',
+		u'inteiro': 'inteiro',
+		}
 
-	    tokens = ['EQ', 'NE', 'GE', 'GT', 'LE', 'LT', 'ADD', 'SUB', 'MUL', 'DIV',
-		      'ID', 'NUM', 'LPAR', 'RPAR', 'COMMA'] + list(keywords.values())
+	tokens = ['ADICAO', 'SUBTRACAO', 'MULTIPLICACAO', 'DIVISAO', 'IGUALDADE', 
+				'VIRGULA', 'ATRIBUICAO', 'MENOR', 'MAIOR', 'MENORIGUAL', 'MAIORIGUAL',
+				 'ABREPAR', 'FECHAPAR', 'DOISPONTOS','NUMERO', 'ID'] + list(keywords.values())
 
-	    t_EQ = r'='
-	    t_NE = r'~'
-	    t_GE = r'>='
-	    t_GT = r'>'
-	    t_LE = r'<='
-	    t_LT = r'<'
-	    t_ADD = r'\+'
-	    t_SUB = r'\-'
-	    t_MUL = r'\*'
-	    t_DIV = r'/'
-	    t_LPAR = r'\('
-	    t_RPAR = r'\)'
-	    t_COMMA = r','
-	    t_NUM = r'[0-9]+(\.[0-9]+)?'
+	t_ADICAO = r'\+'
+	t_SUBTRACAO = r'\-'
+	t_MULTIPLICACAO = r'\*'
+	t_DIVISAO = r'/'
+	t_IGUALDADE = r'='
+	t_VIRGULA = r','
+	t_ATRIBUICAO = r':='
+	t_MENOR  = r'<'
+	t_MAIOR = r'>'
+	t_MENORIGUAL = r'<='
+	t_MAIORIGUAL = r'>='
+	t_ABREPAR = r'\('
+	t_FECHAPAR = r'\)'
+	t_DOISPONTOS = r':'
+	t_NUMERO = r'[0-9]+(\.[0-9]+)?'
 
 	def t_ID(self, t):
-		r'[a-zA-Zá-ñÁ-Ñ][a-zA-Zá-ñÁ-Ñ0-9]*'
+		r'[a-zA-Z][a-zA-Zá-ñÁ-Ñ0-9]*'
 		t.type = self.keywords.get(t.value, 'ID')
 		return t
 
-	    def t_COMMENT(self, t):
-		r'\#.*'
+	def t_COMMENT(self, t):
+		r'{[^\{^\}]*}'
+		pass
 
-	    def t_NEWLINE(self, t):
+	def t_NEWLINE(self, t):
 		r'\n+'
 		t.lexer.lineno += len(t.value)
+	
+	t_ignore = ' \t'
 
-	    t_ignore = ' \t'
-
-	    def t_error(self, t):
-		print("Item ilegal: '%s', linha %d, coluna %d" % (t.value[0],
-		                                                  t.lineno, t.lexpos))
+	def t_error(self, t):
+		print("Item ilegal: '%s', linha %d, coluna %d" % (t.value[0], t.lineno, t.lexpos))
 		t.lexer.skip(1)
 
-	    def test(self, code):
+	def test(self, code):
 		lex.input(code)
 		while True:
 		    t = lex.token()
@@ -75,6 +75,6 @@ class analiseLexica:
 
 if __name__ == '__main__':
 	from sys import argv
-	lexer = Lexer()
+	lexer = AnaliseLexica()
 	f = open(argv[1])
 	lexer.test(f.read())

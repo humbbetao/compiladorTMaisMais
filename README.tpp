@@ -1,0 +1,1 @@
+executar: python3 analiseLexica.py codigo.tpp

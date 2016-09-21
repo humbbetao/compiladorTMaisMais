@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 6.4.--><structure>
+	<type>fa</type>
+	<automaton>
+		<!--The list of states.-->
+		<state id="0" name="Inicial">
+			<x>280.0</x>
+			<y>67.0</y>
+			<initial/>
+		</state>
+		<state id="1" name="se">
+			<x>48.0</x>
+			<y>80.0</y>
+			<final/>
+		</state>
+		<state id="2" name="então">
+			<x>56.0</x>
+			<y>141.0</y>
+			<final/>
+		</state>
+		<state id="3" name="senão">
+			<x>72.0</x>
+			<y>186.0</y>
+			<final/>
+		</state>
+		<state id="4" name="fim">
+			<x>125.0</x>
+			<y>222.0</y>
+			<final/>
+		</state>
+		<state id="5" name="repita">
+			<x>196.0</x>
+			<y>240.0</y>
+			<final/>
+		</state>
+		<state id="6" name="flutuante">
+			<x>263.0</x>
+			<y>241.0</y>
+			<final/>
+		</state>
+		<state id="7" name="retorna">
+			<x>340.0</x>
+			<y>235.0</y>
+			<final/>
+		</state>
+		<state id="8" name="até">
+			<x>389.0</x>
+			<y>195.0</y>
+			<final/>
+		</state>
+		<state id="9" name="leia">
+			<x>442.0</x>
+			<y>97.0</y>
+			<final/>
+		</state>
+		<state id="11" name="escreve">
+			<x>442.0</x>
+			<y>42.0</y>
+			<final/>
+		</state>
+		<state id="12" name="inteiro">
+			<x>432.0</x>
+			<y>156.0</y>
+			<final/>
+		</state>
+		<!--The list of transitions.-->
+		<transition>
+			<from>0</from>
+			<to>3</to>
+			<read>senão</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>8</to>
+			<read>até</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>1</to>
+			<read>se</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>6</to>
+			<read>flutuante</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>7</to>
+			<read>retorna</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>9</to>
+			<read>leia</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>11</to>
+			<read>escreve</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>4</to>
+			<read>fim</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>2</to>
+			<read>então</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>5</to>
+			<read>repita</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>12</to>
+			<read>inteiro</read>
+		</transition>
+	</automaton>
+</structure>

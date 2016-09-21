@@ -10,26 +10,33 @@ import ply.lex as lex
 class AnaliseLexica:
 	
 	def __init__(self):
-       		self.lexer = lex.lex(debug=True, module=self, optimize=False)
+       		self.lexer = lex.lex(debug=False, module=self, optimize=False)	
 
+    # Dicionario reservadas
 	keywords = {
-		u'se': 'se',
-		u'então': 'entao',
-		u'senão': 'senao',
-		u'fim': 'fim',
-		u'repita': 'repita',
-		u'flutuante': 'flutuante',
-		u'retorna': 'retorna',
-		u'até': 'ate',
-		u'leia': 'leia',
-		u'escreve': 'escreve',
-		u'inteiro': 'inteiro',
+		u'se': 'SE',
+		u'então': 'ENTAO',
+		u'senão': 'SENAO',
+		u'fim': 'FIM',
+		u'repita': 'REPITA',
+		u'flutuante': 'FLUTUANTE',
+		u'retorna': 'RETORNA',
+		u'até': 'ATE',
+		u'leia': 'LEIA',
+		u'escreva': 'ESCREVE',
+		u'inteiro': 'INTEIRO',
+		u'principal': 'PRINCIPAL',
+		u'vazio': 'VAZIO',
+		u'retorna' : 'RETORNA',
+
 		}
 
+	# Lista de Tokens
 	tokens = ['ADICAO', 'SUBTRACAO', 'MULTIPLICACAO', 'DIVISAO', 'IGUALDADE', 
 				'VIRGULA', 'ATRIBUICAO', 'MENOR', 'MAIOR', 'MENORIGUAL', 'MAIORIGUAL',
-				 'ABREPAR', 'FECHAPAR', 'DOISPONTOS','NUMERO', 'ID'] + list(keywords.values())
+				 'ABREPAR', 'FECHAPAR', 'DOISPONTOS','NUMERO', 'IDENTIFICADOR', 'ERRO'] + list(keywords.values())
 
+	# Expressões simples
 	t_ADICAO = r'\+'
 	t_SUBTRACAO = r'\-'
 	t_MULTIPLICACAO = r'\*'
@@ -44,21 +51,22 @@ class AnaliseLexica:
 	t_ABREPAR = r'\('
 	t_FECHAPAR = r'\)'
 	t_DOISPONTOS = r':'
-	t_NUMERO = r'[0-9]+(\.[0-9]+)?'
+	t_NUMERO = r'[+-]?[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?'
 
-	def t_ID(self, t):
-		r'[a-zA-Z][a-zA-Zá-ñÁ-Ñ0-9]*'
-		t.type = self.keywords.get(t.value, 'ID')
+
+	def t_IDENTIFICADOR(self, t):
+		r'[a-zA-Zà-ÿÀ-Ÿ][a-zA-Zà-ÿÀ-Ÿ0-9]*'
+		t.type = self.keywords.get(t.value, 'IDENTIFICADOR')
 		return t
 
-	def t_COMMENT(self, t):
-		r'{[^\{^\}]*}'
+	def t_COMENTARIO(self, t):
+		r'({(.|\n)*?\})'
 		pass
 
-	def t_NEWLINE(self, t):
+	def t_NOVALINHA(self, t):
 		r'\n+'
 		t.lexer.lineno += len(t.value)
-	
+	#Ignora tabs e espacos
 	t_ignore = ' \t'
 
 	def t_error(self, t):

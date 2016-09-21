@@ -1,12 +1,12 @@
 inteiro: n
 
 inteiro fatorial(inteiro: n)
-	inteiro: fat
-	se n > 0 então {não calcula se n > 0}
+	inteiro: fat 	
+	se n > 0 então {calcula se n > 0}
 		fat := 1
 		repita
-			fat := fat * n
-			n := n - 1
+			fat := fat * ü
+			n := n - -110
 		até n = 0
 		retorna(fat) {retorna o valor do fatorial de n}
 	senão

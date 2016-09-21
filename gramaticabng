@@ -1,0 +1,68 @@
+<programa> ::= declaracao_var, programa
+			| principal
+			| func_loop principal
+
+<principal> ::= VAZIO PRINCIPAL ABREPAR declaracao_param FECHAPAR NOVA_LINHA  sequencia_de_declaracao FIM
+
+<func_loop> ::= declaracao_de_funcao  func_loop
+				| declaracao_de_funcao
+
+<declaracao_de_funcao> ::= tipo IDENTIFICADOR ABREPAR declaracao_param FECHAPAR NOVALINHA sequencia_de_declaracao FIM
+
+<declaracao_param> ::= tipo DOISPONTOS IDENTIFICADOR declaracao_param
+					| tipo DOISPONTOS IDENTIFICADOR
+
+<sequencia_de_declaracao> ::= sequencia_de_declaracao declaracao 
+						| declaracao
+
+<declaracao> ::= expressao_condicional 
+				| expressao_iteracao 
+				| expressao_atribuicao 
+				| expressao_leitura
+				| expressao_escreva
+				| declaracao_var
+
+<expressao_condicional> ::= SE expressao ENTAO sequencia_de_declaracao FIM
+						| SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
+
+<expressao_iteracao> ::= REPITA sequencia_de_declaracao ATE expressao
+
+<expressao_atribuicao> ::= IDENTIFICADOR ATRIBUICAO expressao
+
+<expressao_leitura> ::= LEIA ABREPAR IDENTIFICADOR FECHAPAR
+
+<expressao_escreva> ::= ESCREVA ABREPAR expressao FECHAPAR
+
+<expressao> ::= expressao_simples operador_logico expressao_simples 
+			| expressao_simples
+
+<operador_logico> ::= MAIOR
+				| MAIORIGUAL
+				| MENOR
+				| MENORIGUAL
+				| IGUALDADE
+
+<expressao_simples> ::= expressao_simples operador_add termo
+					| termo
+
+<operador_add> ::= ADICAO
+				| SUBTRACAO
+
+<termo> ::= termo operador_mult fator
+		| fator
+
+<operador_mult>::= MULTIPLICACAO
+				| DIVISAO
+
+<fator> ::= ABREPAR expressao FECHAPAR
+		 	| NUMERO
+			| IDENTIFICADOR
+
+
+<tipo> ::= VAZIO
+			| INTEIRO
+			| FLUTUANTE
+
+
+
+

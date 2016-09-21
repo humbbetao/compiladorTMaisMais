@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 6.4.--><structure>
+	<type>fa</type>
+	<automaton>
+		<!--The list of states.-->
+		<state id="0" name="Inicial">
+			<x>356.0</x>
+			<y>240.0</y>
+			<initial/>
+		</state>
+		<state id="1" name="IGUALDADE">
+			<x>462.0</x>
+			<y>442.0</y>
+			<final/>
+		</state>
+		<state id="2" name="VIRGULA">
+			<x>440.0</x>
+			<y>63.0</y>
+			<final/>
+		</state>
+		<state id="3" name="ABREPAR">
+			<x>483.0</x>
+			<y>95.0</y>
+			<final/>
+		</state>
+		<state id="4" name="FECHAPAR">
+			<x>518.0</x>
+			<y>138.0</y>
+			<final/>
+		</state>
+		<state id="5" name="MAIOR">
+			<x>547.0</x>
+			<y>326.0</y>
+			<final/>
+		</state>
+		<state id="6" name="DOISPONTOS">
+			<x>502.0</x>
+			<y>409.0</y>
+			<final/>
+		</state>
+		<state id="7" name="DIVISAO">
+			<x>416.0</x>
+			<y>469.0</y>
+			<final/>
+		</state>
+		<state id="8" name="MULTIPLICACAO">
+			<x>368.0</x>
+			<y>491.0</y>
+			<final/>
+		</state>
+		<state id="9" name="ADICAO">
+			<x>291.0</x>
+			<y>489.0</y>
+			<final/>
+		</state>
+		<state id="10" name="SUBTRACAO">
+			<x>235.0</x>
+			<y>475.0</y>
+			<final/>
+		</state>
+		<state id="11" name="MENOR">
+			<x>549.0</x>
+			<y>231.0</y>
+			<final/>
+		</state>
+		<state id="12" name="ATRIBUICAO">
+			<x>528.0</x>
+			<y>369.0</y>
+			<final/>
+		</state>
+		<state id="13" name="MENORIGUAL">
+			<x>541.0</x>
+			<y>185.0</y>
+			<final/>
+		</state>
+		<state id="14" name="MAIORIGUAL">
+			<x>554.0</x>
+			<y>281.0</y>
+			<final/>
+		</state>
+		<state id="15" name="se">
+			<x>385.0</x>
+			<y>39.0</y>
+			<final/>
+		</state>
+		<state id="16" name="então">
+			<x>332.0</x>
+			<y>29.0</y>
+			<final/>
+		</state>
+		<state id="17" name="senão">
+			<x>276.0</x>
+			<y>27.0</y>
+			<final/>
+		</state>
+		<state id="18" name="ID">
+			<x>151.0</x>
+			<y>471.0</y>
+			<final/>
+		</state>
+		<state id="19" name="fim">
+			<x>217.0</x>
+			<y>31.0</y>
+			<final/>
+		</state>
+		<state id="20" name="repita">
+			<x>167.0</x>
+			<y>42.0</y>
+			<final/>
+		</state>
+		<state id="21" name="comentário">
+			<x>43.0</x>
+			<y>167.0</y>
+		</state>
+		<state id="22" name="flutuante">
+			<x>118.0</x>
+			<y>60.0</y>
+			<final/>
+		</state>
+		<state id="23" name="retorna">
+			<x>79.0</x>
+			<y>102.0</y>
+			<final/>
+		</state>
+		<state id="24" name="Inteiro">
+			<x>77.0</x>
+			<y>366.0</y>
+			<final/>
+		</state>
+		<state id="25" name="até">
+			<x>28.0</x>
+			<y>211.0</y>
+			<final/>
+		</state>
+		<state id="26" name="inteiro">
+			<x>140.0</x>
+			<y>297.0</y>
+			<final/>
+		</state>
+		<state id="27" name="escreve">
+			<x>158.0</x>
+			<y>353.0</y>
+			<final/>
+		</state>
+		<state id="28" name="leia">
+			<x>116.0</x>
+			<y>256.0</y>
+			<final/>
+		</state>
+		<state id="30" name="NovaLinha">
+			<x>54.0</x>
+			<y>295.0</y>
+			<final/>
+		</state>
+		<state id="31" name="flutuante">
+			<x>-5.0</x>
+			<y>267.0</y>
+			<final/>
+		</state>
+		<state id="32" name="Notação Cientifica">
+			<x>-30.0</x>
+			<y>465.0</y>
+			<final/>
+		</state>
+		<!--The list of transitions.-->
+		<transition>
+			<from>0</from>
+			<to>18</to>
+			<read>[a-zA-Zà-ÿÀ-Ÿ]</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>6</to>
+			<read>:</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>3</to>
+			<read>(</read>
+		</transition>
+		<transition>
+			<from>24</from>
+			<to>31</to>
+			<read>(\.[0-9]+)</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>13</to>
+			<read>&lt;=</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>15</to>
+			<read>se</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>0</to>
+			<read>tabulações </read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>21</to>
+			<read>{</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>7</to>
+			<read>/</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>28</to>
+			<read>leia</read>
+		</transition>
+		<transition>
+			<from>18</from>
+			<to>18</to>
+			<read>[a-zA-Zà-ÿÀ-Ÿ0-9]</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>27</to>
+			<read>escreve</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>24</to>
+			<read>[0-9]</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>12</to>
+			<read>:=</read>
+		</transition>
+		<transition>
+			<from>21</from>
+			<to>0</to>
+			<read>}</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>10</to>
+			<read>-</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>8</to>
+			<read>*</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>2</to>
+			<read>,</read>
+		</transition>
+		<transition>
+			<from>31</from>
+			<to>32</to>
+			<read>(e[+-]?[0-9]+)</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>25</to>
+			<read>até</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>11</to>
+			<read>&lt;</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>20</to>
+			<read>repita</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>14</to>
+			<read>&gt;=</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>0</to>
+			<read>espaços</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>1</to>
+			<read>=</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>22</to>
+			<read>flutuante</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>16</to>
+			<read>então</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>9</to>
+			<read>+</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>19</to>
+			<read>fim</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>4</to>
+			<read>)</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>17</to>
+			<read>senão</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>30</to>
+			<read>\n</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>23</to>
+			<read>retorna</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>26</to>
+			<read>inteiro</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>5</to>
+			<read>&gt;</read>
+		</transition>
+	</automaton>
+</structure>

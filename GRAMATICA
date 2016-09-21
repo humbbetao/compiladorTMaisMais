@@ -1,0 +1,68 @@
+programa : declaracao_var, programa
+programa : principal
+programa : func_loop principal
+
+principal : VAZIO PRINCIPAL ABREPAR declaracao_param FECHAPAR NOVA_LINHA  sequencia_de_declaracao FIM
+
+func_loop : declaracao_de_funcao  func_loop
+func_loop : declaracao_de_funcao
+
+declaracao_de_funcao : tipo IDENTIFICADOR ABREPAR declaracao_param FECHAPAR NOVALINHA sequencia_de_declaracao FIM
+
+declaracao_param : tipo DOISPONTOS IDENTIFICADOR declaracao_param
+declaracao_param : tipo DOISPONTOS IDENTIFICADOR
+
+sequencia_de_declaracao : sequencia_de_declaracao declaracao 
+sequencia_de_declaracao : declaracao
+
+declaracao : expressao_condicional 
+declaracao : expressao_iteracao 
+declaracao : expressao_atribuicao 
+declaracao : expressao_leitura
+declaracao : expressao_escreva
+declaracao : declaracao_var
+
+expressao_condicional : SE expressao ENTAO sequencia_de_declaracao FIM
+expressao_condicional : SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
+
+expressao_iteracao : REPITA sequencia_de_declaracao ATE expressao
+
+expressao_atribuicao : IDENTIFICADOR ATRIBUICAO expressao
+
+expressao_leitura : LEIA ABREPAR IDENTIFICADOR FECHAPAR
+
+expressao_escreva : ESCREVA ABREPAR expressao FECHAPAR
+
+expressao : expressao_simples operador_logico expressao_simples 
+expressao : expressao_simples
+
+operador_logico : MAIOR
+operador_logico : MAIORIGUAL
+operador_logico : MENOR
+operador_logico : MENORIGUAL
+operador_logico : IGUALDADE
+
+expressao_simples : expressao_simples operador_add termo
+expressao_simples : termo
+
+operador_add : ADICAO
+operador_add : SUBTRACAO
+
+termo : termo operador_mult fator
+termo : fator
+
+operador_mult : MULTIPLICACAO
+operador_mult : DIVISAO
+
+fator : ABREPAR expressao FECHAPAR
+fator : NUMERO
+fator : IDENTIFICADOR
+
+
+tipo : VAZIO
+tipo : INTEIRO
+tipo : FLUTUANTE
+
+
+
+

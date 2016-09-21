@@ -1,6 +1,6 @@
 inteiro: n
 
-inteiro fatorial(inteiro: n)
+inteiro fatorial(inteiro : n)
 	inteiro: fat 	
 	se n > 0 então {calcula se n > 0}
 		fat := 1

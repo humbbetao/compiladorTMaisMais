@@ -34,7 +34,7 @@ class AnaliseLexica:
 	# Lista de Tokens
 	tokens = ['ADICAO', 'SUBTRACAO', 'MULTIPLICACAO', 'DIVISAO', 'IGUALDADE', 
 				'VIRGULA', 'ATRIBUICAO', 'MENOR', 'MAIOR', 'MENORIGUAL', 'MAIORIGUAL',
-				 'ABREPAR', 'FECHAPAR', 'DOISPONTOS','NUMERO', 'IDENTIFICADOR', 'ERRO'] + list(keywords.values())
+				 'ABREPAR', 'FECHAPAR', 'DOISPONTOS', 'IDENTIFICADOR', ] + list(keywords.values())
 
 	# Expressões simples
 	t_ADICAO = r'\+'
@@ -51,7 +51,8 @@ class AnaliseLexica:
 	t_ABREPAR = r'\('
 	t_FECHAPAR = r'\)'
 	t_DOISPONTOS = r':'
-	t_NUMERO = r'[+-]?[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?'
+	t_INTEIRO = r'[+-]?[0-9]+'
+	t_FLUTUANTE = r'[+-]?[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?'
 
 
 	def t_IDENTIFICADOR(self, t):
@@ -66,6 +67,7 @@ class AnaliseLexica:
 	def t_NOVALINHA(self, t):
 		r'\n+'
 		t.lexer.lineno += len(t.value)
+		t.type = "NOVALINHA"
 	#Ignora tabs e espacos
 	t_ignore = ' \t'
 

@@ -1,9 +1,5 @@
 Created by PLY version 3.8 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    ERRO
-
 Grammar
 
 Rule 0     S' -> programa
@@ -18,8 +14,8 @@ Rule 8     chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao FECHAPAR
 Rule 9     declaracao_de_funcao -> tipo IDENTIFICADOR ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM
 Rule 10    declaracao_param -> declaracao_param VIRGULA tipo DOISPONTOS IDENTIFICADOR
 Rule 11    declaracao_param -> tipo DOISPONTOS IDENTIFICADOR
-Rule 12    sequencia_de_declaracao -> declaracao sequencia_de_declaracao
-Rule 13    sequencia_de_declaracao -> declaracao
+Rule 12    sequencia_de_declaracao -> declaracao
+Rule 13    sequencia_de_declaracao -> declaracao sequencia_de_declaracao
 Rule 14    declaracao -> expressao_condicional
 Rule 15    declaracao -> expressao_iteracao
 Rule 16    declaracao -> expressao_atribuicao
@@ -28,98 +24,96 @@ Rule 18    declaracao -> expressao_escreva
 Rule 19    declaracao -> declara_var
 Rule 20    declaracao -> retorna
 Rule 21    declaracao -> chamada_de_funcao
-Rule 22    declara_var -> tipo IDENTIFICADOR VIRGULA declara_var
-Rule 23    declara_var -> tipo IDENTIFICADOR ATRIBUICAO expressao_simples
-Rule 24    declara_var -> tipo DOISPONTOS IDENTIFICADOR
-Rule 25    retorna -> RETORNA ABREPAR IDENTIFICADOR FECHAPAR
-Rule 26    retorna -> RETORNA ABREPAR NUMERO FECHAPAR
+Rule 22    declara_var -> tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var
+Rule 23    declara_var -> tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples
+Rule 24    declara_outra_var -> IDENTIFICADOR
+Rule 25    retorna -> RETORNA ABREPAR expressao FECHAPAR
+Rule 26    expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM
 Rule 27    expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
-Rule 28    expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM
-Rule 29    expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao
-Rule 30    expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao
-Rule 31    expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR
-Rule 32    expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR
-Rule 33    expressao -> expressao_simples operador_logico expressao_simples
-Rule 34    expressao -> expressao_simples
-Rule 35    expressao -> chamada_de_funcao
-Rule 36    operador_logico -> MAIOR
-Rule 37    operador_logico -> MAIORIGUAL
-Rule 38    operador_logico -> MENOR
-Rule 39    operador_logico -> MENORIGUAL
-Rule 40    operador_logico -> IGUALDADE
-Rule 41    expressao_simples -> expressao_simples operador_add termo
-Rule 42    expressao_simples -> termo
-Rule 43    operador_add -> ADICAO
-Rule 44    operador_add -> SUBTRACAO
-Rule 45    termo -> termo operador_mult fator
-Rule 46    termo -> fator
-Rule 47    operador_mult -> MULTIPLICACAO
-Rule 48    operador_mult -> DIVISAO
-Rule 49    fator -> NUMERO
-Rule 50    fator -> IDENTIFICADOR
-Rule 51    tipo -> VAZIO
-Rule 52    tipo -> INTEIRO
-Rule 53    tipo -> FLUTUANTE
+Rule 28    expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao
+Rule 29    expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao
+Rule 30    expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR
+Rule 31    expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR
+Rule 32    expressao -> ABREPAR expressao FECHAPAR
+Rule 33    expressao -> expressao operador_aritmetico expressao
+Rule 34    expressao -> expressao operador_logico expressao
+Rule 35    expressao -> expressao_simples
+Rule 36    expressao -> chamada_de_funcao
+Rule 37    expressao_simples -> fator
+Rule 38    operador_logico -> MAIOR
+Rule 39    operador_logico -> MAIORIGUAL
+Rule 40    operador_logico -> MENOR
+Rule 41    operador_logico -> MENORIGUAL
+Rule 42    operador_logico -> IGUALDADE
+Rule 43    operador_aritmetico -> SUBTRACAO
+Rule 44    operador_aritmetico -> ADICAO
+Rule 45    operador_aritmetico -> MULTIPLICACAO
+Rule 46    operador_aritmetico -> DIVISAO
+Rule 47    fator -> IDENTIFICADOR
+Rule 48    fator -> INTEIRO
+Rule 49    fator -> FLUTUANTE
+Rule 50    tipo -> VAZIO
+Rule 51    tipo -> numero
+Rule 52    numero -> INTEIRO
+Rule 53    numero -> FLUTUANTE
 
 Terminals, with rules where they appear
 
-ABREPAR              : 4 5 8 9 25 26 31 32
-ADICAO               : 43
-ATE                  : 29
-ATRIBUICAO           : 23 30
-DIVISAO              : 48
-DOISPONTOS           : 10 11 24
-ENTAO                : 27 28
-ERRO                 : 
-ESCREVE              : 32
-FECHAPAR             : 4 5 8 9 25 26 31 32
-FIM                  : 4 5 9 27 28
-FLUTUANTE            : 53
-IDENTIFICADOR        : 8 9 10 11 22 23 24 25 30 31 50
-IGUALDADE            : 40
-INTEIRO              : 52
-LEIA                 : 31
-MAIOR                : 36
-MAIORIGUAL           : 37
-MENOR                : 38
-MENORIGUAL           : 39
-MULTIPLICACAO        : 47
-NUMERO               : 26 49
+ABREPAR              : 4 5 8 9 25 30 31 32
+ADICAO               : 44
+ATE                  : 28
+ATRIBUICAO           : 23 29
+DIVISAO              : 46
+DOISPONTOS           : 10 11 22 23
+ENTAO                : 26 27
+ESCREVE              : 31
+FECHAPAR             : 4 5 8 9 25 30 31 32
+FIM                  : 4 5 9 26 27
+FLUTUANTE            : 49 53
+IDENTIFICADOR        : 8 9 10 11 22 23 24 29 30 47
+IGUALDADE            : 42
+INTEIRO              : 48 52
+LEIA                 : 30
+MAIOR                : 38
+MAIORIGUAL           : 39
+MENOR                : 40
+MENORIGUAL           : 41
+MULTIPLICACAO        : 45
 PRINCIPAL            : 4 5
-REPITA               : 29
-RETORNA              : 25 26
-SE                   : 27 28
+REPITA               : 28
+RETORNA              : 25
+SE                   : 26 27
 SENAO                : 27
-SUBTRACAO            : 44
-VAZIO                : 51
+SUBTRACAO            : 43
+VAZIO                : 50
 VIRGULA              : 10 22
 error                : 
 
 Nonterminals, with rules where they appear
 
-chamada_de_funcao    : 21 35
-declara_var          : 3 19 22
+chamada_de_funcao    : 21 36
+declara_outra_var    : 22
+declara_var          : 3 19
 declaracao           : 12 13
 declaracao_de_funcao : 6 7
 declaracao_param     : 4 9 10
-expressao            : 8 27 28 29 30 32
+expressao            : 8 25 26 27 28 29 31 32 33 33 34 34
 expressao_atribuicao : 16
 expressao_condicional : 14
 expressao_escreva    : 18
 expressao_iteracao   : 15
 expressao_leitura    : 17
-expressao_simples    : 23 33 33 34 41
-fator                : 45 46
+expressao_simples    : 23 35
+fator                : 37
 func_loop            : 2 6
-operador_add         : 41
-operador_logico      : 33
-operador_mult        : 45
+numero               : 51
+operador_aritmetico  : 33
+operador_logico      : 34
 principal            : 1 2
 programa             : 3 0
 retorna              : 20
-sequencia_de_declaracao : 4 5 9 12 27 27 28 29
-termo                : 41 42 45
-tipo                 : 9 10 11 22 23 24
+sequencia_de_declaracao : 4 5 9 13 26 27 27 28
+tipo                 : 9 10 11 22 23
 
 Parsing method: LALR
 
@@ -133,35 +127,73 @@ state 0
     (5) principal -> . PRINCIPAL ABREPAR FECHAPAR sequencia_de_declaracao FIM
     (6) func_loop -> . declaracao_de_funcao func_loop
     (7) func_loop -> . declaracao_de_funcao
-    (22) declara_var -> . tipo IDENTIFICADOR VIRGULA declara_var
-    (23) declara_var -> . tipo IDENTIFICADOR ATRIBUICAO expressao_simples
-    (24) declara_var -> . tipo DOISPONTOS IDENTIFICADOR
+    (22) declara_var -> . tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var
+    (23) declara_var -> . tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples
     (9) declaracao_de_funcao -> . tipo IDENTIFICADOR ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM
-    (51) tipo -> . VAZIO
-    (52) tipo -> . INTEIRO
-    (53) tipo -> . FLUTUANTE
+    (50) tipo -> . VAZIO
+    (51) tipo -> . numero
+    (52) numero -> . INTEIRO
+    (53) numero -> . FLUTUANTE
 
-    PRINCIPAL       shift and go to state 4
-    VAZIO           shift and go to state 8
-    INTEIRO         shift and go to state 1
-    FLUTUANTE       shift and go to state 7
+    PRINCIPAL       shift and go to state 2
+    VAZIO           shift and go to state 6
+    INTEIRO         shift and go to state 11
+    FLUTUANTE       shift and go to state 4
 
-    programa                       shift and go to state 5
-    declara_var                    shift and go to state 2
-    tipo                           shift and go to state 6
-    func_loop                      shift and go to state 3
-    declaracao_de_funcao           shift and go to state 9
-    principal                      shift and go to state 10
+    principal                      shift and go to state 1
+    numero                         shift and go to state 8
+    func_loop                      shift and go to state 10
+    declara_var                    shift and go to state 5
+    programa                       shift and go to state 9
+    declaracao_de_funcao           shift and go to state 3
+    tipo                           shift and go to state 7
 
 state 1
 
-    (52) tipo -> INTEIRO .
+    (1) programa -> principal .
 
-    IDENTIFICADOR   reduce using rule 52 (tipo -> INTEIRO .)
-    DOISPONTOS      reduce using rule 52 (tipo -> INTEIRO .)
+    $end            reduce using rule 1 (programa -> principal .)
 
 
 state 2
+
+    (4) principal -> PRINCIPAL . ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM
+    (5) principal -> PRINCIPAL . ABREPAR FECHAPAR sequencia_de_declaracao FIM
+
+    ABREPAR         shift and go to state 12
+
+
+state 3
+
+    (6) func_loop -> declaracao_de_funcao . func_loop
+    (7) func_loop -> declaracao_de_funcao .
+    (6) func_loop -> . declaracao_de_funcao func_loop
+    (7) func_loop -> . declaracao_de_funcao
+    (9) declaracao_de_funcao -> . tipo IDENTIFICADOR ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM
+    (50) tipo -> . VAZIO
+    (51) tipo -> . numero
+    (52) numero -> . INTEIRO
+    (53) numero -> . FLUTUANTE
+
+    PRINCIPAL       reduce using rule 7 (func_loop -> declaracao_de_funcao .)
+    VAZIO           shift and go to state 6
+    INTEIRO         shift and go to state 11
+    FLUTUANTE       shift and go to state 4
+
+    func_loop                      shift and go to state 13
+    numero                         shift and go to state 8
+    declaracao_de_funcao           shift and go to state 3
+    tipo                           shift and go to state 14
+
+state 4
+
+    (53) numero -> FLUTUANTE .
+
+    DOISPONTOS      reduce using rule 53 (numero -> FLUTUANTE .)
+    IDENTIFICADOR   reduce using rule 53 (numero -> FLUTUANTE .)
+
+
+state 5
 
     (3) programa -> declara_var . programa
     (1) programa -> . principal
@@ -171,173 +203,154 @@ state 2
     (5) principal -> . PRINCIPAL ABREPAR FECHAPAR sequencia_de_declaracao FIM
     (6) func_loop -> . declaracao_de_funcao func_loop
     (7) func_loop -> . declaracao_de_funcao
-    (22) declara_var -> . tipo IDENTIFICADOR VIRGULA declara_var
-    (23) declara_var -> . tipo IDENTIFICADOR ATRIBUICAO expressao_simples
-    (24) declara_var -> . tipo DOISPONTOS IDENTIFICADOR
+    (22) declara_var -> . tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var
+    (23) declara_var -> . tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples
     (9) declaracao_de_funcao -> . tipo IDENTIFICADOR ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM
-    (51) tipo -> . VAZIO
-    (52) tipo -> . INTEIRO
-    (53) tipo -> . FLUTUANTE
+    (50) tipo -> . VAZIO
+    (51) tipo -> . numero
+    (52) numero -> . INTEIRO
+    (53) numero -> . FLUTUANTE
 
-    PRINCIPAL       shift and go to state 4
-    VAZIO           shift and go to state 8
-    INTEIRO         shift and go to state 1
-    FLUTUANTE       shift and go to state 7
+    PRINCIPAL       shift and go to state 2
+    VAZIO           shift and go to state 6
+    INTEIRO         shift and go to state 11
+    FLUTUANTE       shift and go to state 4
 
-    declara_var                    shift and go to state 2
-    programa                       shift and go to state 11
-    tipo                           shift and go to state 6
-    func_loop                      shift and go to state 3
-    declaracao_de_funcao           shift and go to state 9
-    principal                      shift and go to state 10
+    principal                      shift and go to state 1
+    numero                         shift and go to state 8
+    func_loop                      shift and go to state 10
+    declara_var                    shift and go to state 5
+    programa                       shift and go to state 15
+    declaracao_de_funcao           shift and go to state 3
+    tipo                           shift and go to state 7
 
-state 3
+state 6
 
-    (2) programa -> func_loop . principal
-    (4) principal -> . PRINCIPAL ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM
-    (5) principal -> . PRINCIPAL ABREPAR FECHAPAR sequencia_de_declaracao FIM
+    (50) tipo -> VAZIO .
 
-    PRINCIPAL       shift and go to state 4
-
-    principal                      shift and go to state 12
-
-state 4
-
-    (4) principal -> PRINCIPAL . ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM
-    (5) principal -> PRINCIPAL . ABREPAR FECHAPAR sequencia_de_declaracao FIM
-
-    ABREPAR         shift and go to state 13
+    DOISPONTOS      reduce using rule 50 (tipo -> VAZIO .)
+    IDENTIFICADOR   reduce using rule 50 (tipo -> VAZIO .)
 
 
-state 5
+state 7
+
+    (22) declara_var -> tipo . DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var
+    (23) declara_var -> tipo . DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples
+    (9) declaracao_de_funcao -> tipo . IDENTIFICADOR ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM
+
+    DOISPONTOS      shift and go to state 16
+    IDENTIFICADOR   shift and go to state 17
+
+
+state 8
+
+    (51) tipo -> numero .
+
+    DOISPONTOS      reduce using rule 51 (tipo -> numero .)
+    IDENTIFICADOR   reduce using rule 51 (tipo -> numero .)
+
+
+state 9
 
     (0) S' -> programa .
 
 
 
-state 6
-
-    (22) declara_var -> tipo . IDENTIFICADOR VIRGULA declara_var
-    (23) declara_var -> tipo . IDENTIFICADOR ATRIBUICAO expressao_simples
-    (24) declara_var -> tipo . DOISPONTOS IDENTIFICADOR
-    (9) declaracao_de_funcao -> tipo . IDENTIFICADOR ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM
-
-    IDENTIFICADOR   shift and go to state 15
-    DOISPONTOS      shift and go to state 14
-
-
-state 7
-
-    (53) tipo -> FLUTUANTE .
-
-    IDENTIFICADOR   reduce using rule 53 (tipo -> FLUTUANTE .)
-    DOISPONTOS      reduce using rule 53 (tipo -> FLUTUANTE .)
-
-
-state 8
-
-    (51) tipo -> VAZIO .
-
-    IDENTIFICADOR   reduce using rule 51 (tipo -> VAZIO .)
-    DOISPONTOS      reduce using rule 51 (tipo -> VAZIO .)
-
-
-state 9
-
-    (6) func_loop -> declaracao_de_funcao . func_loop
-    (7) func_loop -> declaracao_de_funcao .
-    (6) func_loop -> . declaracao_de_funcao func_loop
-    (7) func_loop -> . declaracao_de_funcao
-    (9) declaracao_de_funcao -> . tipo IDENTIFICADOR ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM
-    (51) tipo -> . VAZIO
-    (52) tipo -> . INTEIRO
-    (53) tipo -> . FLUTUANTE
-
-    PRINCIPAL       reduce using rule 7 (func_loop -> declaracao_de_funcao .)
-    VAZIO           shift and go to state 8
-    INTEIRO         shift and go to state 1
-    FLUTUANTE       shift and go to state 7
-
-    tipo                           shift and go to state 17
-    declaracao_de_funcao           shift and go to state 9
-    func_loop                      shift and go to state 16
-
 state 10
 
-    (1) programa -> principal .
+    (2) programa -> func_loop . principal
+    (4) principal -> . PRINCIPAL ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM
+    (5) principal -> . PRINCIPAL ABREPAR FECHAPAR sequencia_de_declaracao FIM
 
-    $end            reduce using rule 1 (programa -> principal .)
+    PRINCIPAL       shift and go to state 2
 
+    principal                      shift and go to state 18
 
 state 11
 
-    (3) programa -> declara_var programa .
+    (52) numero -> INTEIRO .
 
-    $end            reduce using rule 3 (programa -> declara_var programa .)
+    DOISPONTOS      reduce using rule 52 (numero -> INTEIRO .)
+    IDENTIFICADOR   reduce using rule 52 (numero -> INTEIRO .)
 
 
 state 12
-
-    (2) programa -> func_loop principal .
-
-    $end            reduce using rule 2 (programa -> func_loop principal .)
-
-
-state 13
 
     (4) principal -> PRINCIPAL ABREPAR . declaracao_param FECHAPAR sequencia_de_declaracao FIM
     (5) principal -> PRINCIPAL ABREPAR . FECHAPAR sequencia_de_declaracao FIM
     (10) declaracao_param -> . declaracao_param VIRGULA tipo DOISPONTOS IDENTIFICADOR
     (11) declaracao_param -> . tipo DOISPONTOS IDENTIFICADOR
-    (51) tipo -> . VAZIO
-    (52) tipo -> . INTEIRO
-    (53) tipo -> . FLUTUANTE
+    (50) tipo -> . VAZIO
+    (51) tipo -> . numero
+    (52) numero -> . INTEIRO
+    (53) numero -> . FLUTUANTE
 
-    FECHAPAR        shift and go to state 18
-    VAZIO           shift and go to state 8
-    INTEIRO         shift and go to state 1
-    FLUTUANTE       shift and go to state 7
+    FECHAPAR        shift and go to state 20
+    VAZIO           shift and go to state 6
+    INTEIRO         shift and go to state 11
+    FLUTUANTE       shift and go to state 4
 
-    tipo                           shift and go to state 19
-    declaracao_param               shift and go to state 20
+    declaracao_param               shift and go to state 19
+    numero                         shift and go to state 8
+    tipo                           shift and go to state 21
 
-state 14
-
-    (24) declara_var -> tipo DOISPONTOS . IDENTIFICADOR
-
-    IDENTIFICADOR   shift and go to state 21
-
-
-state 15
-
-    (22) declara_var -> tipo IDENTIFICADOR . VIRGULA declara_var
-    (23) declara_var -> tipo IDENTIFICADOR . ATRIBUICAO expressao_simples
-    (9) declaracao_de_funcao -> tipo IDENTIFICADOR . ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM
-
-    VIRGULA         shift and go to state 23
-    ATRIBUICAO      shift and go to state 22
-    ABREPAR         shift and go to state 24
-
-
-state 16
+state 13
 
     (6) func_loop -> declaracao_de_funcao func_loop .
 
     PRINCIPAL       reduce using rule 6 (func_loop -> declaracao_de_funcao func_loop .)
 
 
-state 17
+state 14
 
     (9) declaracao_de_funcao -> tipo . IDENTIFICADOR ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM
 
-    IDENTIFICADOR   shift and go to state 25
+    IDENTIFICADOR   shift and go to state 17
+
+
+state 15
+
+    (3) programa -> declara_var programa .
+
+    $end            reduce using rule 3 (programa -> declara_var programa .)
+
+
+state 16
+
+    (22) declara_var -> tipo DOISPONTOS . IDENTIFICADOR VIRGULA declara_outra_var
+    (23) declara_var -> tipo DOISPONTOS . IDENTIFICADOR ATRIBUICAO expressao_simples
+
+    IDENTIFICADOR   shift and go to state 22
+
+
+state 17
+
+    (9) declaracao_de_funcao -> tipo IDENTIFICADOR . ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM
+
+    ABREPAR         shift and go to state 23
 
 
 state 18
 
+    (2) programa -> func_loop principal .
+
+    $end            reduce using rule 2 (programa -> func_loop principal .)
+
+
+state 19
+
+    (4) principal -> PRINCIPAL ABREPAR declaracao_param . FECHAPAR sequencia_de_declaracao FIM
+    (10) declaracao_param -> declaracao_param . VIRGULA tipo DOISPONTOS IDENTIFICADOR
+
+    FECHAPAR        shift and go to state 24
+    VIRGULA         shift and go to state 25
+
+
+state 20
+
     (5) principal -> PRINCIPAL ABREPAR FECHAPAR . sequencia_de_declaracao FIM
-    (12) sequencia_de_declaracao -> . declaracao sequencia_de_declaracao
-    (13) sequencia_de_declaracao -> . declaracao
+    (12) sequencia_de_declaracao -> . declaracao
+    (13) sequencia_de_declaracao -> . declaracao sequencia_de_declaracao
     (14) declaracao -> . expressao_condicional
     (15) declaracao -> . expressao_iteracao
     (16) declaracao -> . expressao_atribuicao
@@ -346,206 +359,83 @@ state 18
     (19) declaracao -> . declara_var
     (20) declaracao -> . retorna
     (21) declaracao -> . chamada_de_funcao
+    (26) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao FIM
     (27) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
-    (28) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao FIM
-    (29) expressao_iteracao -> . REPITA sequencia_de_declaracao ATE expressao
-    (30) expressao_atribuicao -> . IDENTIFICADOR ATRIBUICAO expressao
-    (31) expressao_leitura -> . LEIA ABREPAR IDENTIFICADOR FECHAPAR
-    (32) expressao_escreva -> . ESCREVE ABREPAR expressao FECHAPAR
-    (22) declara_var -> . tipo IDENTIFICADOR VIRGULA declara_var
-    (23) declara_var -> . tipo IDENTIFICADOR ATRIBUICAO expressao_simples
-    (24) declara_var -> . tipo DOISPONTOS IDENTIFICADOR
-    (25) retorna -> . RETORNA ABREPAR IDENTIFICADOR FECHAPAR
-    (26) retorna -> . RETORNA ABREPAR NUMERO FECHAPAR
+    (28) expressao_iteracao -> . REPITA sequencia_de_declaracao ATE expressao
+    (29) expressao_atribuicao -> . IDENTIFICADOR ATRIBUICAO expressao
+    (30) expressao_leitura -> . LEIA ABREPAR IDENTIFICADOR FECHAPAR
+    (31) expressao_escreva -> . ESCREVE ABREPAR expressao FECHAPAR
+    (22) declara_var -> . tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var
+    (23) declara_var -> . tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples
+    (25) retorna -> . RETORNA ABREPAR expressao FECHAPAR
     (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
-    (51) tipo -> . VAZIO
-    (52) tipo -> . INTEIRO
-    (53) tipo -> . FLUTUANTE
+    (50) tipo -> . VAZIO
+    (51) tipo -> . numero
+    (52) numero -> . INTEIRO
+    (53) numero -> . FLUTUANTE
 
-    SE              shift and go to state 26
-    REPITA          shift and go to state 40
-    IDENTIFICADOR   shift and go to state 33
-    LEIA            shift and go to state 27
-    ESCREVE         shift and go to state 28
-    RETORNA         shift and go to state 29
-    VAZIO           shift and go to state 8
-    INTEIRO         shift and go to state 1
-    FLUTUANTE       shift and go to state 7
+    SE              shift and go to state 42
+    REPITA          shift and go to state 32
+    IDENTIFICADOR   shift and go to state 34
+    LEIA            shift and go to state 39
+    ESCREVE         shift and go to state 26
+    RETORNA         shift and go to state 31
+    VAZIO           shift and go to state 6
+    INTEIRO         shift and go to state 11
+    FLUTUANTE       shift and go to state 4
 
-    declara_var                    shift and go to state 36
-    sequencia_de_declaracao        shift and go to state 37
-    chamada_de_funcao              shift and go to state 30
-    expressao_escreva              shift and go to state 38
-    expressao_iteracao             shift and go to state 39
-    expressao_atribuicao           shift and go to state 32
-    tipo                           shift and go to state 41
-    expressao_condicional          shift and go to state 34
-    declaracao                     shift and go to state 31
+    chamada_de_funcao              shift and go to state 37
+    numero                         shift and go to state 8
+    expressao_leitura              shift and go to state 27
+    sequencia_de_declaracao        shift and go to state 38
+    expressao_escreva              shift and go to state 30
+    declaracao                     shift and go to state 28
+    expressao_atribuicao           shift and go to state 40
+    expressao_iteracao             shift and go to state 29
+    declara_var                    shift and go to state 33
+    expressao_condicional          shift and go to state 41
     retorna                        shift and go to state 35
-    expressao_leitura              shift and go to state 42
+    tipo                           shift and go to state 36
 
-state 19
+state 21
 
     (11) declaracao_param -> tipo . DOISPONTOS IDENTIFICADOR
 
     DOISPONTOS      shift and go to state 43
 
 
-state 20
-
-    (4) principal -> PRINCIPAL ABREPAR declaracao_param . FECHAPAR sequencia_de_declaracao FIM
-    (10) declaracao_param -> declaracao_param . VIRGULA tipo DOISPONTOS IDENTIFICADOR
-
-    FECHAPAR        shift and go to state 45
-    VIRGULA         shift and go to state 44
-
-
-state 21
-
-    (24) declara_var -> tipo DOISPONTOS IDENTIFICADOR .
-
-    PRINCIPAL       reduce using rule 24 (declara_var -> tipo DOISPONTOS IDENTIFICADOR .)
-    VAZIO           reduce using rule 24 (declara_var -> tipo DOISPONTOS IDENTIFICADOR .)
-    INTEIRO         reduce using rule 24 (declara_var -> tipo DOISPONTOS IDENTIFICADOR .)
-    FLUTUANTE       reduce using rule 24 (declara_var -> tipo DOISPONTOS IDENTIFICADOR .)
-    SE              reduce using rule 24 (declara_var -> tipo DOISPONTOS IDENTIFICADOR .)
-    REPITA          reduce using rule 24 (declara_var -> tipo DOISPONTOS IDENTIFICADOR .)
-    IDENTIFICADOR   reduce using rule 24 (declara_var -> tipo DOISPONTOS IDENTIFICADOR .)
-    LEIA            reduce using rule 24 (declara_var -> tipo DOISPONTOS IDENTIFICADOR .)
-    ESCREVE         reduce using rule 24 (declara_var -> tipo DOISPONTOS IDENTIFICADOR .)
-    RETORNA         reduce using rule 24 (declara_var -> tipo DOISPONTOS IDENTIFICADOR .)
-    FIM             reduce using rule 24 (declara_var -> tipo DOISPONTOS IDENTIFICADOR .)
-    ATE             reduce using rule 24 (declara_var -> tipo DOISPONTOS IDENTIFICADOR .)
-    SENAO           reduce using rule 24 (declara_var -> tipo DOISPONTOS IDENTIFICADOR .)
-
-
 state 22
 
-    (23) declara_var -> tipo IDENTIFICADOR ATRIBUICAO . expressao_simples
-    (41) expressao_simples -> . expressao_simples operador_add termo
-    (42) expressao_simples -> . termo
-    (45) termo -> . termo operador_mult fator
-    (46) termo -> . fator
-    (49) fator -> . NUMERO
-    (50) fator -> . IDENTIFICADOR
+    (22) declara_var -> tipo DOISPONTOS IDENTIFICADOR . VIRGULA declara_outra_var
+    (23) declara_var -> tipo DOISPONTOS IDENTIFICADOR . ATRIBUICAO expressao_simples
 
-    NUMERO          shift and go to state 46
-    IDENTIFICADOR   shift and go to state 47
+    VIRGULA         shift and go to state 45
+    ATRIBUICAO      shift and go to state 44
 
-    fator                          shift and go to state 48
-    expressao_simples              shift and go to state 49
-    termo                          shift and go to state 50
 
 state 23
-
-    (22) declara_var -> tipo IDENTIFICADOR VIRGULA . declara_var
-    (22) declara_var -> . tipo IDENTIFICADOR VIRGULA declara_var
-    (23) declara_var -> . tipo IDENTIFICADOR ATRIBUICAO expressao_simples
-    (24) declara_var -> . tipo DOISPONTOS IDENTIFICADOR
-    (51) tipo -> . VAZIO
-    (52) tipo -> . INTEIRO
-    (53) tipo -> . FLUTUANTE
-
-    VAZIO           shift and go to state 8
-    INTEIRO         shift and go to state 1
-    FLUTUANTE       shift and go to state 7
-
-    tipo                           shift and go to state 41
-    declara_var                    shift and go to state 51
-
-state 24
 
     (9) declaracao_de_funcao -> tipo IDENTIFICADOR ABREPAR . declaracao_param FECHAPAR sequencia_de_declaracao FIM
     (10) declaracao_param -> . declaracao_param VIRGULA tipo DOISPONTOS IDENTIFICADOR
     (11) declaracao_param -> . tipo DOISPONTOS IDENTIFICADOR
-    (51) tipo -> . VAZIO
-    (52) tipo -> . INTEIRO
-    (53) tipo -> . FLUTUANTE
+    (50) tipo -> . VAZIO
+    (51) tipo -> . numero
+    (52) numero -> . INTEIRO
+    (53) numero -> . FLUTUANTE
 
-    VAZIO           shift and go to state 8
-    INTEIRO         shift and go to state 1
-    FLUTUANTE       shift and go to state 7
+    VAZIO           shift and go to state 6
+    INTEIRO         shift and go to state 11
+    FLUTUANTE       shift and go to state 4
 
-    tipo                           shift and go to state 19
-    declaracao_param               shift and go to state 52
+    declaracao_param               shift and go to state 46
+    numero                         shift and go to state 8
+    tipo                           shift and go to state 21
 
-state 25
+state 24
 
-    (9) declaracao_de_funcao -> tipo IDENTIFICADOR . ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM
-
-    ABREPAR         shift and go to state 24
-
-
-state 26
-
-    (27) expressao_condicional -> SE . expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
-    (28) expressao_condicional -> SE . expressao ENTAO sequencia_de_declaracao FIM
-    (33) expressao -> . expressao_simples operador_logico expressao_simples
-    (34) expressao -> . expressao_simples
-    (35) expressao -> . chamada_de_funcao
-    (41) expressao_simples -> . expressao_simples operador_add termo
-    (42) expressao_simples -> . termo
-    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
-    (45) termo -> . termo operador_mult fator
-    (46) termo -> . fator
-    (49) fator -> . NUMERO
-    (50) fator -> . IDENTIFICADOR
-
-    IDENTIFICADOR   shift and go to state 55
-    NUMERO          shift and go to state 46
-
-    expressao_simples              shift and go to state 53
-    termo                          shift and go to state 50
-    fator                          shift and go to state 48
-    chamada_de_funcao              shift and go to state 54
-    expressao                      shift and go to state 56
-
-state 27
-
-    (31) expressao_leitura -> LEIA . ABREPAR IDENTIFICADOR FECHAPAR
-
-    ABREPAR         shift and go to state 57
-
-
-state 28
-
-    (32) expressao_escreva -> ESCREVE . ABREPAR expressao FECHAPAR
-
-    ABREPAR         shift and go to state 58
-
-
-state 29
-
-    (25) retorna -> RETORNA . ABREPAR IDENTIFICADOR FECHAPAR
-    (26) retorna -> RETORNA . ABREPAR NUMERO FECHAPAR
-
-    ABREPAR         shift and go to state 59
-
-
-state 30
-
-    (21) declaracao -> chamada_de_funcao .
-
-    SE              reduce using rule 21 (declaracao -> chamada_de_funcao .)
-    REPITA          reduce using rule 21 (declaracao -> chamada_de_funcao .)
-    IDENTIFICADOR   reduce using rule 21 (declaracao -> chamada_de_funcao .)
-    LEIA            reduce using rule 21 (declaracao -> chamada_de_funcao .)
-    ESCREVE         reduce using rule 21 (declaracao -> chamada_de_funcao .)
-    RETORNA         reduce using rule 21 (declaracao -> chamada_de_funcao .)
-    VAZIO           reduce using rule 21 (declaracao -> chamada_de_funcao .)
-    INTEIRO         reduce using rule 21 (declaracao -> chamada_de_funcao .)
-    FLUTUANTE       reduce using rule 21 (declaracao -> chamada_de_funcao .)
-    FIM             reduce using rule 21 (declaracao -> chamada_de_funcao .)
-    ATE             reduce using rule 21 (declaracao -> chamada_de_funcao .)
-    SENAO           reduce using rule 21 (declaracao -> chamada_de_funcao .)
-
-
-state 31
-
-    (12) sequencia_de_declaracao -> declaracao . sequencia_de_declaracao
-    (13) sequencia_de_declaracao -> declaracao .
-    (12) sequencia_de_declaracao -> . declaracao sequencia_de_declaracao
-    (13) sequencia_de_declaracao -> . declaracao
+    (4) principal -> PRINCIPAL ABREPAR declaracao_param FECHAPAR . sequencia_de_declaracao FIM
+    (12) sequencia_de_declaracao -> . declaracao
+    (13) sequencia_de_declaracao -> . declaracao sequencia_de_declaracao
     (14) declaracao -> . expressao_condicional
     (15) declaracao -> . expressao_iteracao
     (16) declaracao -> . expressao_atribuicao
@@ -554,90 +444,258 @@ state 31
     (19) declaracao -> . declara_var
     (20) declaracao -> . retorna
     (21) declaracao -> . chamada_de_funcao
+    (26) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao FIM
     (27) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
-    (28) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao FIM
-    (29) expressao_iteracao -> . REPITA sequencia_de_declaracao ATE expressao
-    (30) expressao_atribuicao -> . IDENTIFICADOR ATRIBUICAO expressao
-    (31) expressao_leitura -> . LEIA ABREPAR IDENTIFICADOR FECHAPAR
-    (32) expressao_escreva -> . ESCREVE ABREPAR expressao FECHAPAR
-    (22) declara_var -> . tipo IDENTIFICADOR VIRGULA declara_var
-    (23) declara_var -> . tipo IDENTIFICADOR ATRIBUICAO expressao_simples
-    (24) declara_var -> . tipo DOISPONTOS IDENTIFICADOR
-    (25) retorna -> . RETORNA ABREPAR IDENTIFICADOR FECHAPAR
-    (26) retorna -> . RETORNA ABREPAR NUMERO FECHAPAR
+    (28) expressao_iteracao -> . REPITA sequencia_de_declaracao ATE expressao
+    (29) expressao_atribuicao -> . IDENTIFICADOR ATRIBUICAO expressao
+    (30) expressao_leitura -> . LEIA ABREPAR IDENTIFICADOR FECHAPAR
+    (31) expressao_escreva -> . ESCREVE ABREPAR expressao FECHAPAR
+    (22) declara_var -> . tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var
+    (23) declara_var -> . tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples
+    (25) retorna -> . RETORNA ABREPAR expressao FECHAPAR
     (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
-    (51) tipo -> . VAZIO
-    (52) tipo -> . INTEIRO
-    (53) tipo -> . FLUTUANTE
+    (50) tipo -> . VAZIO
+    (51) tipo -> . numero
+    (52) numero -> . INTEIRO
+    (53) numero -> . FLUTUANTE
 
-    FIM             reduce using rule 13 (sequencia_de_declaracao -> declaracao .)
-    ATE             reduce using rule 13 (sequencia_de_declaracao -> declaracao .)
-    SENAO           reduce using rule 13 (sequencia_de_declaracao -> declaracao .)
-    SE              shift and go to state 26
-    REPITA          shift and go to state 40
-    IDENTIFICADOR   shift and go to state 33
-    LEIA            shift and go to state 27
-    ESCREVE         shift and go to state 28
-    RETORNA         shift and go to state 29
-    VAZIO           shift and go to state 8
-    INTEIRO         shift and go to state 1
-    FLUTUANTE       shift and go to state 7
+    SE              shift and go to state 42
+    REPITA          shift and go to state 32
+    IDENTIFICADOR   shift and go to state 34
+    LEIA            shift and go to state 39
+    ESCREVE         shift and go to state 26
+    RETORNA         shift and go to state 31
+    VAZIO           shift and go to state 6
+    INTEIRO         shift and go to state 11
+    FLUTUANTE       shift and go to state 4
 
-    declara_var                    shift and go to state 36
-    sequencia_de_declaracao        shift and go to state 60
-    chamada_de_funcao              shift and go to state 30
-    expressao_escreva              shift and go to state 38
-    expressao_iteracao             shift and go to state 39
-    expressao_atribuicao           shift and go to state 32
-    tipo                           shift and go to state 41
-    expressao_condicional          shift and go to state 34
-    declaracao                     shift and go to state 31
+    chamada_de_funcao              shift and go to state 37
+    numero                         shift and go to state 8
+    expressao_leitura              shift and go to state 27
+    sequencia_de_declaracao        shift and go to state 47
+    expressao_escreva              shift and go to state 30
+    declaracao                     shift and go to state 28
+    expressao_atribuicao           shift and go to state 40
+    expressao_iteracao             shift and go to state 29
+    declara_var                    shift and go to state 33
+    expressao_condicional          shift and go to state 41
     retorna                        shift and go to state 35
-    expressao_leitura              shift and go to state 42
+    tipo                           shift and go to state 36
+
+state 25
+
+    (10) declaracao_param -> declaracao_param VIRGULA . tipo DOISPONTOS IDENTIFICADOR
+    (50) tipo -> . VAZIO
+    (51) tipo -> . numero
+    (52) numero -> . INTEIRO
+    (53) numero -> . FLUTUANTE
+
+    VAZIO           shift and go to state 6
+    INTEIRO         shift and go to state 11
+    FLUTUANTE       shift and go to state 4
+
+    numero                         shift and go to state 8
+    tipo                           shift and go to state 48
+
+state 26
+
+    (31) expressao_escreva -> ESCREVE . ABREPAR expressao FECHAPAR
+
+    ABREPAR         shift and go to state 49
+
+
+state 27
+
+    (17) declaracao -> expressao_leitura .
+
+    SE              reduce using rule 17 (declaracao -> expressao_leitura .)
+    REPITA          reduce using rule 17 (declaracao -> expressao_leitura .)
+    IDENTIFICADOR   reduce using rule 17 (declaracao -> expressao_leitura .)
+    LEIA            reduce using rule 17 (declaracao -> expressao_leitura .)
+    ESCREVE         reduce using rule 17 (declaracao -> expressao_leitura .)
+    RETORNA         reduce using rule 17 (declaracao -> expressao_leitura .)
+    VAZIO           reduce using rule 17 (declaracao -> expressao_leitura .)
+    INTEIRO         reduce using rule 17 (declaracao -> expressao_leitura .)
+    FLUTUANTE       reduce using rule 17 (declaracao -> expressao_leitura .)
+    ATE             reduce using rule 17 (declaracao -> expressao_leitura .)
+    FIM             reduce using rule 17 (declaracao -> expressao_leitura .)
+    SENAO           reduce using rule 17 (declaracao -> expressao_leitura .)
+
+
+state 28
+
+    (12) sequencia_de_declaracao -> declaracao .
+    (13) sequencia_de_declaracao -> declaracao . sequencia_de_declaracao
+    (12) sequencia_de_declaracao -> . declaracao
+    (13) sequencia_de_declaracao -> . declaracao sequencia_de_declaracao
+    (14) declaracao -> . expressao_condicional
+    (15) declaracao -> . expressao_iteracao
+    (16) declaracao -> . expressao_atribuicao
+    (17) declaracao -> . expressao_leitura
+    (18) declaracao -> . expressao_escreva
+    (19) declaracao -> . declara_var
+    (20) declaracao -> . retorna
+    (21) declaracao -> . chamada_de_funcao
+    (26) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao FIM
+    (27) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
+    (28) expressao_iteracao -> . REPITA sequencia_de_declaracao ATE expressao
+    (29) expressao_atribuicao -> . IDENTIFICADOR ATRIBUICAO expressao
+    (30) expressao_leitura -> . LEIA ABREPAR IDENTIFICADOR FECHAPAR
+    (31) expressao_escreva -> . ESCREVE ABREPAR expressao FECHAPAR
+    (22) declara_var -> . tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var
+    (23) declara_var -> . tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples
+    (25) retorna -> . RETORNA ABREPAR expressao FECHAPAR
+    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
+    (50) tipo -> . VAZIO
+    (51) tipo -> . numero
+    (52) numero -> . INTEIRO
+    (53) numero -> . FLUTUANTE
+
+    FIM             reduce using rule 12 (sequencia_de_declaracao -> declaracao .)
+    ATE             reduce using rule 12 (sequencia_de_declaracao -> declaracao .)
+    SENAO           reduce using rule 12 (sequencia_de_declaracao -> declaracao .)
+    SE              shift and go to state 42
+    REPITA          shift and go to state 32
+    IDENTIFICADOR   shift and go to state 34
+    LEIA            shift and go to state 39
+    ESCREVE         shift and go to state 26
+    RETORNA         shift and go to state 31
+    VAZIO           shift and go to state 6
+    INTEIRO         shift and go to state 11
+    FLUTUANTE       shift and go to state 4
+
+    chamada_de_funcao              shift and go to state 37
+    numero                         shift and go to state 8
+    expressao_leitura              shift and go to state 27
+    sequencia_de_declaracao        shift and go to state 50
+    expressao_escreva              shift and go to state 30
+    declaracao                     shift and go to state 28
+    expressao_atribuicao           shift and go to state 40
+    expressao_iteracao             shift and go to state 29
+    declara_var                    shift and go to state 33
+    expressao_condicional          shift and go to state 41
+    retorna                        shift and go to state 35
+    tipo                           shift and go to state 36
+
+state 29
+
+    (15) declaracao -> expressao_iteracao .
+
+    SE              reduce using rule 15 (declaracao -> expressao_iteracao .)
+    REPITA          reduce using rule 15 (declaracao -> expressao_iteracao .)
+    IDENTIFICADOR   reduce using rule 15 (declaracao -> expressao_iteracao .)
+    LEIA            reduce using rule 15 (declaracao -> expressao_iteracao .)
+    ESCREVE         reduce using rule 15 (declaracao -> expressao_iteracao .)
+    RETORNA         reduce using rule 15 (declaracao -> expressao_iteracao .)
+    VAZIO           reduce using rule 15 (declaracao -> expressao_iteracao .)
+    INTEIRO         reduce using rule 15 (declaracao -> expressao_iteracao .)
+    FLUTUANTE       reduce using rule 15 (declaracao -> expressao_iteracao .)
+    ATE             reduce using rule 15 (declaracao -> expressao_iteracao .)
+    FIM             reduce using rule 15 (declaracao -> expressao_iteracao .)
+    SENAO           reduce using rule 15 (declaracao -> expressao_iteracao .)
+
+
+state 30
+
+    (18) declaracao -> expressao_escreva .
+
+    SE              reduce using rule 18 (declaracao -> expressao_escreva .)
+    REPITA          reduce using rule 18 (declaracao -> expressao_escreva .)
+    IDENTIFICADOR   reduce using rule 18 (declaracao -> expressao_escreva .)
+    LEIA            reduce using rule 18 (declaracao -> expressao_escreva .)
+    ESCREVE         reduce using rule 18 (declaracao -> expressao_escreva .)
+    RETORNA         reduce using rule 18 (declaracao -> expressao_escreva .)
+    VAZIO           reduce using rule 18 (declaracao -> expressao_escreva .)
+    INTEIRO         reduce using rule 18 (declaracao -> expressao_escreva .)
+    FLUTUANTE       reduce using rule 18 (declaracao -> expressao_escreva .)
+    ATE             reduce using rule 18 (declaracao -> expressao_escreva .)
+    FIM             reduce using rule 18 (declaracao -> expressao_escreva .)
+    SENAO           reduce using rule 18 (declaracao -> expressao_escreva .)
+
+
+state 31
+
+    (25) retorna -> RETORNA . ABREPAR expressao FECHAPAR
+
+    ABREPAR         shift and go to state 51
+
 
 state 32
 
-    (16) declaracao -> expressao_atribuicao .
+    (28) expressao_iteracao -> REPITA . sequencia_de_declaracao ATE expressao
+    (12) sequencia_de_declaracao -> . declaracao
+    (13) sequencia_de_declaracao -> . declaracao sequencia_de_declaracao
+    (14) declaracao -> . expressao_condicional
+    (15) declaracao -> . expressao_iteracao
+    (16) declaracao -> . expressao_atribuicao
+    (17) declaracao -> . expressao_leitura
+    (18) declaracao -> . expressao_escreva
+    (19) declaracao -> . declara_var
+    (20) declaracao -> . retorna
+    (21) declaracao -> . chamada_de_funcao
+    (26) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao FIM
+    (27) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
+    (28) expressao_iteracao -> . REPITA sequencia_de_declaracao ATE expressao
+    (29) expressao_atribuicao -> . IDENTIFICADOR ATRIBUICAO expressao
+    (30) expressao_leitura -> . LEIA ABREPAR IDENTIFICADOR FECHAPAR
+    (31) expressao_escreva -> . ESCREVE ABREPAR expressao FECHAPAR
+    (22) declara_var -> . tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var
+    (23) declara_var -> . tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples
+    (25) retorna -> . RETORNA ABREPAR expressao FECHAPAR
+    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
+    (50) tipo -> . VAZIO
+    (51) tipo -> . numero
+    (52) numero -> . INTEIRO
+    (53) numero -> . FLUTUANTE
 
-    SE              reduce using rule 16 (declaracao -> expressao_atribuicao .)
-    REPITA          reduce using rule 16 (declaracao -> expressao_atribuicao .)
-    IDENTIFICADOR   reduce using rule 16 (declaracao -> expressao_atribuicao .)
-    LEIA            reduce using rule 16 (declaracao -> expressao_atribuicao .)
-    ESCREVE         reduce using rule 16 (declaracao -> expressao_atribuicao .)
-    RETORNA         reduce using rule 16 (declaracao -> expressao_atribuicao .)
-    VAZIO           reduce using rule 16 (declaracao -> expressao_atribuicao .)
-    INTEIRO         reduce using rule 16 (declaracao -> expressao_atribuicao .)
-    FLUTUANTE       reduce using rule 16 (declaracao -> expressao_atribuicao .)
-    FIM             reduce using rule 16 (declaracao -> expressao_atribuicao .)
-    ATE             reduce using rule 16 (declaracao -> expressao_atribuicao .)
-    SENAO           reduce using rule 16 (declaracao -> expressao_atribuicao .)
+    SE              shift and go to state 42
+    REPITA          shift and go to state 32
+    IDENTIFICADOR   shift and go to state 34
+    LEIA            shift and go to state 39
+    ESCREVE         shift and go to state 26
+    RETORNA         shift and go to state 31
+    VAZIO           shift and go to state 6
+    INTEIRO         shift and go to state 11
+    FLUTUANTE       shift and go to state 4
 
+    chamada_de_funcao              shift and go to state 37
+    numero                         shift and go to state 8
+    expressao_leitura              shift and go to state 27
+    sequencia_de_declaracao        shift and go to state 52
+    expressao_escreva              shift and go to state 30
+    declaracao                     shift and go to state 28
+    expressao_atribuicao           shift and go to state 40
+    expressao_iteracao             shift and go to state 29
+    declara_var                    shift and go to state 33
+    expressao_condicional          shift and go to state 41
+    retorna                        shift and go to state 35
+    tipo                           shift and go to state 36
 
 state 33
 
-    (30) expressao_atribuicao -> IDENTIFICADOR . ATRIBUICAO expressao
-    (8) chamada_de_funcao -> IDENTIFICADOR . ABREPAR expressao FECHAPAR
+    (19) declaracao -> declara_var .
 
-    ATRIBUICAO      shift and go to state 61
-    ABREPAR         shift and go to state 62
+    SE              reduce using rule 19 (declaracao -> declara_var .)
+    REPITA          reduce using rule 19 (declaracao -> declara_var .)
+    IDENTIFICADOR   reduce using rule 19 (declaracao -> declara_var .)
+    LEIA            reduce using rule 19 (declaracao -> declara_var .)
+    ESCREVE         reduce using rule 19 (declaracao -> declara_var .)
+    RETORNA         reduce using rule 19 (declaracao -> declara_var .)
+    VAZIO           reduce using rule 19 (declaracao -> declara_var .)
+    INTEIRO         reduce using rule 19 (declaracao -> declara_var .)
+    FLUTUANTE       reduce using rule 19 (declaracao -> declara_var .)
+    ATE             reduce using rule 19 (declaracao -> declara_var .)
+    FIM             reduce using rule 19 (declaracao -> declara_var .)
+    SENAO           reduce using rule 19 (declaracao -> declara_var .)
 
 
 state 34
 
-    (14) declaracao -> expressao_condicional .
+    (29) expressao_atribuicao -> IDENTIFICADOR . ATRIBUICAO expressao
+    (8) chamada_de_funcao -> IDENTIFICADOR . ABREPAR expressao FECHAPAR
 
-    SE              reduce using rule 14 (declaracao -> expressao_condicional .)
-    REPITA          reduce using rule 14 (declaracao -> expressao_condicional .)
-    IDENTIFICADOR   reduce using rule 14 (declaracao -> expressao_condicional .)
-    LEIA            reduce using rule 14 (declaracao -> expressao_condicional .)
-    ESCREVE         reduce using rule 14 (declaracao -> expressao_condicional .)
-    RETORNA         reduce using rule 14 (declaracao -> expressao_condicional .)
-    VAZIO           reduce using rule 14 (declaracao -> expressao_condicional .)
-    INTEIRO         reduce using rule 14 (declaracao -> expressao_condicional .)
-    FLUTUANTE       reduce using rule 14 (declaracao -> expressao_condicional .)
-    FIM             reduce using rule 14 (declaracao -> expressao_condicional .)
-    ATE             reduce using rule 14 (declaracao -> expressao_condicional .)
-    SENAO           reduce using rule 14 (declaracao -> expressao_condicional .)
+    ATRIBUICAO      shift and go to state 53
+    ABREPAR         shift and go to state 54
 
 
 state 35
@@ -653,614 +711,526 @@ state 35
     VAZIO           reduce using rule 20 (declaracao -> retorna .)
     INTEIRO         reduce using rule 20 (declaracao -> retorna .)
     FLUTUANTE       reduce using rule 20 (declaracao -> retorna .)
-    FIM             reduce using rule 20 (declaracao -> retorna .)
     ATE             reduce using rule 20 (declaracao -> retorna .)
+    FIM             reduce using rule 20 (declaracao -> retorna .)
     SENAO           reduce using rule 20 (declaracao -> retorna .)
 
 
 state 36
 
-    (19) declaracao -> declara_var .
+    (22) declara_var -> tipo . DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var
+    (23) declara_var -> tipo . DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples
 
-    SE              reduce using rule 19 (declaracao -> declara_var .)
-    REPITA          reduce using rule 19 (declaracao -> declara_var .)
-    IDENTIFICADOR   reduce using rule 19 (declaracao -> declara_var .)
-    LEIA            reduce using rule 19 (declaracao -> declara_var .)
-    ESCREVE         reduce using rule 19 (declaracao -> declara_var .)
-    RETORNA         reduce using rule 19 (declaracao -> declara_var .)
-    VAZIO           reduce using rule 19 (declaracao -> declara_var .)
-    INTEIRO         reduce using rule 19 (declaracao -> declara_var .)
-    FLUTUANTE       reduce using rule 19 (declaracao -> declara_var .)
-    FIM             reduce using rule 19 (declaracao -> declara_var .)
-    ATE             reduce using rule 19 (declaracao -> declara_var .)
-    SENAO           reduce using rule 19 (declaracao -> declara_var .)
+    DOISPONTOS      shift and go to state 16
 
 
 state 37
 
-    (5) principal -> PRINCIPAL ABREPAR FECHAPAR sequencia_de_declaracao . FIM
+    (21) declaracao -> chamada_de_funcao .
 
-    FIM             shift and go to state 63
+    SE              reduce using rule 21 (declaracao -> chamada_de_funcao .)
+    REPITA          reduce using rule 21 (declaracao -> chamada_de_funcao .)
+    IDENTIFICADOR   reduce using rule 21 (declaracao -> chamada_de_funcao .)
+    LEIA            reduce using rule 21 (declaracao -> chamada_de_funcao .)
+    ESCREVE         reduce using rule 21 (declaracao -> chamada_de_funcao .)
+    RETORNA         reduce using rule 21 (declaracao -> chamada_de_funcao .)
+    VAZIO           reduce using rule 21 (declaracao -> chamada_de_funcao .)
+    INTEIRO         reduce using rule 21 (declaracao -> chamada_de_funcao .)
+    FLUTUANTE       reduce using rule 21 (declaracao -> chamada_de_funcao .)
+    ATE             reduce using rule 21 (declaracao -> chamada_de_funcao .)
+    FIM             reduce using rule 21 (declaracao -> chamada_de_funcao .)
+    SENAO           reduce using rule 21 (declaracao -> chamada_de_funcao .)
 
 
 state 38
 
-    (18) declaracao -> expressao_escreva .
+    (5) principal -> PRINCIPAL ABREPAR FECHAPAR sequencia_de_declaracao . FIM
 
-    SE              reduce using rule 18 (declaracao -> expressao_escreva .)
-    REPITA          reduce using rule 18 (declaracao -> expressao_escreva .)
-    IDENTIFICADOR   reduce using rule 18 (declaracao -> expressao_escreva .)
-    LEIA            reduce using rule 18 (declaracao -> expressao_escreva .)
-    ESCREVE         reduce using rule 18 (declaracao -> expressao_escreva .)
-    RETORNA         reduce using rule 18 (declaracao -> expressao_escreva .)
-    VAZIO           reduce using rule 18 (declaracao -> expressao_escreva .)
-    INTEIRO         reduce using rule 18 (declaracao -> expressao_escreva .)
-    FLUTUANTE       reduce using rule 18 (declaracao -> expressao_escreva .)
-    FIM             reduce using rule 18 (declaracao -> expressao_escreva .)
-    ATE             reduce using rule 18 (declaracao -> expressao_escreva .)
-    SENAO           reduce using rule 18 (declaracao -> expressao_escreva .)
+    FIM             shift and go to state 55
 
 
 state 39
 
-    (15) declaracao -> expressao_iteracao .
+    (30) expressao_leitura -> LEIA . ABREPAR IDENTIFICADOR FECHAPAR
 
-    SE              reduce using rule 15 (declaracao -> expressao_iteracao .)
-    REPITA          reduce using rule 15 (declaracao -> expressao_iteracao .)
-    IDENTIFICADOR   reduce using rule 15 (declaracao -> expressao_iteracao .)
-    LEIA            reduce using rule 15 (declaracao -> expressao_iteracao .)
-    ESCREVE         reduce using rule 15 (declaracao -> expressao_iteracao .)
-    RETORNA         reduce using rule 15 (declaracao -> expressao_iteracao .)
-    VAZIO           reduce using rule 15 (declaracao -> expressao_iteracao .)
-    INTEIRO         reduce using rule 15 (declaracao -> expressao_iteracao .)
-    FLUTUANTE       reduce using rule 15 (declaracao -> expressao_iteracao .)
-    FIM             reduce using rule 15 (declaracao -> expressao_iteracao .)
-    ATE             reduce using rule 15 (declaracao -> expressao_iteracao .)
-    SENAO           reduce using rule 15 (declaracao -> expressao_iteracao .)
+    ABREPAR         shift and go to state 56
 
 
 state 40
 
-    (29) expressao_iteracao -> REPITA . sequencia_de_declaracao ATE expressao
-    (12) sequencia_de_declaracao -> . declaracao sequencia_de_declaracao
-    (13) sequencia_de_declaracao -> . declaracao
-    (14) declaracao -> . expressao_condicional
-    (15) declaracao -> . expressao_iteracao
-    (16) declaracao -> . expressao_atribuicao
-    (17) declaracao -> . expressao_leitura
-    (18) declaracao -> . expressao_escreva
-    (19) declaracao -> . declara_var
-    (20) declaracao -> . retorna
-    (21) declaracao -> . chamada_de_funcao
-    (27) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
-    (28) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao FIM
-    (29) expressao_iteracao -> . REPITA sequencia_de_declaracao ATE expressao
-    (30) expressao_atribuicao -> . IDENTIFICADOR ATRIBUICAO expressao
-    (31) expressao_leitura -> . LEIA ABREPAR IDENTIFICADOR FECHAPAR
-    (32) expressao_escreva -> . ESCREVE ABREPAR expressao FECHAPAR
-    (22) declara_var -> . tipo IDENTIFICADOR VIRGULA declara_var
-    (23) declara_var -> . tipo IDENTIFICADOR ATRIBUICAO expressao_simples
-    (24) declara_var -> . tipo DOISPONTOS IDENTIFICADOR
-    (25) retorna -> . RETORNA ABREPAR IDENTIFICADOR FECHAPAR
-    (26) retorna -> . RETORNA ABREPAR NUMERO FECHAPAR
-    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
-    (51) tipo -> . VAZIO
-    (52) tipo -> . INTEIRO
-    (53) tipo -> . FLUTUANTE
+    (16) declaracao -> expressao_atribuicao .
 
-    SE              shift and go to state 26
-    REPITA          shift and go to state 40
-    IDENTIFICADOR   shift and go to state 33
-    LEIA            shift and go to state 27
-    ESCREVE         shift and go to state 28
-    RETORNA         shift and go to state 29
-    VAZIO           shift and go to state 8
-    INTEIRO         shift and go to state 1
-    FLUTUANTE       shift and go to state 7
+    SE              reduce using rule 16 (declaracao -> expressao_atribuicao .)
+    REPITA          reduce using rule 16 (declaracao -> expressao_atribuicao .)
+    IDENTIFICADOR   reduce using rule 16 (declaracao -> expressao_atribuicao .)
+    LEIA            reduce using rule 16 (declaracao -> expressao_atribuicao .)
+    ESCREVE         reduce using rule 16 (declaracao -> expressao_atribuicao .)
+    RETORNA         reduce using rule 16 (declaracao -> expressao_atribuicao .)
+    VAZIO           reduce using rule 16 (declaracao -> expressao_atribuicao .)
+    INTEIRO         reduce using rule 16 (declaracao -> expressao_atribuicao .)
+    FLUTUANTE       reduce using rule 16 (declaracao -> expressao_atribuicao .)
+    ATE             reduce using rule 16 (declaracao -> expressao_atribuicao .)
+    FIM             reduce using rule 16 (declaracao -> expressao_atribuicao .)
+    SENAO           reduce using rule 16 (declaracao -> expressao_atribuicao .)
 
-    declara_var                    shift and go to state 36
-    sequencia_de_declaracao        shift and go to state 64
-    chamada_de_funcao              shift and go to state 30
-    expressao_escreva              shift and go to state 38
-    expressao_iteracao             shift and go to state 39
-    expressao_atribuicao           shift and go to state 32
-    tipo                           shift and go to state 41
-    expressao_condicional          shift and go to state 34
-    declaracao                     shift and go to state 31
-    retorna                        shift and go to state 35
-    expressao_leitura              shift and go to state 42
 
 state 41
 
-    (22) declara_var -> tipo . IDENTIFICADOR VIRGULA declara_var
-    (23) declara_var -> tipo . IDENTIFICADOR ATRIBUICAO expressao_simples
-    (24) declara_var -> tipo . DOISPONTOS IDENTIFICADOR
+    (14) declaracao -> expressao_condicional .
 
-    IDENTIFICADOR   shift and go to state 65
-    DOISPONTOS      shift and go to state 14
+    SE              reduce using rule 14 (declaracao -> expressao_condicional .)
+    REPITA          reduce using rule 14 (declaracao -> expressao_condicional .)
+    IDENTIFICADOR   reduce using rule 14 (declaracao -> expressao_condicional .)
+    LEIA            reduce using rule 14 (declaracao -> expressao_condicional .)
+    ESCREVE         reduce using rule 14 (declaracao -> expressao_condicional .)
+    RETORNA         reduce using rule 14 (declaracao -> expressao_condicional .)
+    VAZIO           reduce using rule 14 (declaracao -> expressao_condicional .)
+    INTEIRO         reduce using rule 14 (declaracao -> expressao_condicional .)
+    FLUTUANTE       reduce using rule 14 (declaracao -> expressao_condicional .)
+    ATE             reduce using rule 14 (declaracao -> expressao_condicional .)
+    FIM             reduce using rule 14 (declaracao -> expressao_condicional .)
+    SENAO           reduce using rule 14 (declaracao -> expressao_condicional .)
 
 
 state 42
 
-    (17) declaracao -> expressao_leitura .
+    (26) expressao_condicional -> SE . expressao ENTAO sequencia_de_declaracao FIM
+    (27) expressao_condicional -> SE . expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
+    (32) expressao -> . ABREPAR expressao FECHAPAR
+    (33) expressao -> . expressao operador_aritmetico expressao
+    (34) expressao -> . expressao operador_logico expressao
+    (35) expressao -> . expressao_simples
+    (36) expressao -> . chamada_de_funcao
+    (37) expressao_simples -> . fator
+    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
+    (47) fator -> . IDENTIFICADOR
+    (48) fator -> . INTEIRO
+    (49) fator -> . FLUTUANTE
 
-    SE              reduce using rule 17 (declaracao -> expressao_leitura .)
-    REPITA          reduce using rule 17 (declaracao -> expressao_leitura .)
-    IDENTIFICADOR   reduce using rule 17 (declaracao -> expressao_leitura .)
-    LEIA            reduce using rule 17 (declaracao -> expressao_leitura .)
-    ESCREVE         reduce using rule 17 (declaracao -> expressao_leitura .)
-    RETORNA         reduce using rule 17 (declaracao -> expressao_leitura .)
-    VAZIO           reduce using rule 17 (declaracao -> expressao_leitura .)
-    INTEIRO         reduce using rule 17 (declaracao -> expressao_leitura .)
-    FLUTUANTE       reduce using rule 17 (declaracao -> expressao_leitura .)
-    FIM             reduce using rule 17 (declaracao -> expressao_leitura .)
-    ATE             reduce using rule 17 (declaracao -> expressao_leitura .)
-    SENAO           reduce using rule 17 (declaracao -> expressao_leitura .)
+    ABREPAR         shift and go to state 59
+    IDENTIFICADOR   shift and go to state 58
+    INTEIRO         shift and go to state 61
+    FLUTUANTE       shift and go to state 63
 
+    chamada_de_funcao              shift and go to state 57
+    fator                          shift and go to state 60
+    expressao                      shift and go to state 64
+    expressao_simples              shift and go to state 62
 
 state 43
 
     (11) declaracao_param -> tipo DOISPONTOS . IDENTIFICADOR
 
-    IDENTIFICADOR   shift and go to state 66
+    IDENTIFICADOR   shift and go to state 65
 
 
 state 44
 
-    (10) declaracao_param -> declaracao_param VIRGULA . tipo DOISPONTOS IDENTIFICADOR
-    (51) tipo -> . VAZIO
-    (52) tipo -> . INTEIRO
-    (53) tipo -> . FLUTUANTE
+    (23) declara_var -> tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO . expressao_simples
+    (37) expressao_simples -> . fator
+    (47) fator -> . IDENTIFICADOR
+    (48) fator -> . INTEIRO
+    (49) fator -> . FLUTUANTE
 
-    VAZIO           shift and go to state 8
-    INTEIRO         shift and go to state 1
-    FLUTUANTE       shift and go to state 7
+    IDENTIFICADOR   shift and go to state 66
+    INTEIRO         shift and go to state 61
+    FLUTUANTE       shift and go to state 63
 
-    tipo                           shift and go to state 67
+    fator                          shift and go to state 60
+    expressao_simples              shift and go to state 67
 
 state 45
 
-    (4) principal -> PRINCIPAL ABREPAR declaracao_param FECHAPAR . sequencia_de_declaracao FIM
-    (12) sequencia_de_declaracao -> . declaracao sequencia_de_declaracao
-    (13) sequencia_de_declaracao -> . declaracao
-    (14) declaracao -> . expressao_condicional
-    (15) declaracao -> . expressao_iteracao
-    (16) declaracao -> . expressao_atribuicao
-    (17) declaracao -> . expressao_leitura
-    (18) declaracao -> . expressao_escreva
-    (19) declaracao -> . declara_var
-    (20) declaracao -> . retorna
-    (21) declaracao -> . chamada_de_funcao
-    (27) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
-    (28) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao FIM
-    (29) expressao_iteracao -> . REPITA sequencia_de_declaracao ATE expressao
-    (30) expressao_atribuicao -> . IDENTIFICADOR ATRIBUICAO expressao
-    (31) expressao_leitura -> . LEIA ABREPAR IDENTIFICADOR FECHAPAR
-    (32) expressao_escreva -> . ESCREVE ABREPAR expressao FECHAPAR
-    (22) declara_var -> . tipo IDENTIFICADOR VIRGULA declara_var
-    (23) declara_var -> . tipo IDENTIFICADOR ATRIBUICAO expressao_simples
-    (24) declara_var -> . tipo DOISPONTOS IDENTIFICADOR
-    (25) retorna -> . RETORNA ABREPAR IDENTIFICADOR FECHAPAR
-    (26) retorna -> . RETORNA ABREPAR NUMERO FECHAPAR
-    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
-    (51) tipo -> . VAZIO
-    (52) tipo -> . INTEIRO
-    (53) tipo -> . FLUTUANTE
+    (22) declara_var -> tipo DOISPONTOS IDENTIFICADOR VIRGULA . declara_outra_var
+    (24) declara_outra_var -> . IDENTIFICADOR
 
-    SE              shift and go to state 26
-    REPITA          shift and go to state 40
-    IDENTIFICADOR   shift and go to state 33
-    LEIA            shift and go to state 27
-    ESCREVE         shift and go to state 28
-    RETORNA         shift and go to state 29
-    VAZIO           shift and go to state 8
-    INTEIRO         shift and go to state 1
-    FLUTUANTE       shift and go to state 7
+    IDENTIFICADOR   shift and go to state 68
 
-    declara_var                    shift and go to state 36
-    sequencia_de_declaracao        shift and go to state 68
-    chamada_de_funcao              shift and go to state 30
-    expressao_escreva              shift and go to state 38
-    expressao_iteracao             shift and go to state 39
-    expressao_atribuicao           shift and go to state 32
-    tipo                           shift and go to state 41
-    expressao_condicional          shift and go to state 34
-    declaracao                     shift and go to state 31
-    retorna                        shift and go to state 35
-    expressao_leitura              shift and go to state 42
+    declara_outra_var              shift and go to state 69
 
 state 46
-
-    (49) fator -> NUMERO .
-
-    MULTIPLICACAO   reduce using rule 49 (fator -> NUMERO .)
-    DIVISAO         reduce using rule 49 (fator -> NUMERO .)
-    MAIOR           reduce using rule 49 (fator -> NUMERO .)
-    MAIORIGUAL      reduce using rule 49 (fator -> NUMERO .)
-    MENOR           reduce using rule 49 (fator -> NUMERO .)
-    MENORIGUAL      reduce using rule 49 (fator -> NUMERO .)
-    IGUALDADE       reduce using rule 49 (fator -> NUMERO .)
-    ADICAO          reduce using rule 49 (fator -> NUMERO .)
-    SUBTRACAO       reduce using rule 49 (fator -> NUMERO .)
-    FECHAPAR        reduce using rule 49 (fator -> NUMERO .)
-    ENTAO           reduce using rule 49 (fator -> NUMERO .)
-    SE              reduce using rule 49 (fator -> NUMERO .)
-    REPITA          reduce using rule 49 (fator -> NUMERO .)
-    IDENTIFICADOR   reduce using rule 49 (fator -> NUMERO .)
-    LEIA            reduce using rule 49 (fator -> NUMERO .)
-    ESCREVE         reduce using rule 49 (fator -> NUMERO .)
-    RETORNA         reduce using rule 49 (fator -> NUMERO .)
-    VAZIO           reduce using rule 49 (fator -> NUMERO .)
-    INTEIRO         reduce using rule 49 (fator -> NUMERO .)
-    FLUTUANTE       reduce using rule 49 (fator -> NUMERO .)
-    FIM             reduce using rule 49 (fator -> NUMERO .)
-    ATE             reduce using rule 49 (fator -> NUMERO .)
-    SENAO           reduce using rule 49 (fator -> NUMERO .)
-    PRINCIPAL       reduce using rule 49 (fator -> NUMERO .)
-
-
-state 47
-
-    (50) fator -> IDENTIFICADOR .
-
-    MULTIPLICACAO   reduce using rule 50 (fator -> IDENTIFICADOR .)
-    DIVISAO         reduce using rule 50 (fator -> IDENTIFICADOR .)
-    ADICAO          reduce using rule 50 (fator -> IDENTIFICADOR .)
-    SUBTRACAO       reduce using rule 50 (fator -> IDENTIFICADOR .)
-    ENTAO           reduce using rule 50 (fator -> IDENTIFICADOR .)
-    FECHAPAR        reduce using rule 50 (fator -> IDENTIFICADOR .)
-    SE              reduce using rule 50 (fator -> IDENTIFICADOR .)
-    REPITA          reduce using rule 50 (fator -> IDENTIFICADOR .)
-    IDENTIFICADOR   reduce using rule 50 (fator -> IDENTIFICADOR .)
-    LEIA            reduce using rule 50 (fator -> IDENTIFICADOR .)
-    ESCREVE         reduce using rule 50 (fator -> IDENTIFICADOR .)
-    RETORNA         reduce using rule 50 (fator -> IDENTIFICADOR .)
-    VAZIO           reduce using rule 50 (fator -> IDENTIFICADOR .)
-    INTEIRO         reduce using rule 50 (fator -> IDENTIFICADOR .)
-    FLUTUANTE       reduce using rule 50 (fator -> IDENTIFICADOR .)
-    FIM             reduce using rule 50 (fator -> IDENTIFICADOR .)
-    ATE             reduce using rule 50 (fator -> IDENTIFICADOR .)
-    SENAO           reduce using rule 50 (fator -> IDENTIFICADOR .)
-    PRINCIPAL       reduce using rule 50 (fator -> IDENTIFICADOR .)
-    MAIOR           reduce using rule 50 (fator -> IDENTIFICADOR .)
-    MAIORIGUAL      reduce using rule 50 (fator -> IDENTIFICADOR .)
-    MENOR           reduce using rule 50 (fator -> IDENTIFICADOR .)
-    MENORIGUAL      reduce using rule 50 (fator -> IDENTIFICADOR .)
-    IGUALDADE       reduce using rule 50 (fator -> IDENTIFICADOR .)
-
-
-state 48
-
-    (46) termo -> fator .
-
-    MULTIPLICACAO   reduce using rule 46 (termo -> fator .)
-    DIVISAO         reduce using rule 46 (termo -> fator .)
-    MAIOR           reduce using rule 46 (termo -> fator .)
-    MAIORIGUAL      reduce using rule 46 (termo -> fator .)
-    MENOR           reduce using rule 46 (termo -> fator .)
-    MENORIGUAL      reduce using rule 46 (termo -> fator .)
-    IGUALDADE       reduce using rule 46 (termo -> fator .)
-    ADICAO          reduce using rule 46 (termo -> fator .)
-    SUBTRACAO       reduce using rule 46 (termo -> fator .)
-    ENTAO           reduce using rule 46 (termo -> fator .)
-    PRINCIPAL       reduce using rule 46 (termo -> fator .)
-    VAZIO           reduce using rule 46 (termo -> fator .)
-    INTEIRO         reduce using rule 46 (termo -> fator .)
-    FLUTUANTE       reduce using rule 46 (termo -> fator .)
-    SE              reduce using rule 46 (termo -> fator .)
-    REPITA          reduce using rule 46 (termo -> fator .)
-    IDENTIFICADOR   reduce using rule 46 (termo -> fator .)
-    LEIA            reduce using rule 46 (termo -> fator .)
-    ESCREVE         reduce using rule 46 (termo -> fator .)
-    RETORNA         reduce using rule 46 (termo -> fator .)
-    FIM             reduce using rule 46 (termo -> fator .)
-    ATE             reduce using rule 46 (termo -> fator .)
-    SENAO           reduce using rule 46 (termo -> fator .)
-    FECHAPAR        reduce using rule 46 (termo -> fator .)
-
-
-state 49
-
-    (23) declara_var -> tipo IDENTIFICADOR ATRIBUICAO expressao_simples .
-    (41) expressao_simples -> expressao_simples . operador_add termo
-    (43) operador_add -> . ADICAO
-    (44) operador_add -> . SUBTRACAO
-
-    PRINCIPAL       reduce using rule 23 (declara_var -> tipo IDENTIFICADOR ATRIBUICAO expressao_simples .)
-    VAZIO           reduce using rule 23 (declara_var -> tipo IDENTIFICADOR ATRIBUICAO expressao_simples .)
-    INTEIRO         reduce using rule 23 (declara_var -> tipo IDENTIFICADOR ATRIBUICAO expressao_simples .)
-    FLUTUANTE       reduce using rule 23 (declara_var -> tipo IDENTIFICADOR ATRIBUICAO expressao_simples .)
-    SE              reduce using rule 23 (declara_var -> tipo IDENTIFICADOR ATRIBUICAO expressao_simples .)
-    REPITA          reduce using rule 23 (declara_var -> tipo IDENTIFICADOR ATRIBUICAO expressao_simples .)
-    IDENTIFICADOR   reduce using rule 23 (declara_var -> tipo IDENTIFICADOR ATRIBUICAO expressao_simples .)
-    LEIA            reduce using rule 23 (declara_var -> tipo IDENTIFICADOR ATRIBUICAO expressao_simples .)
-    ESCREVE         reduce using rule 23 (declara_var -> tipo IDENTIFICADOR ATRIBUICAO expressao_simples .)
-    RETORNA         reduce using rule 23 (declara_var -> tipo IDENTIFICADOR ATRIBUICAO expressao_simples .)
-    FIM             reduce using rule 23 (declara_var -> tipo IDENTIFICADOR ATRIBUICAO expressao_simples .)
-    ATE             reduce using rule 23 (declara_var -> tipo IDENTIFICADOR ATRIBUICAO expressao_simples .)
-    SENAO           reduce using rule 23 (declara_var -> tipo IDENTIFICADOR ATRIBUICAO expressao_simples .)
-    ADICAO          shift and go to state 69
-    SUBTRACAO       shift and go to state 70
-
-    operador_add                   shift and go to state 71
-
-state 50
-
-    (42) expressao_simples -> termo .
-    (45) termo -> termo . operador_mult fator
-    (47) operador_mult -> . MULTIPLICACAO
-    (48) operador_mult -> . DIVISAO
-
-    ADICAO          reduce using rule 42 (expressao_simples -> termo .)
-    SUBTRACAO       reduce using rule 42 (expressao_simples -> termo .)
-    ENTAO           reduce using rule 42 (expressao_simples -> termo .)
-    FECHAPAR        reduce using rule 42 (expressao_simples -> termo .)
-    SE              reduce using rule 42 (expressao_simples -> termo .)
-    REPITA          reduce using rule 42 (expressao_simples -> termo .)
-    IDENTIFICADOR   reduce using rule 42 (expressao_simples -> termo .)
-    LEIA            reduce using rule 42 (expressao_simples -> termo .)
-    ESCREVE         reduce using rule 42 (expressao_simples -> termo .)
-    RETORNA         reduce using rule 42 (expressao_simples -> termo .)
-    VAZIO           reduce using rule 42 (expressao_simples -> termo .)
-    INTEIRO         reduce using rule 42 (expressao_simples -> termo .)
-    FLUTUANTE       reduce using rule 42 (expressao_simples -> termo .)
-    FIM             reduce using rule 42 (expressao_simples -> termo .)
-    ATE             reduce using rule 42 (expressao_simples -> termo .)
-    SENAO           reduce using rule 42 (expressao_simples -> termo .)
-    MAIOR           reduce using rule 42 (expressao_simples -> termo .)
-    MAIORIGUAL      reduce using rule 42 (expressao_simples -> termo .)
-    MENOR           reduce using rule 42 (expressao_simples -> termo .)
-    MENORIGUAL      reduce using rule 42 (expressao_simples -> termo .)
-    IGUALDADE       reduce using rule 42 (expressao_simples -> termo .)
-    PRINCIPAL       reduce using rule 42 (expressao_simples -> termo .)
-    MULTIPLICACAO   shift and go to state 74
-    DIVISAO         shift and go to state 72
-
-    operador_mult                  shift and go to state 73
-
-state 51
-
-    (22) declara_var -> tipo IDENTIFICADOR VIRGULA declara_var .
-
-    PRINCIPAL       reduce using rule 22 (declara_var -> tipo IDENTIFICADOR VIRGULA declara_var .)
-    VAZIO           reduce using rule 22 (declara_var -> tipo IDENTIFICADOR VIRGULA declara_var .)
-    INTEIRO         reduce using rule 22 (declara_var -> tipo IDENTIFICADOR VIRGULA declara_var .)
-    FLUTUANTE       reduce using rule 22 (declara_var -> tipo IDENTIFICADOR VIRGULA declara_var .)
-    SE              reduce using rule 22 (declara_var -> tipo IDENTIFICADOR VIRGULA declara_var .)
-    REPITA          reduce using rule 22 (declara_var -> tipo IDENTIFICADOR VIRGULA declara_var .)
-    IDENTIFICADOR   reduce using rule 22 (declara_var -> tipo IDENTIFICADOR VIRGULA declara_var .)
-    LEIA            reduce using rule 22 (declara_var -> tipo IDENTIFICADOR VIRGULA declara_var .)
-    ESCREVE         reduce using rule 22 (declara_var -> tipo IDENTIFICADOR VIRGULA declara_var .)
-    RETORNA         reduce using rule 22 (declara_var -> tipo IDENTIFICADOR VIRGULA declara_var .)
-    FIM             reduce using rule 22 (declara_var -> tipo IDENTIFICADOR VIRGULA declara_var .)
-    ATE             reduce using rule 22 (declara_var -> tipo IDENTIFICADOR VIRGULA declara_var .)
-    SENAO           reduce using rule 22 (declara_var -> tipo IDENTIFICADOR VIRGULA declara_var .)
-
-
-state 52
 
     (9) declaracao_de_funcao -> tipo IDENTIFICADOR ABREPAR declaracao_param . FECHAPAR sequencia_de_declaracao FIM
     (10) declaracao_param -> declaracao_param . VIRGULA tipo DOISPONTOS IDENTIFICADOR
 
-    FECHAPAR        shift and go to state 75
-    VIRGULA         shift and go to state 44
+    FECHAPAR        shift and go to state 70
+    VIRGULA         shift and go to state 25
+
+
+state 47
+
+    (4) principal -> PRINCIPAL ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao . FIM
+
+    FIM             shift and go to state 71
+
+
+state 48
+
+    (10) declaracao_param -> declaracao_param VIRGULA tipo . DOISPONTOS IDENTIFICADOR
+
+    DOISPONTOS      shift and go to state 72
+
+
+state 49
+
+    (31) expressao_escreva -> ESCREVE ABREPAR . expressao FECHAPAR
+    (32) expressao -> . ABREPAR expressao FECHAPAR
+    (33) expressao -> . expressao operador_aritmetico expressao
+    (34) expressao -> . expressao operador_logico expressao
+    (35) expressao -> . expressao_simples
+    (36) expressao -> . chamada_de_funcao
+    (37) expressao_simples -> . fator
+    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
+    (47) fator -> . IDENTIFICADOR
+    (48) fator -> . INTEIRO
+    (49) fator -> . FLUTUANTE
+
+    ABREPAR         shift and go to state 59
+    IDENTIFICADOR   shift and go to state 58
+    INTEIRO         shift and go to state 61
+    FLUTUANTE       shift and go to state 63
+
+    chamada_de_funcao              shift and go to state 57
+    fator                          shift and go to state 60
+    expressao                      shift and go to state 73
+    expressao_simples              shift and go to state 62
+
+state 50
+
+    (13) sequencia_de_declaracao -> declaracao sequencia_de_declaracao .
+
+    FIM             reduce using rule 13 (sequencia_de_declaracao -> declaracao sequencia_de_declaracao .)
+    ATE             reduce using rule 13 (sequencia_de_declaracao -> declaracao sequencia_de_declaracao .)
+    SENAO           reduce using rule 13 (sequencia_de_declaracao -> declaracao sequencia_de_declaracao .)
+
+
+state 51
+
+    (25) retorna -> RETORNA ABREPAR . expressao FECHAPAR
+    (32) expressao -> . ABREPAR expressao FECHAPAR
+    (33) expressao -> . expressao operador_aritmetico expressao
+    (34) expressao -> . expressao operador_logico expressao
+    (35) expressao -> . expressao_simples
+    (36) expressao -> . chamada_de_funcao
+    (37) expressao_simples -> . fator
+    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
+    (47) fator -> . IDENTIFICADOR
+    (48) fator -> . INTEIRO
+    (49) fator -> . FLUTUANTE
+
+    ABREPAR         shift and go to state 59
+    IDENTIFICADOR   shift and go to state 58
+    INTEIRO         shift and go to state 61
+    FLUTUANTE       shift and go to state 63
+
+    chamada_de_funcao              shift and go to state 57
+    fator                          shift and go to state 60
+    expressao                      shift and go to state 74
+    expressao_simples              shift and go to state 62
+
+state 52
+
+    (28) expressao_iteracao -> REPITA sequencia_de_declaracao . ATE expressao
+
+    ATE             shift and go to state 75
 
 
 state 53
 
-    (33) expressao -> expressao_simples . operador_logico expressao_simples
-    (34) expressao -> expressao_simples .
-    (41) expressao_simples -> expressao_simples . operador_add termo
-    (36) operador_logico -> . MAIOR
-    (37) operador_logico -> . MAIORIGUAL
-    (38) operador_logico -> . MENOR
-    (39) operador_logico -> . MENORIGUAL
-    (40) operador_logico -> . IGUALDADE
-    (43) operador_add -> . ADICAO
-    (44) operador_add -> . SUBTRACAO
+    (29) expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO . expressao
+    (32) expressao -> . ABREPAR expressao FECHAPAR
+    (33) expressao -> . expressao operador_aritmetico expressao
+    (34) expressao -> . expressao operador_logico expressao
+    (35) expressao -> . expressao_simples
+    (36) expressao -> . chamada_de_funcao
+    (37) expressao_simples -> . fator
+    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
+    (47) fator -> . IDENTIFICADOR
+    (48) fator -> . INTEIRO
+    (49) fator -> . FLUTUANTE
 
-    SE              reduce using rule 34 (expressao -> expressao_simples .)
-    REPITA          reduce using rule 34 (expressao -> expressao_simples .)
-    IDENTIFICADOR   reduce using rule 34 (expressao -> expressao_simples .)
-    LEIA            reduce using rule 34 (expressao -> expressao_simples .)
-    ESCREVE         reduce using rule 34 (expressao -> expressao_simples .)
-    RETORNA         reduce using rule 34 (expressao -> expressao_simples .)
-    VAZIO           reduce using rule 34 (expressao -> expressao_simples .)
-    INTEIRO         reduce using rule 34 (expressao -> expressao_simples .)
-    FLUTUANTE       reduce using rule 34 (expressao -> expressao_simples .)
-    FIM             reduce using rule 34 (expressao -> expressao_simples .)
-    ATE             reduce using rule 34 (expressao -> expressao_simples .)
-    SENAO           reduce using rule 34 (expressao -> expressao_simples .)
-    ENTAO           reduce using rule 34 (expressao -> expressao_simples .)
-    FECHAPAR        reduce using rule 34 (expressao -> expressao_simples .)
-    MAIOR           shift and go to state 80
-    MAIORIGUAL      shift and go to state 79
-    MENOR           shift and go to state 78
-    MENORIGUAL      shift and go to state 77
-    IGUALDADE       shift and go to state 81
-    ADICAO          shift and go to state 69
-    SUBTRACAO       shift and go to state 70
+    ABREPAR         shift and go to state 59
+    IDENTIFICADOR   shift and go to state 58
+    INTEIRO         shift and go to state 61
+    FLUTUANTE       shift and go to state 63
 
-    operador_logico                shift and go to state 76
-    operador_add                   shift and go to state 71
+    chamada_de_funcao              shift and go to state 57
+    fator                          shift and go to state 60
+    expressao                      shift and go to state 76
+    expressao_simples              shift and go to state 62
 
 state 54
 
-    (35) expressao -> chamada_de_funcao .
+    (8) chamada_de_funcao -> IDENTIFICADOR ABREPAR . expressao FECHAPAR
+    (32) expressao -> . ABREPAR expressao FECHAPAR
+    (33) expressao -> . expressao operador_aritmetico expressao
+    (34) expressao -> . expressao operador_logico expressao
+    (35) expressao -> . expressao_simples
+    (36) expressao -> . chamada_de_funcao
+    (37) expressao_simples -> . fator
+    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
+    (47) fator -> . IDENTIFICADOR
+    (48) fator -> . INTEIRO
+    (49) fator -> . FLUTUANTE
 
-    SE              reduce using rule 35 (expressao -> chamada_de_funcao .)
-    REPITA          reduce using rule 35 (expressao -> chamada_de_funcao .)
-    IDENTIFICADOR   reduce using rule 35 (expressao -> chamada_de_funcao .)
-    LEIA            reduce using rule 35 (expressao -> chamada_de_funcao .)
-    ESCREVE         reduce using rule 35 (expressao -> chamada_de_funcao .)
-    RETORNA         reduce using rule 35 (expressao -> chamada_de_funcao .)
-    VAZIO           reduce using rule 35 (expressao -> chamada_de_funcao .)
-    INTEIRO         reduce using rule 35 (expressao -> chamada_de_funcao .)
-    FLUTUANTE       reduce using rule 35 (expressao -> chamada_de_funcao .)
-    FIM             reduce using rule 35 (expressao -> chamada_de_funcao .)
-    ATE             reduce using rule 35 (expressao -> chamada_de_funcao .)
-    SENAO           reduce using rule 35 (expressao -> chamada_de_funcao .)
-    ENTAO           reduce using rule 35 (expressao -> chamada_de_funcao .)
-    FECHAPAR        reduce using rule 35 (expressao -> chamada_de_funcao .)
+    ABREPAR         shift and go to state 59
+    IDENTIFICADOR   shift and go to state 58
+    INTEIRO         shift and go to state 61
+    FLUTUANTE       shift and go to state 63
 
+    chamada_de_funcao              shift and go to state 57
+    fator                          shift and go to state 60
+    expressao                      shift and go to state 77
+    expressao_simples              shift and go to state 62
 
 state 55
-
-    (8) chamada_de_funcao -> IDENTIFICADOR . ABREPAR expressao FECHAPAR
-    (50) fator -> IDENTIFICADOR .
-
-    ABREPAR         shift and go to state 62
-    MULTIPLICACAO   reduce using rule 50 (fator -> IDENTIFICADOR .)
-    DIVISAO         reduce using rule 50 (fator -> IDENTIFICADOR .)
-    MAIOR           reduce using rule 50 (fator -> IDENTIFICADOR .)
-    MAIORIGUAL      reduce using rule 50 (fator -> IDENTIFICADOR .)
-    MENOR           reduce using rule 50 (fator -> IDENTIFICADOR .)
-    MENORIGUAL      reduce using rule 50 (fator -> IDENTIFICADOR .)
-    IGUALDADE       reduce using rule 50 (fator -> IDENTIFICADOR .)
-    ADICAO          reduce using rule 50 (fator -> IDENTIFICADOR .)
-    SUBTRACAO       reduce using rule 50 (fator -> IDENTIFICADOR .)
-    FECHAPAR        reduce using rule 50 (fator -> IDENTIFICADOR .)
-    SE              reduce using rule 50 (fator -> IDENTIFICADOR .)
-    REPITA          reduce using rule 50 (fator -> IDENTIFICADOR .)
-    IDENTIFICADOR   reduce using rule 50 (fator -> IDENTIFICADOR .)
-    LEIA            reduce using rule 50 (fator -> IDENTIFICADOR .)
-    ESCREVE         reduce using rule 50 (fator -> IDENTIFICADOR .)
-    RETORNA         reduce using rule 50 (fator -> IDENTIFICADOR .)
-    VAZIO           reduce using rule 50 (fator -> IDENTIFICADOR .)
-    INTEIRO         reduce using rule 50 (fator -> IDENTIFICADOR .)
-    FLUTUANTE       reduce using rule 50 (fator -> IDENTIFICADOR .)
-    FIM             reduce using rule 50 (fator -> IDENTIFICADOR .)
-    ATE             reduce using rule 50 (fator -> IDENTIFICADOR .)
-    SENAO           reduce using rule 50 (fator -> IDENTIFICADOR .)
-    ENTAO           reduce using rule 50 (fator -> IDENTIFICADOR .)
-
-
-state 56
-
-    (27) expressao_condicional -> SE expressao . ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
-    (28) expressao_condicional -> SE expressao . ENTAO sequencia_de_declaracao FIM
-
-    ENTAO           shift and go to state 82
-
-
-state 57
-
-    (31) expressao_leitura -> LEIA ABREPAR . IDENTIFICADOR FECHAPAR
-
-    IDENTIFICADOR   shift and go to state 83
-
-
-state 58
-
-    (32) expressao_escreva -> ESCREVE ABREPAR . expressao FECHAPAR
-    (33) expressao -> . expressao_simples operador_logico expressao_simples
-    (34) expressao -> . expressao_simples
-    (35) expressao -> . chamada_de_funcao
-    (41) expressao_simples -> . expressao_simples operador_add termo
-    (42) expressao_simples -> . termo
-    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
-    (45) termo -> . termo operador_mult fator
-    (46) termo -> . fator
-    (49) fator -> . NUMERO
-    (50) fator -> . IDENTIFICADOR
-
-    IDENTIFICADOR   shift and go to state 55
-    NUMERO          shift and go to state 46
-
-    expressao_simples              shift and go to state 53
-    termo                          shift and go to state 50
-    fator                          shift and go to state 48
-    chamada_de_funcao              shift and go to state 54
-    expressao                      shift and go to state 84
-
-state 59
-
-    (25) retorna -> RETORNA ABREPAR . IDENTIFICADOR FECHAPAR
-    (26) retorna -> RETORNA ABREPAR . NUMERO FECHAPAR
-
-    IDENTIFICADOR   shift and go to state 85
-    NUMERO          shift and go to state 86
-
-
-state 60
-
-    (12) sequencia_de_declaracao -> declaracao sequencia_de_declaracao .
-
-    FIM             reduce using rule 12 (sequencia_de_declaracao -> declaracao sequencia_de_declaracao .)
-    ATE             reduce using rule 12 (sequencia_de_declaracao -> declaracao sequencia_de_declaracao .)
-    SENAO           reduce using rule 12 (sequencia_de_declaracao -> declaracao sequencia_de_declaracao .)
-
-
-state 61
-
-    (30) expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO . expressao
-    (33) expressao -> . expressao_simples operador_logico expressao_simples
-    (34) expressao -> . expressao_simples
-    (35) expressao -> . chamada_de_funcao
-    (41) expressao_simples -> . expressao_simples operador_add termo
-    (42) expressao_simples -> . termo
-    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
-    (45) termo -> . termo operador_mult fator
-    (46) termo -> . fator
-    (49) fator -> . NUMERO
-    (50) fator -> . IDENTIFICADOR
-
-    IDENTIFICADOR   shift and go to state 55
-    NUMERO          shift and go to state 46
-
-    expressao_simples              shift and go to state 53
-    termo                          shift and go to state 50
-    fator                          shift and go to state 48
-    chamada_de_funcao              shift and go to state 54
-    expressao                      shift and go to state 87
-
-state 62
-
-    (8) chamada_de_funcao -> IDENTIFICADOR ABREPAR . expressao FECHAPAR
-    (33) expressao -> . expressao_simples operador_logico expressao_simples
-    (34) expressao -> . expressao_simples
-    (35) expressao -> . chamada_de_funcao
-    (41) expressao_simples -> . expressao_simples operador_add termo
-    (42) expressao_simples -> . termo
-    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
-    (45) termo -> . termo operador_mult fator
-    (46) termo -> . fator
-    (49) fator -> . NUMERO
-    (50) fator -> . IDENTIFICADOR
-
-    IDENTIFICADOR   shift and go to state 55
-    NUMERO          shift and go to state 46
-
-    expressao_simples              shift and go to state 53
-    termo                          shift and go to state 50
-    fator                          shift and go to state 48
-    chamada_de_funcao              shift and go to state 54
-    expressao                      shift and go to state 88
-
-state 63
 
     (5) principal -> PRINCIPAL ABREPAR FECHAPAR sequencia_de_declaracao FIM .
 
     $end            reduce using rule 5 (principal -> PRINCIPAL ABREPAR FECHAPAR sequencia_de_declaracao FIM .)
 
 
+state 56
+
+    (30) expressao_leitura -> LEIA ABREPAR . IDENTIFICADOR FECHAPAR
+
+    IDENTIFICADOR   shift and go to state 78
+
+
+state 57
+
+    (36) expressao -> chamada_de_funcao .
+
+    SUBTRACAO       reduce using rule 36 (expressao -> chamada_de_funcao .)
+    ADICAO          reduce using rule 36 (expressao -> chamada_de_funcao .)
+    MULTIPLICACAO   reduce using rule 36 (expressao -> chamada_de_funcao .)
+    DIVISAO         reduce using rule 36 (expressao -> chamada_de_funcao .)
+    MAIOR           reduce using rule 36 (expressao -> chamada_de_funcao .)
+    MAIORIGUAL      reduce using rule 36 (expressao -> chamada_de_funcao .)
+    MENOR           reduce using rule 36 (expressao -> chamada_de_funcao .)
+    MENORIGUAL      reduce using rule 36 (expressao -> chamada_de_funcao .)
+    IGUALDADE       reduce using rule 36 (expressao -> chamada_de_funcao .)
+    ENTAO           reduce using rule 36 (expressao -> chamada_de_funcao .)
+    FECHAPAR        reduce using rule 36 (expressao -> chamada_de_funcao .)
+    SE              reduce using rule 36 (expressao -> chamada_de_funcao .)
+    REPITA          reduce using rule 36 (expressao -> chamada_de_funcao .)
+    IDENTIFICADOR   reduce using rule 36 (expressao -> chamada_de_funcao .)
+    LEIA            reduce using rule 36 (expressao -> chamada_de_funcao .)
+    ESCREVE         reduce using rule 36 (expressao -> chamada_de_funcao .)
+    RETORNA         reduce using rule 36 (expressao -> chamada_de_funcao .)
+    VAZIO           reduce using rule 36 (expressao -> chamada_de_funcao .)
+    INTEIRO         reduce using rule 36 (expressao -> chamada_de_funcao .)
+    FLUTUANTE       reduce using rule 36 (expressao -> chamada_de_funcao .)
+    FIM             reduce using rule 36 (expressao -> chamada_de_funcao .)
+    ATE             reduce using rule 36 (expressao -> chamada_de_funcao .)
+    SENAO           reduce using rule 36 (expressao -> chamada_de_funcao .)
+
+
+state 58
+
+    (8) chamada_de_funcao -> IDENTIFICADOR . ABREPAR expressao FECHAPAR
+    (47) fator -> IDENTIFICADOR .
+
+    ABREPAR         shift and go to state 54
+    SUBTRACAO       reduce using rule 47 (fator -> IDENTIFICADOR .)
+    ADICAO          reduce using rule 47 (fator -> IDENTIFICADOR .)
+    MULTIPLICACAO   reduce using rule 47 (fator -> IDENTIFICADOR .)
+    DIVISAO         reduce using rule 47 (fator -> IDENTIFICADOR .)
+    MAIOR           reduce using rule 47 (fator -> IDENTIFICADOR .)
+    MAIORIGUAL      reduce using rule 47 (fator -> IDENTIFICADOR .)
+    MENOR           reduce using rule 47 (fator -> IDENTIFICADOR .)
+    MENORIGUAL      reduce using rule 47 (fator -> IDENTIFICADOR .)
+    IGUALDADE       reduce using rule 47 (fator -> IDENTIFICADOR .)
+    ENTAO           reduce using rule 47 (fator -> IDENTIFICADOR .)
+    FECHAPAR        reduce using rule 47 (fator -> IDENTIFICADOR .)
+    SE              reduce using rule 47 (fator -> IDENTIFICADOR .)
+    REPITA          reduce using rule 47 (fator -> IDENTIFICADOR .)
+    IDENTIFICADOR   reduce using rule 47 (fator -> IDENTIFICADOR .)
+    LEIA            reduce using rule 47 (fator -> IDENTIFICADOR .)
+    ESCREVE         reduce using rule 47 (fator -> IDENTIFICADOR .)
+    RETORNA         reduce using rule 47 (fator -> IDENTIFICADOR .)
+    VAZIO           reduce using rule 47 (fator -> IDENTIFICADOR .)
+    INTEIRO         reduce using rule 47 (fator -> IDENTIFICADOR .)
+    FLUTUANTE       reduce using rule 47 (fator -> IDENTIFICADOR .)
+    FIM             reduce using rule 47 (fator -> IDENTIFICADOR .)
+    ATE             reduce using rule 47 (fator -> IDENTIFICADOR .)
+    SENAO           reduce using rule 47 (fator -> IDENTIFICADOR .)
+
+
+state 59
+
+    (32) expressao -> ABREPAR . expressao FECHAPAR
+    (32) expressao -> . ABREPAR expressao FECHAPAR
+    (33) expressao -> . expressao operador_aritmetico expressao
+    (34) expressao -> . expressao operador_logico expressao
+    (35) expressao -> . expressao_simples
+    (36) expressao -> . chamada_de_funcao
+    (37) expressao_simples -> . fator
+    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
+    (47) fator -> . IDENTIFICADOR
+    (48) fator -> . INTEIRO
+    (49) fator -> . FLUTUANTE
+
+    ABREPAR         shift and go to state 59
+    IDENTIFICADOR   shift and go to state 58
+    INTEIRO         shift and go to state 61
+    FLUTUANTE       shift and go to state 63
+
+    chamada_de_funcao              shift and go to state 57
+    fator                          shift and go to state 60
+    expressao                      shift and go to state 79
+    expressao_simples              shift and go to state 62
+
+state 60
+
+    (37) expressao_simples -> fator .
+
+    FECHAPAR        reduce using rule 37 (expressao_simples -> fator .)
+    SUBTRACAO       reduce using rule 37 (expressao_simples -> fator .)
+    ADICAO          reduce using rule 37 (expressao_simples -> fator .)
+    MULTIPLICACAO   reduce using rule 37 (expressao_simples -> fator .)
+    DIVISAO         reduce using rule 37 (expressao_simples -> fator .)
+    MAIOR           reduce using rule 37 (expressao_simples -> fator .)
+    MAIORIGUAL      reduce using rule 37 (expressao_simples -> fator .)
+    MENOR           reduce using rule 37 (expressao_simples -> fator .)
+    MENORIGUAL      reduce using rule 37 (expressao_simples -> fator .)
+    IGUALDADE       reduce using rule 37 (expressao_simples -> fator .)
+    ENTAO           reduce using rule 37 (expressao_simples -> fator .)
+    SE              reduce using rule 37 (expressao_simples -> fator .)
+    REPITA          reduce using rule 37 (expressao_simples -> fator .)
+    IDENTIFICADOR   reduce using rule 37 (expressao_simples -> fator .)
+    LEIA            reduce using rule 37 (expressao_simples -> fator .)
+    ESCREVE         reduce using rule 37 (expressao_simples -> fator .)
+    RETORNA         reduce using rule 37 (expressao_simples -> fator .)
+    VAZIO           reduce using rule 37 (expressao_simples -> fator .)
+    INTEIRO         reduce using rule 37 (expressao_simples -> fator .)
+    FLUTUANTE       reduce using rule 37 (expressao_simples -> fator .)
+    FIM             reduce using rule 37 (expressao_simples -> fator .)
+    ATE             reduce using rule 37 (expressao_simples -> fator .)
+    SENAO           reduce using rule 37 (expressao_simples -> fator .)
+    PRINCIPAL       reduce using rule 37 (expressao_simples -> fator .)
+
+
+state 61
+
+    (48) fator -> INTEIRO .
+
+    SUBTRACAO       reduce using rule 48 (fator -> INTEIRO .)
+    ADICAO          reduce using rule 48 (fator -> INTEIRO .)
+    MULTIPLICACAO   reduce using rule 48 (fator -> INTEIRO .)
+    DIVISAO         reduce using rule 48 (fator -> INTEIRO .)
+    MAIOR           reduce using rule 48 (fator -> INTEIRO .)
+    MAIORIGUAL      reduce using rule 48 (fator -> INTEIRO .)
+    MENOR           reduce using rule 48 (fator -> INTEIRO .)
+    MENORIGUAL      reduce using rule 48 (fator -> INTEIRO .)
+    IGUALDADE       reduce using rule 48 (fator -> INTEIRO .)
+    ENTAO           reduce using rule 48 (fator -> INTEIRO .)
+    FECHAPAR        reduce using rule 48 (fator -> INTEIRO .)
+    SE              reduce using rule 48 (fator -> INTEIRO .)
+    REPITA          reduce using rule 48 (fator -> INTEIRO .)
+    IDENTIFICADOR   reduce using rule 48 (fator -> INTEIRO .)
+    LEIA            reduce using rule 48 (fator -> INTEIRO .)
+    ESCREVE         reduce using rule 48 (fator -> INTEIRO .)
+    RETORNA         reduce using rule 48 (fator -> INTEIRO .)
+    VAZIO           reduce using rule 48 (fator -> INTEIRO .)
+    INTEIRO         reduce using rule 48 (fator -> INTEIRO .)
+    FLUTUANTE       reduce using rule 48 (fator -> INTEIRO .)
+    FIM             reduce using rule 48 (fator -> INTEIRO .)
+    ATE             reduce using rule 48 (fator -> INTEIRO .)
+    SENAO           reduce using rule 48 (fator -> INTEIRO .)
+    PRINCIPAL       reduce using rule 48 (fator -> INTEIRO .)
+
+
+state 62
+
+    (35) expressao -> expressao_simples .
+
+    SUBTRACAO       reduce using rule 35 (expressao -> expressao_simples .)
+    ADICAO          reduce using rule 35 (expressao -> expressao_simples .)
+    MULTIPLICACAO   reduce using rule 35 (expressao -> expressao_simples .)
+    DIVISAO         reduce using rule 35 (expressao -> expressao_simples .)
+    MAIOR           reduce using rule 35 (expressao -> expressao_simples .)
+    MAIORIGUAL      reduce using rule 35 (expressao -> expressao_simples .)
+    MENOR           reduce using rule 35 (expressao -> expressao_simples .)
+    MENORIGUAL      reduce using rule 35 (expressao -> expressao_simples .)
+    IGUALDADE       reduce using rule 35 (expressao -> expressao_simples .)
+    ENTAO           reduce using rule 35 (expressao -> expressao_simples .)
+    FECHAPAR        reduce using rule 35 (expressao -> expressao_simples .)
+    SE              reduce using rule 35 (expressao -> expressao_simples .)
+    REPITA          reduce using rule 35 (expressao -> expressao_simples .)
+    IDENTIFICADOR   reduce using rule 35 (expressao -> expressao_simples .)
+    LEIA            reduce using rule 35 (expressao -> expressao_simples .)
+    ESCREVE         reduce using rule 35 (expressao -> expressao_simples .)
+    RETORNA         reduce using rule 35 (expressao -> expressao_simples .)
+    VAZIO           reduce using rule 35 (expressao -> expressao_simples .)
+    INTEIRO         reduce using rule 35 (expressao -> expressao_simples .)
+    FLUTUANTE       reduce using rule 35 (expressao -> expressao_simples .)
+    FIM             reduce using rule 35 (expressao -> expressao_simples .)
+    ATE             reduce using rule 35 (expressao -> expressao_simples .)
+    SENAO           reduce using rule 35 (expressao -> expressao_simples .)
+
+
+state 63
+
+    (49) fator -> FLUTUANTE .
+
+    SUBTRACAO       reduce using rule 49 (fator -> FLUTUANTE .)
+    ADICAO          reduce using rule 49 (fator -> FLUTUANTE .)
+    MULTIPLICACAO   reduce using rule 49 (fator -> FLUTUANTE .)
+    DIVISAO         reduce using rule 49 (fator -> FLUTUANTE .)
+    MAIOR           reduce using rule 49 (fator -> FLUTUANTE .)
+    MAIORIGUAL      reduce using rule 49 (fator -> FLUTUANTE .)
+    MENOR           reduce using rule 49 (fator -> FLUTUANTE .)
+    MENORIGUAL      reduce using rule 49 (fator -> FLUTUANTE .)
+    IGUALDADE       reduce using rule 49 (fator -> FLUTUANTE .)
+    ENTAO           reduce using rule 49 (fator -> FLUTUANTE .)
+    FECHAPAR        reduce using rule 49 (fator -> FLUTUANTE .)
+    SE              reduce using rule 49 (fator -> FLUTUANTE .)
+    REPITA          reduce using rule 49 (fator -> FLUTUANTE .)
+    IDENTIFICADOR   reduce using rule 49 (fator -> FLUTUANTE .)
+    LEIA            reduce using rule 49 (fator -> FLUTUANTE .)
+    ESCREVE         reduce using rule 49 (fator -> FLUTUANTE .)
+    RETORNA         reduce using rule 49 (fator -> FLUTUANTE .)
+    VAZIO           reduce using rule 49 (fator -> FLUTUANTE .)
+    INTEIRO         reduce using rule 49 (fator -> FLUTUANTE .)
+    FLUTUANTE       reduce using rule 49 (fator -> FLUTUANTE .)
+    FIM             reduce using rule 49 (fator -> FLUTUANTE .)
+    ATE             reduce using rule 49 (fator -> FLUTUANTE .)
+    SENAO           reduce using rule 49 (fator -> FLUTUANTE .)
+    PRINCIPAL       reduce using rule 49 (fator -> FLUTUANTE .)
+
+
 state 64
 
-    (29) expressao_iteracao -> REPITA sequencia_de_declaracao . ATE expressao
+    (26) expressao_condicional -> SE expressao . ENTAO sequencia_de_declaracao FIM
+    (27) expressao_condicional -> SE expressao . ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
+    (33) expressao -> expressao . operador_aritmetico expressao
+    (34) expressao -> expressao . operador_logico expressao
+    (43) operador_aritmetico -> . SUBTRACAO
+    (44) operador_aritmetico -> . ADICAO
+    (45) operador_aritmetico -> . MULTIPLICACAO
+    (46) operador_aritmetico -> . DIVISAO
+    (38) operador_logico -> . MAIOR
+    (39) operador_logico -> . MAIORIGUAL
+    (40) operador_logico -> . MENOR
+    (41) operador_logico -> . MENORIGUAL
+    (42) operador_logico -> . IGUALDADE
 
-    ATE             shift and go to state 89
+    ENTAO           shift and go to state 83
+    SUBTRACAO       shift and go to state 84
+    ADICAO          shift and go to state 88
+    MULTIPLICACAO   shift and go to state 85
+    DIVISAO         shift and go to state 90
+    MAIOR           shift and go to state 89
+    MAIORIGUAL      shift and go to state 81
+    MENOR           shift and go to state 91
+    MENORIGUAL      shift and go to state 86
+    IGUALDADE       shift and go to state 87
 
+    operador_aritmetico            shift and go to state 82
+    operador_logico                shift and go to state 80
 
 state 65
-
-    (22) declara_var -> tipo IDENTIFICADOR . VIRGULA declara_var
-    (23) declara_var -> tipo IDENTIFICADOR . ATRIBUICAO expressao_simples
-
-    VIRGULA         shift and go to state 23
-    ATRIBUICAO      shift and go to state 22
-
-
-state 66
 
     (11) declaracao_param -> tipo DOISPONTOS IDENTIFICADOR .
 
@@ -1268,506 +1238,616 @@ state 66
     VIRGULA         reduce using rule 11 (declaracao_param -> tipo DOISPONTOS IDENTIFICADOR .)
 
 
+state 66
+
+    (47) fator -> IDENTIFICADOR .
+
+    PRINCIPAL       reduce using rule 47 (fator -> IDENTIFICADOR .)
+    VAZIO           reduce using rule 47 (fator -> IDENTIFICADOR .)
+    INTEIRO         reduce using rule 47 (fator -> IDENTIFICADOR .)
+    FLUTUANTE       reduce using rule 47 (fator -> IDENTIFICADOR .)
+    SE              reduce using rule 47 (fator -> IDENTIFICADOR .)
+    REPITA          reduce using rule 47 (fator -> IDENTIFICADOR .)
+    IDENTIFICADOR   reduce using rule 47 (fator -> IDENTIFICADOR .)
+    LEIA            reduce using rule 47 (fator -> IDENTIFICADOR .)
+    ESCREVE         reduce using rule 47 (fator -> IDENTIFICADOR .)
+    RETORNA         reduce using rule 47 (fator -> IDENTIFICADOR .)
+    FIM             reduce using rule 47 (fator -> IDENTIFICADOR .)
+    ATE             reduce using rule 47 (fator -> IDENTIFICADOR .)
+    SENAO           reduce using rule 47 (fator -> IDENTIFICADOR .)
+
+
 state 67
 
-    (10) declaracao_param -> declaracao_param VIRGULA tipo . DOISPONTOS IDENTIFICADOR
+    (23) declara_var -> tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples .
 
-    DOISPONTOS      shift and go to state 90
+    SE              reduce using rule 23 (declara_var -> tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples .)
+    REPITA          reduce using rule 23 (declara_var -> tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples .)
+    IDENTIFICADOR   reduce using rule 23 (declara_var -> tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples .)
+    LEIA            reduce using rule 23 (declara_var -> tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples .)
+    ESCREVE         reduce using rule 23 (declara_var -> tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples .)
+    RETORNA         reduce using rule 23 (declara_var -> tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples .)
+    VAZIO           reduce using rule 23 (declara_var -> tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples .)
+    INTEIRO         reduce using rule 23 (declara_var -> tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples .)
+    FLUTUANTE       reduce using rule 23 (declara_var -> tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples .)
+    FIM             reduce using rule 23 (declara_var -> tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples .)
+    ATE             reduce using rule 23 (declara_var -> tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples .)
+    SENAO           reduce using rule 23 (declara_var -> tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples .)
+    PRINCIPAL       reduce using rule 23 (declara_var -> tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples .)
 
 
 state 68
 
-    (4) principal -> PRINCIPAL ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao . FIM
+    (24) declara_outra_var -> IDENTIFICADOR .
 
-    FIM             shift and go to state 91
+    PRINCIPAL       reduce using rule 24 (declara_outra_var -> IDENTIFICADOR .)
+    VAZIO           reduce using rule 24 (declara_outra_var -> IDENTIFICADOR .)
+    INTEIRO         reduce using rule 24 (declara_outra_var -> IDENTIFICADOR .)
+    FLUTUANTE       reduce using rule 24 (declara_outra_var -> IDENTIFICADOR .)
+    SE              reduce using rule 24 (declara_outra_var -> IDENTIFICADOR .)
+    REPITA          reduce using rule 24 (declara_outra_var -> IDENTIFICADOR .)
+    IDENTIFICADOR   reduce using rule 24 (declara_outra_var -> IDENTIFICADOR .)
+    LEIA            reduce using rule 24 (declara_outra_var -> IDENTIFICADOR .)
+    ESCREVE         reduce using rule 24 (declara_outra_var -> IDENTIFICADOR .)
+    RETORNA         reduce using rule 24 (declara_outra_var -> IDENTIFICADOR .)
+    FIM             reduce using rule 24 (declara_outra_var -> IDENTIFICADOR .)
+    ATE             reduce using rule 24 (declara_outra_var -> IDENTIFICADOR .)
+    SENAO           reduce using rule 24 (declara_outra_var -> IDENTIFICADOR .)
 
 
 state 69
 
-    (43) operador_add -> ADICAO .
+    (22) declara_var -> tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var .
 
-    NUMERO          reduce using rule 43 (operador_add -> ADICAO .)
-    IDENTIFICADOR   reduce using rule 43 (operador_add -> ADICAO .)
+    SE              reduce using rule 22 (declara_var -> tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var .)
+    REPITA          reduce using rule 22 (declara_var -> tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var .)
+    IDENTIFICADOR   reduce using rule 22 (declara_var -> tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var .)
+    LEIA            reduce using rule 22 (declara_var -> tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var .)
+    ESCREVE         reduce using rule 22 (declara_var -> tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var .)
+    RETORNA         reduce using rule 22 (declara_var -> tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var .)
+    VAZIO           reduce using rule 22 (declara_var -> tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var .)
+    INTEIRO         reduce using rule 22 (declara_var -> tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var .)
+    FLUTUANTE       reduce using rule 22 (declara_var -> tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var .)
+    FIM             reduce using rule 22 (declara_var -> tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var .)
+    ATE             reduce using rule 22 (declara_var -> tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var .)
+    SENAO           reduce using rule 22 (declara_var -> tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var .)
+    PRINCIPAL       reduce using rule 22 (declara_var -> tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var .)
 
 
 state 70
 
-    (44) operador_add -> SUBTRACAO .
+    (9) declaracao_de_funcao -> tipo IDENTIFICADOR ABREPAR declaracao_param FECHAPAR . sequencia_de_declaracao FIM
+    (12) sequencia_de_declaracao -> . declaracao
+    (13) sequencia_de_declaracao -> . declaracao sequencia_de_declaracao
+    (14) declaracao -> . expressao_condicional
+    (15) declaracao -> . expressao_iteracao
+    (16) declaracao -> . expressao_atribuicao
+    (17) declaracao -> . expressao_leitura
+    (18) declaracao -> . expressao_escreva
+    (19) declaracao -> . declara_var
+    (20) declaracao -> . retorna
+    (21) declaracao -> . chamada_de_funcao
+    (26) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao FIM
+    (27) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
+    (28) expressao_iteracao -> . REPITA sequencia_de_declaracao ATE expressao
+    (29) expressao_atribuicao -> . IDENTIFICADOR ATRIBUICAO expressao
+    (30) expressao_leitura -> . LEIA ABREPAR IDENTIFICADOR FECHAPAR
+    (31) expressao_escreva -> . ESCREVE ABREPAR expressao FECHAPAR
+    (22) declara_var -> . tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var
+    (23) declara_var -> . tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples
+    (25) retorna -> . RETORNA ABREPAR expressao FECHAPAR
+    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
+    (50) tipo -> . VAZIO
+    (51) tipo -> . numero
+    (52) numero -> . INTEIRO
+    (53) numero -> . FLUTUANTE
 
-    NUMERO          reduce using rule 44 (operador_add -> SUBTRACAO .)
-    IDENTIFICADOR   reduce using rule 44 (operador_add -> SUBTRACAO .)
+    SE              shift and go to state 42
+    REPITA          shift and go to state 32
+    IDENTIFICADOR   shift and go to state 34
+    LEIA            shift and go to state 39
+    ESCREVE         shift and go to state 26
+    RETORNA         shift and go to state 31
+    VAZIO           shift and go to state 6
+    INTEIRO         shift and go to state 11
+    FLUTUANTE       shift and go to state 4
 
+    chamada_de_funcao              shift and go to state 37
+    numero                         shift and go to state 8
+    expressao_leitura              shift and go to state 27
+    sequencia_de_declaracao        shift and go to state 92
+    expressao_escreva              shift and go to state 30
+    declaracao                     shift and go to state 28
+    expressao_atribuicao           shift and go to state 40
+    expressao_iteracao             shift and go to state 29
+    declara_var                    shift and go to state 33
+    expressao_condicional          shift and go to state 41
+    retorna                        shift and go to state 35
+    tipo                           shift and go to state 36
 
 state 71
-
-    (41) expressao_simples -> expressao_simples operador_add . termo
-    (45) termo -> . termo operador_mult fator
-    (46) termo -> . fator
-    (49) fator -> . NUMERO
-    (50) fator -> . IDENTIFICADOR
-
-    NUMERO          shift and go to state 46
-    IDENTIFICADOR   shift and go to state 47
-
-    fator                          shift and go to state 48
-    termo                          shift and go to state 92
-
-state 72
-
-    (48) operador_mult -> DIVISAO .
-
-    NUMERO          reduce using rule 48 (operador_mult -> DIVISAO .)
-    IDENTIFICADOR   reduce using rule 48 (operador_mult -> DIVISAO .)
-
-
-state 73
-
-    (45) termo -> termo operador_mult . fator
-    (49) fator -> . NUMERO
-    (50) fator -> . IDENTIFICADOR
-
-    NUMERO          shift and go to state 46
-    IDENTIFICADOR   shift and go to state 47
-
-    fator                          shift and go to state 93
-
-state 74
-
-    (47) operador_mult -> MULTIPLICACAO .
-
-    NUMERO          reduce using rule 47 (operador_mult -> MULTIPLICACAO .)
-    IDENTIFICADOR   reduce using rule 47 (operador_mult -> MULTIPLICACAO .)
-
-
-state 75
-
-    (9) declaracao_de_funcao -> tipo IDENTIFICADOR ABREPAR declaracao_param FECHAPAR . sequencia_de_declaracao FIM
-    (12) sequencia_de_declaracao -> . declaracao sequencia_de_declaracao
-    (13) sequencia_de_declaracao -> . declaracao
-    (14) declaracao -> . expressao_condicional
-    (15) declaracao -> . expressao_iteracao
-    (16) declaracao -> . expressao_atribuicao
-    (17) declaracao -> . expressao_leitura
-    (18) declaracao -> . expressao_escreva
-    (19) declaracao -> . declara_var
-    (20) declaracao -> . retorna
-    (21) declaracao -> . chamada_de_funcao
-    (27) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
-    (28) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao FIM
-    (29) expressao_iteracao -> . REPITA sequencia_de_declaracao ATE expressao
-    (30) expressao_atribuicao -> . IDENTIFICADOR ATRIBUICAO expressao
-    (31) expressao_leitura -> . LEIA ABREPAR IDENTIFICADOR FECHAPAR
-    (32) expressao_escreva -> . ESCREVE ABREPAR expressao FECHAPAR
-    (22) declara_var -> . tipo IDENTIFICADOR VIRGULA declara_var
-    (23) declara_var -> . tipo IDENTIFICADOR ATRIBUICAO expressao_simples
-    (24) declara_var -> . tipo DOISPONTOS IDENTIFICADOR
-    (25) retorna -> . RETORNA ABREPAR IDENTIFICADOR FECHAPAR
-    (26) retorna -> . RETORNA ABREPAR NUMERO FECHAPAR
-    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
-    (51) tipo -> . VAZIO
-    (52) tipo -> . INTEIRO
-    (53) tipo -> . FLUTUANTE
-
-    SE              shift and go to state 26
-    REPITA          shift and go to state 40
-    IDENTIFICADOR   shift and go to state 33
-    LEIA            shift and go to state 27
-    ESCREVE         shift and go to state 28
-    RETORNA         shift and go to state 29
-    VAZIO           shift and go to state 8
-    INTEIRO         shift and go to state 1
-    FLUTUANTE       shift and go to state 7
-
-    declara_var                    shift and go to state 36
-    sequencia_de_declaracao        shift and go to state 94
-    expressao_atribuicao           shift and go to state 32
-    expressao_escreva              shift and go to state 38
-    expressao_iteracao             shift and go to state 39
-    chamada_de_funcao              shift and go to state 30
-    tipo                           shift and go to state 41
-    expressao_condicional          shift and go to state 34
-    declaracao                     shift and go to state 31
-    retorna                        shift and go to state 35
-    expressao_leitura              shift and go to state 42
-
-state 76
-
-    (33) expressao -> expressao_simples operador_logico . expressao_simples
-    (41) expressao_simples -> . expressao_simples operador_add termo
-    (42) expressao_simples -> . termo
-    (45) termo -> . termo operador_mult fator
-    (46) termo -> . fator
-    (49) fator -> . NUMERO
-    (50) fator -> . IDENTIFICADOR
-
-    NUMERO          shift and go to state 46
-    IDENTIFICADOR   shift and go to state 47
-
-    expressao_simples              shift and go to state 95
-    fator                          shift and go to state 48
-    termo                          shift and go to state 50
-
-state 77
-
-    (39) operador_logico -> MENORIGUAL .
-
-    NUMERO          reduce using rule 39 (operador_logico -> MENORIGUAL .)
-    IDENTIFICADOR   reduce using rule 39 (operador_logico -> MENORIGUAL .)
-
-
-state 78
-
-    (38) operador_logico -> MENOR .
-
-    NUMERO          reduce using rule 38 (operador_logico -> MENOR .)
-    IDENTIFICADOR   reduce using rule 38 (operador_logico -> MENOR .)
-
-
-state 79
-
-    (37) operador_logico -> MAIORIGUAL .
-
-    NUMERO          reduce using rule 37 (operador_logico -> MAIORIGUAL .)
-    IDENTIFICADOR   reduce using rule 37 (operador_logico -> MAIORIGUAL .)
-
-
-state 80
-
-    (36) operador_logico -> MAIOR .
-
-    NUMERO          reduce using rule 36 (operador_logico -> MAIOR .)
-    IDENTIFICADOR   reduce using rule 36 (operador_logico -> MAIOR .)
-
-
-state 81
-
-    (40) operador_logico -> IGUALDADE .
-
-    NUMERO          reduce using rule 40 (operador_logico -> IGUALDADE .)
-    IDENTIFICADOR   reduce using rule 40 (operador_logico -> IGUALDADE .)
-
-
-state 82
-
-    (27) expressao_condicional -> SE expressao ENTAO . sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
-    (28) expressao_condicional -> SE expressao ENTAO . sequencia_de_declaracao FIM
-    (12) sequencia_de_declaracao -> . declaracao sequencia_de_declaracao
-    (13) sequencia_de_declaracao -> . declaracao
-    (14) declaracao -> . expressao_condicional
-    (15) declaracao -> . expressao_iteracao
-    (16) declaracao -> . expressao_atribuicao
-    (17) declaracao -> . expressao_leitura
-    (18) declaracao -> . expressao_escreva
-    (19) declaracao -> . declara_var
-    (20) declaracao -> . retorna
-    (21) declaracao -> . chamada_de_funcao
-    (27) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
-    (28) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao FIM
-    (29) expressao_iteracao -> . REPITA sequencia_de_declaracao ATE expressao
-    (30) expressao_atribuicao -> . IDENTIFICADOR ATRIBUICAO expressao
-    (31) expressao_leitura -> . LEIA ABREPAR IDENTIFICADOR FECHAPAR
-    (32) expressao_escreva -> . ESCREVE ABREPAR expressao FECHAPAR
-    (22) declara_var -> . tipo IDENTIFICADOR VIRGULA declara_var
-    (23) declara_var -> . tipo IDENTIFICADOR ATRIBUICAO expressao_simples
-    (24) declara_var -> . tipo DOISPONTOS IDENTIFICADOR
-    (25) retorna -> . RETORNA ABREPAR IDENTIFICADOR FECHAPAR
-    (26) retorna -> . RETORNA ABREPAR NUMERO FECHAPAR
-    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
-    (51) tipo -> . VAZIO
-    (52) tipo -> . INTEIRO
-    (53) tipo -> . FLUTUANTE
-
-    SE              shift and go to state 26
-    REPITA          shift and go to state 40
-    IDENTIFICADOR   shift and go to state 33
-    LEIA            shift and go to state 27
-    ESCREVE         shift and go to state 28
-    RETORNA         shift and go to state 29
-    VAZIO           shift and go to state 8
-    INTEIRO         shift and go to state 1
-    FLUTUANTE       shift and go to state 7
-
-    declara_var                    shift and go to state 36
-    sequencia_de_declaracao        shift and go to state 96
-    chamada_de_funcao              shift and go to state 30
-    expressao_escreva              shift and go to state 38
-    expressao_iteracao             shift and go to state 39
-    expressao_atribuicao           shift and go to state 32
-    tipo                           shift and go to state 41
-    expressao_condicional          shift and go to state 34
-    declaracao                     shift and go to state 31
-    retorna                        shift and go to state 35
-    expressao_leitura              shift and go to state 42
-
-state 83
-
-    (31) expressao_leitura -> LEIA ABREPAR IDENTIFICADOR . FECHAPAR
-
-    FECHAPAR        shift and go to state 97
-
-
-state 84
-
-    (32) expressao_escreva -> ESCREVE ABREPAR expressao . FECHAPAR
-
-    FECHAPAR        shift and go to state 98
-
-
-state 85
-
-    (25) retorna -> RETORNA ABREPAR IDENTIFICADOR . FECHAPAR
-
-    FECHAPAR        shift and go to state 99
-
-
-state 86
-
-    (26) retorna -> RETORNA ABREPAR NUMERO . FECHAPAR
-
-    FECHAPAR        shift and go to state 100
-
-
-state 87
-
-    (30) expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .
-
-    SE              reduce using rule 30 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
-    REPITA          reduce using rule 30 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
-    IDENTIFICADOR   reduce using rule 30 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
-    LEIA            reduce using rule 30 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
-    ESCREVE         reduce using rule 30 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
-    RETORNA         reduce using rule 30 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
-    VAZIO           reduce using rule 30 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
-    INTEIRO         reduce using rule 30 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
-    FLUTUANTE       reduce using rule 30 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
-    FIM             reduce using rule 30 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
-    ATE             reduce using rule 30 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
-    SENAO           reduce using rule 30 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
-
-
-state 88
-
-    (8) chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao . FECHAPAR
-
-    FECHAPAR        shift and go to state 101
-
-
-state 89
-
-    (29) expressao_iteracao -> REPITA sequencia_de_declaracao ATE . expressao
-    (33) expressao -> . expressao_simples operador_logico expressao_simples
-    (34) expressao -> . expressao_simples
-    (35) expressao -> . chamada_de_funcao
-    (41) expressao_simples -> . expressao_simples operador_add termo
-    (42) expressao_simples -> . termo
-    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
-    (45) termo -> . termo operador_mult fator
-    (46) termo -> . fator
-    (49) fator -> . NUMERO
-    (50) fator -> . IDENTIFICADOR
-
-    IDENTIFICADOR   shift and go to state 55
-    NUMERO          shift and go to state 46
-
-    expressao_simples              shift and go to state 53
-    termo                          shift and go to state 50
-    fator                          shift and go to state 48
-    chamada_de_funcao              shift and go to state 54
-    expressao                      shift and go to state 102
-
-state 90
-
-    (10) declaracao_param -> declaracao_param VIRGULA tipo DOISPONTOS . IDENTIFICADOR
-
-    IDENTIFICADOR   shift and go to state 103
-
-
-state 91
 
     (4) principal -> PRINCIPAL ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM .
 
     $end            reduce using rule 4 (principal -> PRINCIPAL ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM .)
 
 
+state 72
+
+    (10) declaracao_param -> declaracao_param VIRGULA tipo DOISPONTOS . IDENTIFICADOR
+
+    IDENTIFICADOR   shift and go to state 93
+
+
+state 73
+
+    (31) expressao_escreva -> ESCREVE ABREPAR expressao . FECHAPAR
+    (33) expressao -> expressao . operador_aritmetico expressao
+    (34) expressao -> expressao . operador_logico expressao
+    (43) operador_aritmetico -> . SUBTRACAO
+    (44) operador_aritmetico -> . ADICAO
+    (45) operador_aritmetico -> . MULTIPLICACAO
+    (46) operador_aritmetico -> . DIVISAO
+    (38) operador_logico -> . MAIOR
+    (39) operador_logico -> . MAIORIGUAL
+    (40) operador_logico -> . MENOR
+    (41) operador_logico -> . MENORIGUAL
+    (42) operador_logico -> . IGUALDADE
+
+    FECHAPAR        shift and go to state 94
+    SUBTRACAO       shift and go to state 84
+    ADICAO          shift and go to state 88
+    MULTIPLICACAO   shift and go to state 85
+    DIVISAO         shift and go to state 90
+    MAIOR           shift and go to state 89
+    MAIORIGUAL      shift and go to state 81
+    MENOR           shift and go to state 91
+    MENORIGUAL      shift and go to state 86
+    IGUALDADE       shift and go to state 87
+
+    operador_aritmetico            shift and go to state 82
+    operador_logico                shift and go to state 80
+
+state 74
+
+    (25) retorna -> RETORNA ABREPAR expressao . FECHAPAR
+    (33) expressao -> expressao . operador_aritmetico expressao
+    (34) expressao -> expressao . operador_logico expressao
+    (43) operador_aritmetico -> . SUBTRACAO
+    (44) operador_aritmetico -> . ADICAO
+    (45) operador_aritmetico -> . MULTIPLICACAO
+    (46) operador_aritmetico -> . DIVISAO
+    (38) operador_logico -> . MAIOR
+    (39) operador_logico -> . MAIORIGUAL
+    (40) operador_logico -> . MENOR
+    (41) operador_logico -> . MENORIGUAL
+    (42) operador_logico -> . IGUALDADE
+
+    FECHAPAR        shift and go to state 95
+    SUBTRACAO       shift and go to state 84
+    ADICAO          shift and go to state 88
+    MULTIPLICACAO   shift and go to state 85
+    DIVISAO         shift and go to state 90
+    MAIOR           shift and go to state 89
+    MAIORIGUAL      shift and go to state 81
+    MENOR           shift and go to state 91
+    MENORIGUAL      shift and go to state 86
+    IGUALDADE       shift and go to state 87
+
+    operador_aritmetico            shift and go to state 82
+    operador_logico                shift and go to state 80
+
+state 75
+
+    (28) expressao_iteracao -> REPITA sequencia_de_declaracao ATE . expressao
+    (32) expressao -> . ABREPAR expressao FECHAPAR
+    (33) expressao -> . expressao operador_aritmetico expressao
+    (34) expressao -> . expressao operador_logico expressao
+    (35) expressao -> . expressao_simples
+    (36) expressao -> . chamada_de_funcao
+    (37) expressao_simples -> . fator
+    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
+    (47) fator -> . IDENTIFICADOR
+    (48) fator -> . INTEIRO
+    (49) fator -> . FLUTUANTE
+
+    ABREPAR         shift and go to state 59
+    IDENTIFICADOR   shift and go to state 58
+    INTEIRO         shift and go to state 61
+    FLUTUANTE       shift and go to state 63
+
+    chamada_de_funcao              shift and go to state 57
+    fator                          shift and go to state 60
+    expressao                      shift and go to state 96
+    expressao_simples              shift and go to state 62
+
+state 76
+
+    (29) expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .
+    (33) expressao -> expressao . operador_aritmetico expressao
+    (34) expressao -> expressao . operador_logico expressao
+    (43) operador_aritmetico -> . SUBTRACAO
+    (44) operador_aritmetico -> . ADICAO
+    (45) operador_aritmetico -> . MULTIPLICACAO
+    (46) operador_aritmetico -> . DIVISAO
+    (38) operador_logico -> . MAIOR
+    (39) operador_logico -> . MAIORIGUAL
+    (40) operador_logico -> . MENOR
+    (41) operador_logico -> . MENORIGUAL
+    (42) operador_logico -> . IGUALDADE
+
+    SE              reduce using rule 29 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
+    REPITA          reduce using rule 29 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
+    IDENTIFICADOR   reduce using rule 29 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
+    LEIA            reduce using rule 29 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
+    ESCREVE         reduce using rule 29 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
+    RETORNA         reduce using rule 29 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
+    VAZIO           reduce using rule 29 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
+    INTEIRO         reduce using rule 29 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
+    FLUTUANTE       reduce using rule 29 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
+    FIM             reduce using rule 29 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
+    ATE             reduce using rule 29 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
+    SENAO           reduce using rule 29 (expressao_atribuicao -> IDENTIFICADOR ATRIBUICAO expressao .)
+    SUBTRACAO       shift and go to state 84
+    ADICAO          shift and go to state 88
+    MULTIPLICACAO   shift and go to state 85
+    DIVISAO         shift and go to state 90
+    MAIOR           shift and go to state 89
+    MAIORIGUAL      shift and go to state 81
+    MENOR           shift and go to state 91
+    MENORIGUAL      shift and go to state 86
+    IGUALDADE       shift and go to state 87
+
+    operador_aritmetico            shift and go to state 82
+    operador_logico                shift and go to state 80
+
+state 77
+
+    (8) chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao . FECHAPAR
+    (33) expressao -> expressao . operador_aritmetico expressao
+    (34) expressao -> expressao . operador_logico expressao
+    (43) operador_aritmetico -> . SUBTRACAO
+    (44) operador_aritmetico -> . ADICAO
+    (45) operador_aritmetico -> . MULTIPLICACAO
+    (46) operador_aritmetico -> . DIVISAO
+    (38) operador_logico -> . MAIOR
+    (39) operador_logico -> . MAIORIGUAL
+    (40) operador_logico -> . MENOR
+    (41) operador_logico -> . MENORIGUAL
+    (42) operador_logico -> . IGUALDADE
+
+    FECHAPAR        shift and go to state 97
+    SUBTRACAO       shift and go to state 84
+    ADICAO          shift and go to state 88
+    MULTIPLICACAO   shift and go to state 85
+    DIVISAO         shift and go to state 90
+    MAIOR           shift and go to state 89
+    MAIORIGUAL      shift and go to state 81
+    MENOR           shift and go to state 91
+    MENORIGUAL      shift and go to state 86
+    IGUALDADE       shift and go to state 87
+
+    operador_aritmetico            shift and go to state 82
+    operador_logico                shift and go to state 80
+
+state 78
+
+    (30) expressao_leitura -> LEIA ABREPAR IDENTIFICADOR . FECHAPAR
+
+    FECHAPAR        shift and go to state 98
+
+
+state 79
+
+    (32) expressao -> ABREPAR expressao . FECHAPAR
+    (33) expressao -> expressao . operador_aritmetico expressao
+    (34) expressao -> expressao . operador_logico expressao
+    (43) operador_aritmetico -> . SUBTRACAO
+    (44) operador_aritmetico -> . ADICAO
+    (45) operador_aritmetico -> . MULTIPLICACAO
+    (46) operador_aritmetico -> . DIVISAO
+    (38) operador_logico -> . MAIOR
+    (39) operador_logico -> . MAIORIGUAL
+    (40) operador_logico -> . MENOR
+    (41) operador_logico -> . MENORIGUAL
+    (42) operador_logico -> . IGUALDADE
+
+    FECHAPAR        shift and go to state 99
+    SUBTRACAO       shift and go to state 84
+    ADICAO          shift and go to state 88
+    MULTIPLICACAO   shift and go to state 85
+    DIVISAO         shift and go to state 90
+    MAIOR           shift and go to state 89
+    MAIORIGUAL      shift and go to state 81
+    MENOR           shift and go to state 91
+    MENORIGUAL      shift and go to state 86
+    IGUALDADE       shift and go to state 87
+
+    operador_aritmetico            shift and go to state 82
+    operador_logico                shift and go to state 80
+
+state 80
+
+    (34) expressao -> expressao operador_logico . expressao
+    (32) expressao -> . ABREPAR expressao FECHAPAR
+    (33) expressao -> . expressao operador_aritmetico expressao
+    (34) expressao -> . expressao operador_logico expressao
+    (35) expressao -> . expressao_simples
+    (36) expressao -> . chamada_de_funcao
+    (37) expressao_simples -> . fator
+    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
+    (47) fator -> . IDENTIFICADOR
+    (48) fator -> . INTEIRO
+    (49) fator -> . FLUTUANTE
+
+    ABREPAR         shift and go to state 59
+    IDENTIFICADOR   shift and go to state 58
+    INTEIRO         shift and go to state 61
+    FLUTUANTE       shift and go to state 63
+
+    chamada_de_funcao              shift and go to state 57
+    fator                          shift and go to state 60
+    expressao                      shift and go to state 100
+    expressao_simples              shift and go to state 62
+
+state 81
+
+    (39) operador_logico -> MAIORIGUAL .
+
+    ABREPAR         reduce using rule 39 (operador_logico -> MAIORIGUAL .)
+    IDENTIFICADOR   reduce using rule 39 (operador_logico -> MAIORIGUAL .)
+    INTEIRO         reduce using rule 39 (operador_logico -> MAIORIGUAL .)
+    FLUTUANTE       reduce using rule 39 (operador_logico -> MAIORIGUAL .)
+
+
+state 82
+
+    (33) expressao -> expressao operador_aritmetico . expressao
+    (32) expressao -> . ABREPAR expressao FECHAPAR
+    (33) expressao -> . expressao operador_aritmetico expressao
+    (34) expressao -> . expressao operador_logico expressao
+    (35) expressao -> . expressao_simples
+    (36) expressao -> . chamada_de_funcao
+    (37) expressao_simples -> . fator
+    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
+    (47) fator -> . IDENTIFICADOR
+    (48) fator -> . INTEIRO
+    (49) fator -> . FLUTUANTE
+
+    ABREPAR         shift and go to state 59
+    IDENTIFICADOR   shift and go to state 58
+    INTEIRO         shift and go to state 61
+    FLUTUANTE       shift and go to state 63
+
+    chamada_de_funcao              shift and go to state 57
+    fator                          shift and go to state 60
+    expressao                      shift and go to state 101
+    expressao_simples              shift and go to state 62
+
+state 83
+
+    (26) expressao_condicional -> SE expressao ENTAO . sequencia_de_declaracao FIM
+    (27) expressao_condicional -> SE expressao ENTAO . sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
+    (12) sequencia_de_declaracao -> . declaracao
+    (13) sequencia_de_declaracao -> . declaracao sequencia_de_declaracao
+    (14) declaracao -> . expressao_condicional
+    (15) declaracao -> . expressao_iteracao
+    (16) declaracao -> . expressao_atribuicao
+    (17) declaracao -> . expressao_leitura
+    (18) declaracao -> . expressao_escreva
+    (19) declaracao -> . declara_var
+    (20) declaracao -> . retorna
+    (21) declaracao -> . chamada_de_funcao
+    (26) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao FIM
+    (27) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
+    (28) expressao_iteracao -> . REPITA sequencia_de_declaracao ATE expressao
+    (29) expressao_atribuicao -> . IDENTIFICADOR ATRIBUICAO expressao
+    (30) expressao_leitura -> . LEIA ABREPAR IDENTIFICADOR FECHAPAR
+    (31) expressao_escreva -> . ESCREVE ABREPAR expressao FECHAPAR
+    (22) declara_var -> . tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var
+    (23) declara_var -> . tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples
+    (25) retorna -> . RETORNA ABREPAR expressao FECHAPAR
+    (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
+    (50) tipo -> . VAZIO
+    (51) tipo -> . numero
+    (52) numero -> . INTEIRO
+    (53) numero -> . FLUTUANTE
+
+    SE              shift and go to state 42
+    REPITA          shift and go to state 32
+    IDENTIFICADOR   shift and go to state 34
+    LEIA            shift and go to state 39
+    ESCREVE         shift and go to state 26
+    RETORNA         shift and go to state 31
+    VAZIO           shift and go to state 6
+    INTEIRO         shift and go to state 11
+    FLUTUANTE       shift and go to state 4
+
+    chamada_de_funcao              shift and go to state 37
+    numero                         shift and go to state 8
+    expressao_leitura              shift and go to state 27
+    sequencia_de_declaracao        shift and go to state 102
+    expressao_escreva              shift and go to state 30
+    declaracao                     shift and go to state 28
+    expressao_atribuicao           shift and go to state 40
+    expressao_iteracao             shift and go to state 29
+    declara_var                    shift and go to state 33
+    expressao_condicional          shift and go to state 41
+    retorna                        shift and go to state 35
+    tipo                           shift and go to state 36
+
+state 84
+
+    (43) operador_aritmetico -> SUBTRACAO .
+
+    ABREPAR         reduce using rule 43 (operador_aritmetico -> SUBTRACAO .)
+    IDENTIFICADOR   reduce using rule 43 (operador_aritmetico -> SUBTRACAO .)
+    INTEIRO         reduce using rule 43 (operador_aritmetico -> SUBTRACAO .)
+    FLUTUANTE       reduce using rule 43 (operador_aritmetico -> SUBTRACAO .)
+
+
+state 85
+
+    (45) operador_aritmetico -> MULTIPLICACAO .
+
+    ABREPAR         reduce using rule 45 (operador_aritmetico -> MULTIPLICACAO .)
+    IDENTIFICADOR   reduce using rule 45 (operador_aritmetico -> MULTIPLICACAO .)
+    INTEIRO         reduce using rule 45 (operador_aritmetico -> MULTIPLICACAO .)
+    FLUTUANTE       reduce using rule 45 (operador_aritmetico -> MULTIPLICACAO .)
+
+
+state 86
+
+    (41) operador_logico -> MENORIGUAL .
+
+    ABREPAR         reduce using rule 41 (operador_logico -> MENORIGUAL .)
+    IDENTIFICADOR   reduce using rule 41 (operador_logico -> MENORIGUAL .)
+    INTEIRO         reduce using rule 41 (operador_logico -> MENORIGUAL .)
+    FLUTUANTE       reduce using rule 41 (operador_logico -> MENORIGUAL .)
+
+
+state 87
+
+    (42) operador_logico -> IGUALDADE .
+
+    ABREPAR         reduce using rule 42 (operador_logico -> IGUALDADE .)
+    IDENTIFICADOR   reduce using rule 42 (operador_logico -> IGUALDADE .)
+    INTEIRO         reduce using rule 42 (operador_logico -> IGUALDADE .)
+    FLUTUANTE       reduce using rule 42 (operador_logico -> IGUALDADE .)
+
+
+state 88
+
+    (44) operador_aritmetico -> ADICAO .
+
+    ABREPAR         reduce using rule 44 (operador_aritmetico -> ADICAO .)
+    IDENTIFICADOR   reduce using rule 44 (operador_aritmetico -> ADICAO .)
+    INTEIRO         reduce using rule 44 (operador_aritmetico -> ADICAO .)
+    FLUTUANTE       reduce using rule 44 (operador_aritmetico -> ADICAO .)
+
+
+state 89
+
+    (38) operador_logico -> MAIOR .
+
+    ABREPAR         reduce using rule 38 (operador_logico -> MAIOR .)
+    IDENTIFICADOR   reduce using rule 38 (operador_logico -> MAIOR .)
+    INTEIRO         reduce using rule 38 (operador_logico -> MAIOR .)
+    FLUTUANTE       reduce using rule 38 (operador_logico -> MAIOR .)
+
+
+state 90
+
+    (46) operador_aritmetico -> DIVISAO .
+
+    ABREPAR         reduce using rule 46 (operador_aritmetico -> DIVISAO .)
+    IDENTIFICADOR   reduce using rule 46 (operador_aritmetico -> DIVISAO .)
+    INTEIRO         reduce using rule 46 (operador_aritmetico -> DIVISAO .)
+    FLUTUANTE       reduce using rule 46 (operador_aritmetico -> DIVISAO .)
+
+
+state 91
+
+    (40) operador_logico -> MENOR .
+
+    ABREPAR         reduce using rule 40 (operador_logico -> MENOR .)
+    IDENTIFICADOR   reduce using rule 40 (operador_logico -> MENOR .)
+    INTEIRO         reduce using rule 40 (operador_logico -> MENOR .)
+    FLUTUANTE       reduce using rule 40 (operador_logico -> MENOR .)
+
+
 state 92
 
-    (41) expressao_simples -> expressao_simples operador_add termo .
-    (45) termo -> termo . operador_mult fator
-    (47) operador_mult -> . MULTIPLICACAO
-    (48) operador_mult -> . DIVISAO
+    (9) declaracao_de_funcao -> tipo IDENTIFICADOR ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao . FIM
 
-    ADICAO          reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    SUBTRACAO       reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    ENTAO           reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    FECHAPAR        reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    SE              reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    REPITA          reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    IDENTIFICADOR   reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    LEIA            reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    ESCREVE         reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    RETORNA         reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    VAZIO           reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    INTEIRO         reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    FLUTUANTE       reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    FIM             reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    ATE             reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    SENAO           reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    MAIOR           reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    MAIORIGUAL      reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    MENOR           reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    MENORIGUAL      reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    IGUALDADE       reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    PRINCIPAL       reduce using rule 41 (expressao_simples -> expressao_simples operador_add termo .)
-    MULTIPLICACAO   shift and go to state 74
-    DIVISAO         shift and go to state 72
+    FIM             shift and go to state 103
 
-    operador_mult                  shift and go to state 73
 
 state 93
 
-    (45) termo -> termo operador_mult fator .
+    (10) declaracao_param -> declaracao_param VIRGULA tipo DOISPONTOS IDENTIFICADOR .
 
-    MULTIPLICACAO   reduce using rule 45 (termo -> termo operador_mult fator .)
-    DIVISAO         reduce using rule 45 (termo -> termo operador_mult fator .)
-    MAIOR           reduce using rule 45 (termo -> termo operador_mult fator .)
-    MAIORIGUAL      reduce using rule 45 (termo -> termo operador_mult fator .)
-    MENOR           reduce using rule 45 (termo -> termo operador_mult fator .)
-    MENORIGUAL      reduce using rule 45 (termo -> termo operador_mult fator .)
-    IGUALDADE       reduce using rule 45 (termo -> termo operador_mult fator .)
-    ADICAO          reduce using rule 45 (termo -> termo operador_mult fator .)
-    SUBTRACAO       reduce using rule 45 (termo -> termo operador_mult fator .)
-    ENTAO           reduce using rule 45 (termo -> termo operador_mult fator .)
-    PRINCIPAL       reduce using rule 45 (termo -> termo operador_mult fator .)
-    VAZIO           reduce using rule 45 (termo -> termo operador_mult fator .)
-    INTEIRO         reduce using rule 45 (termo -> termo operador_mult fator .)
-    FLUTUANTE       reduce using rule 45 (termo -> termo operador_mult fator .)
-    SE              reduce using rule 45 (termo -> termo operador_mult fator .)
-    REPITA          reduce using rule 45 (termo -> termo operador_mult fator .)
-    IDENTIFICADOR   reduce using rule 45 (termo -> termo operador_mult fator .)
-    LEIA            reduce using rule 45 (termo -> termo operador_mult fator .)
-    ESCREVE         reduce using rule 45 (termo -> termo operador_mult fator .)
-    RETORNA         reduce using rule 45 (termo -> termo operador_mult fator .)
-    FIM             reduce using rule 45 (termo -> termo operador_mult fator .)
-    ATE             reduce using rule 45 (termo -> termo operador_mult fator .)
-    SENAO           reduce using rule 45 (termo -> termo operador_mult fator .)
-    FECHAPAR        reduce using rule 45 (termo -> termo operador_mult fator .)
+    FECHAPAR        reduce using rule 10 (declaracao_param -> declaracao_param VIRGULA tipo DOISPONTOS IDENTIFICADOR .)
+    VIRGULA         reduce using rule 10 (declaracao_param -> declaracao_param VIRGULA tipo DOISPONTOS IDENTIFICADOR .)
 
 
 state 94
 
-    (9) declaracao_de_funcao -> tipo IDENTIFICADOR ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao . FIM
+    (31) expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .
 
-    FIM             shift and go to state 104
+    SE              reduce using rule 31 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
+    REPITA          reduce using rule 31 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
+    IDENTIFICADOR   reduce using rule 31 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
+    LEIA            reduce using rule 31 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
+    ESCREVE         reduce using rule 31 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
+    RETORNA         reduce using rule 31 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
+    VAZIO           reduce using rule 31 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
+    INTEIRO         reduce using rule 31 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
+    FLUTUANTE       reduce using rule 31 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
+    FIM             reduce using rule 31 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
+    ATE             reduce using rule 31 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
+    SENAO           reduce using rule 31 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
 
 
 state 95
 
-    (33) expressao -> expressao_simples operador_logico expressao_simples .
-    (41) expressao_simples -> expressao_simples . operador_add termo
-    (43) operador_add -> . ADICAO
-    (44) operador_add -> . SUBTRACAO
+    (25) retorna -> RETORNA ABREPAR expressao FECHAPAR .
 
-    SE              reduce using rule 33 (expressao -> expressao_simples operador_logico expressao_simples .)
-    REPITA          reduce using rule 33 (expressao -> expressao_simples operador_logico expressao_simples .)
-    IDENTIFICADOR   reduce using rule 33 (expressao -> expressao_simples operador_logico expressao_simples .)
-    LEIA            reduce using rule 33 (expressao -> expressao_simples operador_logico expressao_simples .)
-    ESCREVE         reduce using rule 33 (expressao -> expressao_simples operador_logico expressao_simples .)
-    RETORNA         reduce using rule 33 (expressao -> expressao_simples operador_logico expressao_simples .)
-    VAZIO           reduce using rule 33 (expressao -> expressao_simples operador_logico expressao_simples .)
-    INTEIRO         reduce using rule 33 (expressao -> expressao_simples operador_logico expressao_simples .)
-    FLUTUANTE       reduce using rule 33 (expressao -> expressao_simples operador_logico expressao_simples .)
-    FIM             reduce using rule 33 (expressao -> expressao_simples operador_logico expressao_simples .)
-    ATE             reduce using rule 33 (expressao -> expressao_simples operador_logico expressao_simples .)
-    SENAO           reduce using rule 33 (expressao -> expressao_simples operador_logico expressao_simples .)
-    ENTAO           reduce using rule 33 (expressao -> expressao_simples operador_logico expressao_simples .)
-    FECHAPAR        reduce using rule 33 (expressao -> expressao_simples operador_logico expressao_simples .)
-    ADICAO          shift and go to state 69
-    SUBTRACAO       shift and go to state 70
+    SE              reduce using rule 25 (retorna -> RETORNA ABREPAR expressao FECHAPAR .)
+    REPITA          reduce using rule 25 (retorna -> RETORNA ABREPAR expressao FECHAPAR .)
+    IDENTIFICADOR   reduce using rule 25 (retorna -> RETORNA ABREPAR expressao FECHAPAR .)
+    LEIA            reduce using rule 25 (retorna -> RETORNA ABREPAR expressao FECHAPAR .)
+    ESCREVE         reduce using rule 25 (retorna -> RETORNA ABREPAR expressao FECHAPAR .)
+    RETORNA         reduce using rule 25 (retorna -> RETORNA ABREPAR expressao FECHAPAR .)
+    VAZIO           reduce using rule 25 (retorna -> RETORNA ABREPAR expressao FECHAPAR .)
+    INTEIRO         reduce using rule 25 (retorna -> RETORNA ABREPAR expressao FECHAPAR .)
+    FLUTUANTE       reduce using rule 25 (retorna -> RETORNA ABREPAR expressao FECHAPAR .)
+    FIM             reduce using rule 25 (retorna -> RETORNA ABREPAR expressao FECHAPAR .)
+    SENAO           reduce using rule 25 (retorna -> RETORNA ABREPAR expressao FECHAPAR .)
+    ATE             reduce using rule 25 (retorna -> RETORNA ABREPAR expressao FECHAPAR .)
 
-    operador_add                   shift and go to state 71
 
 state 96
 
-    (27) expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao . SENAO sequencia_de_declaracao FIM
-    (28) expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao . FIM
+    (28) expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .
+    (33) expressao -> expressao . operador_aritmetico expressao
+    (34) expressao -> expressao . operador_logico expressao
+    (43) operador_aritmetico -> . SUBTRACAO
+    (44) operador_aritmetico -> . ADICAO
+    (45) operador_aritmetico -> . MULTIPLICACAO
+    (46) operador_aritmetico -> . DIVISAO
+    (38) operador_logico -> . MAIOR
+    (39) operador_logico -> . MAIORIGUAL
+    (40) operador_logico -> . MENOR
+    (41) operador_logico -> . MENORIGUAL
+    (42) operador_logico -> . IGUALDADE
 
-    SENAO           shift and go to state 105
-    FIM             shift and go to state 106
+    SE              reduce using rule 28 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
+    REPITA          reduce using rule 28 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
+    IDENTIFICADOR   reduce using rule 28 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
+    LEIA            reduce using rule 28 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
+    ESCREVE         reduce using rule 28 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
+    RETORNA         reduce using rule 28 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
+    VAZIO           reduce using rule 28 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
+    INTEIRO         reduce using rule 28 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
+    FLUTUANTE       reduce using rule 28 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
+    FIM             reduce using rule 28 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
+    ATE             reduce using rule 28 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
+    SENAO           reduce using rule 28 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
+    SUBTRACAO       shift and go to state 84
+    ADICAO          shift and go to state 88
+    MULTIPLICACAO   shift and go to state 85
+    DIVISAO         shift and go to state 90
+    MAIOR           shift and go to state 89
+    MAIORIGUAL      shift and go to state 81
+    MENOR           shift and go to state 91
+    MENORIGUAL      shift and go to state 86
+    IGUALDADE       shift and go to state 87
 
+    operador_aritmetico            shift and go to state 82
+    operador_logico                shift and go to state 80
 
 state 97
-
-    (31) expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .
-
-    SE              reduce using rule 31 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
-    REPITA          reduce using rule 31 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
-    IDENTIFICADOR   reduce using rule 31 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
-    LEIA            reduce using rule 31 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
-    ESCREVE         reduce using rule 31 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
-    RETORNA         reduce using rule 31 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
-    VAZIO           reduce using rule 31 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
-    INTEIRO         reduce using rule 31 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
-    FLUTUANTE       reduce using rule 31 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
-    FIM             reduce using rule 31 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
-    ATE             reduce using rule 31 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
-    SENAO           reduce using rule 31 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
-
-
-state 98
-
-    (32) expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .
-
-    SE              reduce using rule 32 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
-    REPITA          reduce using rule 32 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
-    IDENTIFICADOR   reduce using rule 32 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
-    LEIA            reduce using rule 32 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
-    ESCREVE         reduce using rule 32 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
-    RETORNA         reduce using rule 32 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
-    VAZIO           reduce using rule 32 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
-    INTEIRO         reduce using rule 32 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
-    FLUTUANTE       reduce using rule 32 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
-    SENAO           reduce using rule 32 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
-    FIM             reduce using rule 32 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
-    ATE             reduce using rule 32 (expressao_escreva -> ESCREVE ABREPAR expressao FECHAPAR .)
-
-
-state 99
-
-    (25) retorna -> RETORNA ABREPAR IDENTIFICADOR FECHAPAR .
-
-    SE              reduce using rule 25 (retorna -> RETORNA ABREPAR IDENTIFICADOR FECHAPAR .)
-    REPITA          reduce using rule 25 (retorna -> RETORNA ABREPAR IDENTIFICADOR FECHAPAR .)
-    IDENTIFICADOR   reduce using rule 25 (retorna -> RETORNA ABREPAR IDENTIFICADOR FECHAPAR .)
-    LEIA            reduce using rule 25 (retorna -> RETORNA ABREPAR IDENTIFICADOR FECHAPAR .)
-    ESCREVE         reduce using rule 25 (retorna -> RETORNA ABREPAR IDENTIFICADOR FECHAPAR .)
-    RETORNA         reduce using rule 25 (retorna -> RETORNA ABREPAR IDENTIFICADOR FECHAPAR .)
-    VAZIO           reduce using rule 25 (retorna -> RETORNA ABREPAR IDENTIFICADOR FECHAPAR .)
-    INTEIRO         reduce using rule 25 (retorna -> RETORNA ABREPAR IDENTIFICADOR FECHAPAR .)
-    FLUTUANTE       reduce using rule 25 (retorna -> RETORNA ABREPAR IDENTIFICADOR FECHAPAR .)
-    SENAO           reduce using rule 25 (retorna -> RETORNA ABREPAR IDENTIFICADOR FECHAPAR .)
-    FIM             reduce using rule 25 (retorna -> RETORNA ABREPAR IDENTIFICADOR FECHAPAR .)
-    ATE             reduce using rule 25 (retorna -> RETORNA ABREPAR IDENTIFICADOR FECHAPAR .)
-
-
-state 100
-
-    (26) retorna -> RETORNA ABREPAR NUMERO FECHAPAR .
-
-    SE              reduce using rule 26 (retorna -> RETORNA ABREPAR NUMERO FECHAPAR .)
-    REPITA          reduce using rule 26 (retorna -> RETORNA ABREPAR NUMERO FECHAPAR .)
-    IDENTIFICADOR   reduce using rule 26 (retorna -> RETORNA ABREPAR NUMERO FECHAPAR .)
-    LEIA            reduce using rule 26 (retorna -> RETORNA ABREPAR NUMERO FECHAPAR .)
-    ESCREVE         reduce using rule 26 (retorna -> RETORNA ABREPAR NUMERO FECHAPAR .)
-    RETORNA         reduce using rule 26 (retorna -> RETORNA ABREPAR NUMERO FECHAPAR .)
-    VAZIO           reduce using rule 26 (retorna -> RETORNA ABREPAR NUMERO FECHAPAR .)
-    INTEIRO         reduce using rule 26 (retorna -> RETORNA ABREPAR NUMERO FECHAPAR .)
-    FLUTUANTE       reduce using rule 26 (retorna -> RETORNA ABREPAR NUMERO FECHAPAR .)
-    SENAO           reduce using rule 26 (retorna -> RETORNA ABREPAR NUMERO FECHAPAR .)
-    FIM             reduce using rule 26 (retorna -> RETORNA ABREPAR NUMERO FECHAPAR .)
-    ATE             reduce using rule 26 (retorna -> RETORNA ABREPAR NUMERO FECHAPAR .)
-
-
-state 101
 
     (8) chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao FECHAPAR .
 
@@ -1782,38 +1862,199 @@ state 101
     FLUTUANTE       reduce using rule 8 (chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao FECHAPAR .)
     FIM             reduce using rule 8 (chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao FECHAPAR .)
     FECHAPAR        reduce using rule 8 (chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao FECHAPAR .)
-    ENTAO           reduce using rule 8 (chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao FECHAPAR .)
+    SUBTRACAO       reduce using rule 8 (chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao FECHAPAR .)
+    ADICAO          reduce using rule 8 (chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao FECHAPAR .)
+    MULTIPLICACAO   reduce using rule 8 (chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao FECHAPAR .)
+    DIVISAO         reduce using rule 8 (chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao FECHAPAR .)
+    MAIOR           reduce using rule 8 (chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao FECHAPAR .)
+    MAIORIGUAL      reduce using rule 8 (chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao FECHAPAR .)
+    MENOR           reduce using rule 8 (chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao FECHAPAR .)
+    MENORIGUAL      reduce using rule 8 (chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao FECHAPAR .)
+    IGUALDADE       reduce using rule 8 (chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao FECHAPAR .)
     ATE             reduce using rule 8 (chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao FECHAPAR .)
     SENAO           reduce using rule 8 (chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao FECHAPAR .)
+    ENTAO           reduce using rule 8 (chamada_de_funcao -> IDENTIFICADOR ABREPAR expressao FECHAPAR .)
 
+
+state 98
+
+    (30) expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .
+
+    SE              reduce using rule 30 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
+    REPITA          reduce using rule 30 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
+    IDENTIFICADOR   reduce using rule 30 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
+    LEIA            reduce using rule 30 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
+    ESCREVE         reduce using rule 30 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
+    RETORNA         reduce using rule 30 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
+    VAZIO           reduce using rule 30 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
+    INTEIRO         reduce using rule 30 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
+    FLUTUANTE       reduce using rule 30 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
+    FIM             reduce using rule 30 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
+    SENAO           reduce using rule 30 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
+    ATE             reduce using rule 30 (expressao_leitura -> LEIA ABREPAR IDENTIFICADOR FECHAPAR .)
+
+
+state 99
+
+    (32) expressao -> ABREPAR expressao FECHAPAR .
+
+    SUBTRACAO       reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    ADICAO          reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    MULTIPLICACAO   reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    DIVISAO         reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    MAIOR           reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    MAIORIGUAL      reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    MENOR           reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    MENORIGUAL      reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    IGUALDADE       reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    ENTAO           reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    FECHAPAR        reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    SE              reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    REPITA          reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    IDENTIFICADOR   reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    LEIA            reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    ESCREVE         reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    RETORNA         reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    VAZIO           reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    INTEIRO         reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    FLUTUANTE       reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    FIM             reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    ATE             reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+    SENAO           reduce using rule 32 (expressao -> ABREPAR expressao FECHAPAR .)
+
+
+state 100
+
+    (34) expressao -> expressao operador_logico expressao .
+    (33) expressao -> expressao . operador_aritmetico expressao
+    (34) expressao -> expressao . operador_logico expressao
+    (43) operador_aritmetico -> . SUBTRACAO
+    (44) operador_aritmetico -> . ADICAO
+    (45) operador_aritmetico -> . MULTIPLICACAO
+    (46) operador_aritmetico -> . DIVISAO
+    (38) operador_logico -> . MAIOR
+    (39) operador_logico -> . MAIORIGUAL
+    (40) operador_logico -> . MENOR
+    (41) operador_logico -> . MENORIGUAL
+    (42) operador_logico -> . IGUALDADE
+
+  ! shift/reduce conflict for SUBTRACAO resolved as shift
+  ! shift/reduce conflict for ADICAO resolved as shift
+  ! shift/reduce conflict for MULTIPLICACAO resolved as shift
+  ! shift/reduce conflict for DIVISAO resolved as shift
+  ! shift/reduce conflict for MAIOR resolved as shift
+  ! shift/reduce conflict for MAIORIGUAL resolved as shift
+  ! shift/reduce conflict for MENOR resolved as shift
+  ! shift/reduce conflict for MENORIGUAL resolved as shift
+  ! shift/reduce conflict for IGUALDADE resolved as shift
+    ENTAO           reduce using rule 34 (expressao -> expressao operador_logico expressao .)
+    FECHAPAR        reduce using rule 34 (expressao -> expressao operador_logico expressao .)
+    SE              reduce using rule 34 (expressao -> expressao operador_logico expressao .)
+    REPITA          reduce using rule 34 (expressao -> expressao operador_logico expressao .)
+    IDENTIFICADOR   reduce using rule 34 (expressao -> expressao operador_logico expressao .)
+    LEIA            reduce using rule 34 (expressao -> expressao operador_logico expressao .)
+    ESCREVE         reduce using rule 34 (expressao -> expressao operador_logico expressao .)
+    RETORNA         reduce using rule 34 (expressao -> expressao operador_logico expressao .)
+    VAZIO           reduce using rule 34 (expressao -> expressao operador_logico expressao .)
+    INTEIRO         reduce using rule 34 (expressao -> expressao operador_logico expressao .)
+    FLUTUANTE       reduce using rule 34 (expressao -> expressao operador_logico expressao .)
+    FIM             reduce using rule 34 (expressao -> expressao operador_logico expressao .)
+    ATE             reduce using rule 34 (expressao -> expressao operador_logico expressao .)
+    SENAO           reduce using rule 34 (expressao -> expressao operador_logico expressao .)
+    SUBTRACAO       shift and go to state 84
+    ADICAO          shift and go to state 88
+    MULTIPLICACAO   shift and go to state 85
+    DIVISAO         shift and go to state 90
+    MAIOR           shift and go to state 89
+    MAIORIGUAL      shift and go to state 81
+    MENOR           shift and go to state 91
+    MENORIGUAL      shift and go to state 86
+    IGUALDADE       shift and go to state 87
+
+  ! SUBTRACAO       [ reduce using rule 34 (expressao -> expressao operador_logico expressao .) ]
+  ! ADICAO          [ reduce using rule 34 (expressao -> expressao operador_logico expressao .) ]
+  ! MULTIPLICACAO   [ reduce using rule 34 (expressao -> expressao operador_logico expressao .) ]
+  ! DIVISAO         [ reduce using rule 34 (expressao -> expressao operador_logico expressao .) ]
+  ! MAIOR           [ reduce using rule 34 (expressao -> expressao operador_logico expressao .) ]
+  ! MAIORIGUAL      [ reduce using rule 34 (expressao -> expressao operador_logico expressao .) ]
+  ! MENOR           [ reduce using rule 34 (expressao -> expressao operador_logico expressao .) ]
+  ! MENORIGUAL      [ reduce using rule 34 (expressao -> expressao operador_logico expressao .) ]
+  ! IGUALDADE       [ reduce using rule 34 (expressao -> expressao operador_logico expressao .) ]
+
+    operador_aritmetico            shift and go to state 82
+    operador_logico                shift and go to state 80
+
+state 101
+
+    (33) expressao -> expressao operador_aritmetico expressao .
+    (33) expressao -> expressao . operador_aritmetico expressao
+    (34) expressao -> expressao . operador_logico expressao
+    (43) operador_aritmetico -> . SUBTRACAO
+    (44) operador_aritmetico -> . ADICAO
+    (45) operador_aritmetico -> . MULTIPLICACAO
+    (46) operador_aritmetico -> . DIVISAO
+    (38) operador_logico -> . MAIOR
+    (39) operador_logico -> . MAIORIGUAL
+    (40) operador_logico -> . MENOR
+    (41) operador_logico -> . MENORIGUAL
+    (42) operador_logico -> . IGUALDADE
+
+  ! shift/reduce conflict for SUBTRACAO resolved as shift
+  ! shift/reduce conflict for ADICAO resolved as shift
+  ! shift/reduce conflict for MULTIPLICACAO resolved as shift
+  ! shift/reduce conflict for DIVISAO resolved as shift
+  ! shift/reduce conflict for MAIOR resolved as shift
+  ! shift/reduce conflict for MAIORIGUAL resolved as shift
+  ! shift/reduce conflict for MENOR resolved as shift
+  ! shift/reduce conflict for MENORIGUAL resolved as shift
+  ! shift/reduce conflict for IGUALDADE resolved as shift
+    ENTAO           reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .)
+    FECHAPAR        reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .)
+    SE              reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .)
+    REPITA          reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .)
+    IDENTIFICADOR   reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .)
+    LEIA            reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .)
+    ESCREVE         reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .)
+    RETORNA         reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .)
+    VAZIO           reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .)
+    INTEIRO         reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .)
+    FLUTUANTE       reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .)
+    FIM             reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .)
+    ATE             reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .)
+    SENAO           reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .)
+    SUBTRACAO       shift and go to state 84
+    ADICAO          shift and go to state 88
+    MULTIPLICACAO   shift and go to state 85
+    DIVISAO         shift and go to state 90
+    MAIOR           shift and go to state 89
+    MAIORIGUAL      shift and go to state 81
+    MENOR           shift and go to state 91
+    MENORIGUAL      shift and go to state 86
+    IGUALDADE       shift and go to state 87
+
+  ! SUBTRACAO       [ reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .) ]
+  ! ADICAO          [ reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .) ]
+  ! MULTIPLICACAO   [ reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .) ]
+  ! DIVISAO         [ reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .) ]
+  ! MAIOR           [ reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .) ]
+  ! MAIORIGUAL      [ reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .) ]
+  ! MENOR           [ reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .) ]
+  ! MENORIGUAL      [ reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .) ]
+  ! IGUALDADE       [ reduce using rule 33 (expressao -> expressao operador_aritmetico expressao .) ]
+
+    operador_aritmetico            shift and go to state 82
+    operador_logico                shift and go to state 80
 
 state 102
 
-    (29) expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .
+    (26) expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao . FIM
+    (27) expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao . SENAO sequencia_de_declaracao FIM
 
-    SE              reduce using rule 29 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
-    REPITA          reduce using rule 29 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
-    IDENTIFICADOR   reduce using rule 29 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
-    LEIA            reduce using rule 29 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
-    ESCREVE         reduce using rule 29 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
-    RETORNA         reduce using rule 29 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
-    VAZIO           reduce using rule 29 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
-    INTEIRO         reduce using rule 29 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
-    FLUTUANTE       reduce using rule 29 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
-    FIM             reduce using rule 29 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
-    ATE             reduce using rule 29 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
-    SENAO           reduce using rule 29 (expressao_iteracao -> REPITA sequencia_de_declaracao ATE expressao .)
+    FIM             shift and go to state 104
+    SENAO           shift and go to state 105
 
 
 state 103
-
-    (10) declaracao_param -> declaracao_param VIRGULA tipo DOISPONTOS IDENTIFICADOR .
-
-    FECHAPAR        reduce using rule 10 (declaracao_param -> declaracao_param VIRGULA tipo DOISPONTOS IDENTIFICADOR .)
-    VIRGULA         reduce using rule 10 (declaracao_param -> declaracao_param VIRGULA tipo DOISPONTOS IDENTIFICADOR .)
-
-
-state 104
 
     (9) declaracao_de_funcao -> tipo IDENTIFICADOR ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM .
 
@@ -1823,11 +2064,29 @@ state 104
     PRINCIPAL       reduce using rule 9 (declaracao_de_funcao -> tipo IDENTIFICADOR ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM .)
 
 
+state 104
+
+    (26) expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .
+
+    SE              reduce using rule 26 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
+    REPITA          reduce using rule 26 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
+    IDENTIFICADOR   reduce using rule 26 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
+    LEIA            reduce using rule 26 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
+    ESCREVE         reduce using rule 26 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
+    RETORNA         reduce using rule 26 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
+    VAZIO           reduce using rule 26 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
+    INTEIRO         reduce using rule 26 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
+    FLUTUANTE       reduce using rule 26 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
+    FIM             reduce using rule 26 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
+    SENAO           reduce using rule 26 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
+    ATE             reduce using rule 26 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
+
+
 state 105
 
     (27) expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao SENAO . sequencia_de_declaracao FIM
-    (12) sequencia_de_declaracao -> . declaracao sequencia_de_declaracao
-    (13) sequencia_de_declaracao -> . declaracao
+    (12) sequencia_de_declaracao -> . declaracao
+    (13) sequencia_de_declaracao -> . declaracao sequencia_de_declaracao
     (14) declaracao -> . expressao_condicional
     (15) declaracao -> . expressao_iteracao
     (16) declaracao -> . expressao_atribuicao
@@ -1836,70 +2095,52 @@ state 105
     (19) declaracao -> . declara_var
     (20) declaracao -> . retorna
     (21) declaracao -> . chamada_de_funcao
+    (26) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao FIM
     (27) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM
-    (28) expressao_condicional -> . SE expressao ENTAO sequencia_de_declaracao FIM
-    (29) expressao_iteracao -> . REPITA sequencia_de_declaracao ATE expressao
-    (30) expressao_atribuicao -> . IDENTIFICADOR ATRIBUICAO expressao
-    (31) expressao_leitura -> . LEIA ABREPAR IDENTIFICADOR FECHAPAR
-    (32) expressao_escreva -> . ESCREVE ABREPAR expressao FECHAPAR
-    (22) declara_var -> . tipo IDENTIFICADOR VIRGULA declara_var
-    (23) declara_var -> . tipo IDENTIFICADOR ATRIBUICAO expressao_simples
-    (24) declara_var -> . tipo DOISPONTOS IDENTIFICADOR
-    (25) retorna -> . RETORNA ABREPAR IDENTIFICADOR FECHAPAR
-    (26) retorna -> . RETORNA ABREPAR NUMERO FECHAPAR
+    (28) expressao_iteracao -> . REPITA sequencia_de_declaracao ATE expressao
+    (29) expressao_atribuicao -> . IDENTIFICADOR ATRIBUICAO expressao
+    (30) expressao_leitura -> . LEIA ABREPAR IDENTIFICADOR FECHAPAR
+    (31) expressao_escreva -> . ESCREVE ABREPAR expressao FECHAPAR
+    (22) declara_var -> . tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var
+    (23) declara_var -> . tipo DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao_simples
+    (25) retorna -> . RETORNA ABREPAR expressao FECHAPAR
     (8) chamada_de_funcao -> . IDENTIFICADOR ABREPAR expressao FECHAPAR
-    (51) tipo -> . VAZIO
-    (52) tipo -> . INTEIRO
-    (53) tipo -> . FLUTUANTE
+    (50) tipo -> . VAZIO
+    (51) tipo -> . numero
+    (52) numero -> . INTEIRO
+    (53) numero -> . FLUTUANTE
 
-    SE              shift and go to state 26
-    REPITA          shift and go to state 40
-    IDENTIFICADOR   shift and go to state 33
-    LEIA            shift and go to state 27
-    ESCREVE         shift and go to state 28
-    RETORNA         shift and go to state 29
-    VAZIO           shift and go to state 8
-    INTEIRO         shift and go to state 1
-    FLUTUANTE       shift and go to state 7
+    SE              shift and go to state 42
+    REPITA          shift and go to state 32
+    IDENTIFICADOR   shift and go to state 34
+    LEIA            shift and go to state 39
+    ESCREVE         shift and go to state 26
+    RETORNA         shift and go to state 31
+    VAZIO           shift and go to state 6
+    INTEIRO         shift and go to state 11
+    FLUTUANTE       shift and go to state 4
 
-    declara_var                    shift and go to state 36
-    sequencia_de_declaracao        shift and go to state 107
-    chamada_de_funcao              shift and go to state 30
-    expressao_escreva              shift and go to state 38
-    expressao_iteracao             shift and go to state 39
-    expressao_atribuicao           shift and go to state 32
-    tipo                           shift and go to state 41
-    expressao_condicional          shift and go to state 34
-    declaracao                     shift and go to state 31
+    chamada_de_funcao              shift and go to state 37
+    numero                         shift and go to state 8
+    expressao_leitura              shift and go to state 27
+    sequencia_de_declaracao        shift and go to state 106
+    expressao_escreva              shift and go to state 30
+    declaracao                     shift and go to state 28
+    expressao_atribuicao           shift and go to state 40
+    expressao_iteracao             shift and go to state 29
+    declara_var                    shift and go to state 33
+    expressao_condicional          shift and go to state 41
     retorna                        shift and go to state 35
-    expressao_leitura              shift and go to state 42
+    tipo                           shift and go to state 36
 
 state 106
 
-    (28) expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .
+    (27) expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao . FIM
 
-    SE              reduce using rule 28 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
-    REPITA          reduce using rule 28 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
-    IDENTIFICADOR   reduce using rule 28 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
-    LEIA            reduce using rule 28 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
-    ESCREVE         reduce using rule 28 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
-    RETORNA         reduce using rule 28 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
-    VAZIO           reduce using rule 28 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
-    INTEIRO         reduce using rule 28 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
-    FLUTUANTE       reduce using rule 28 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
-    FIM             reduce using rule 28 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
-    ATE             reduce using rule 28 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
-    SENAO           reduce using rule 28 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao FIM .)
+    FIM             shift and go to state 107
 
 
 state 107
-
-    (27) expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao . FIM
-
-    FIM             shift and go to state 108
-
-
-state 108
 
     (27) expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM .
 
@@ -1913,6 +2154,27 @@ state 108
     INTEIRO         reduce using rule 27 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM .)
     FLUTUANTE       reduce using rule 27 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM .)
     FIM             reduce using rule 27 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM .)
-    ATE             reduce using rule 27 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM .)
     SENAO           reduce using rule 27 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM .)
+    ATE             reduce using rule 27 (expressao_condicional -> SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM .)
 
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for SUBTRACAO in state 100 resolved as shift
+WARNING: shift/reduce conflict for ADICAO in state 100 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLICACAO in state 100 resolved as shift
+WARNING: shift/reduce conflict for DIVISAO in state 100 resolved as shift
+WARNING: shift/reduce conflict for MAIOR in state 100 resolved as shift
+WARNING: shift/reduce conflict for MAIORIGUAL in state 100 resolved as shift
+WARNING: shift/reduce conflict for MENOR in state 100 resolved as shift
+WARNING: shift/reduce conflict for MENORIGUAL in state 100 resolved as shift
+WARNING: shift/reduce conflict for IGUALDADE in state 100 resolved as shift
+WARNING: shift/reduce conflict for SUBTRACAO in state 101 resolved as shift
+WARNING: shift/reduce conflict for ADICAO in state 101 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLICACAO in state 101 resolved as shift
+WARNING: shift/reduce conflict for DIVISAO in state 101 resolved as shift
+WARNING: shift/reduce conflict for MAIOR in state 101 resolved as shift
+WARNING: shift/reduce conflict for MAIORIGUAL in state 101 resolved as shift
+WARNING: shift/reduce conflict for MENOR in state 101 resolved as shift
+WARNING: shift/reduce conflict for MENORIGUAL in state 101 resolved as shift
+WARNING: shift/reduce conflict for IGUALDADE in state 101 resolved as shift

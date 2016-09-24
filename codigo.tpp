@@ -20,8 +20,9 @@ fim
 
 inteiro: b
 
-principal()
+vazio principal()
 	leia(n)
-	escreva(fatorial(n))
-fat := 2 + 2 + 2
+
+	escreva(fatorial(n,m,c))
+fat := 2 + 2  +fatorial(n)
 fim

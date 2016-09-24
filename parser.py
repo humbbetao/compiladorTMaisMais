@@ -96,12 +96,12 @@ class AnaliseSintatica:
 
 
     def p_principal_1(self, p):
-        'principal : PRINCIPAL ABREPAR  FECHAPAR sequencia_de_declaracao FIM'
-        p[0] = Tree('principal_sem_param', [p[4]], p[1] )
+        'principal : VAZIO PRINCIPAL ABREPAR  FECHAPAR sequencia_de_declaracao FIM'
+        p[0] = Tree('principal_sem_param', [p[5]], p[2] )
 
     def p_principal_2(self, p):
-        'principal : PRINCIPAL ABREPAR declaracao_param FECHAPAR  sequencia_de_declaracao FIM'
-        p[0] = Tree('principal_com_param', [p[3], p[5]], p[1])
+        'principal : VAZIO PRINCIPAL ABREPAR declaracao_param FECHAPAR  sequencia_de_declaracao FIM'
+        p[0] = Tree('principal_com_param', [p[4], p[6]], p[2])
 
 
     # def p_func_loop_1(self, p):
@@ -201,12 +201,19 @@ class AnaliseSintatica:
         p[0] = Tree('retorna', [p[3]])
     
     def p_chamada_de_funcao(self, p):
-        'chamada_de_funcao :  IDENTIFICADOR ABREPAR expressao FECHAPAR'
+        'chamada_de_funcao :  IDENTIFICADOR ABREPAR param_chama_funcao FECHAPAR'
         p[0] = Tree('chamada_de_funcao',[p[3]], p[1])
 
     # def p_expressao_com_parenteses(self,p):
     #     'expressao : ABREPAR expressao FECHAPAR'
     #     p[0] = Tree('expressao_com_parenteses',[p[2]])
+    def p_param_chama_funcao_1(self, p):
+        'param_chama_funcao :  param_chama_funcao VIRGULA expressao'
+        p[0] = Tree('param_chama_funcao_loop',[p[1],p[3]], p[1])
+
+    def p_param_chama_funcao_2(self, p):
+        'param_chama_funcao :  expressao'
+        p[0] = Tree('param_chama_funcao_loop',[p[1]])
 
     def p_expressao_1(self, p):
         'expressao : expressao_simples'
@@ -232,7 +239,7 @@ class AnaliseSintatica:
 
 
     def p_expressao_simples_1(self,p):
-        'expressao_simples : termo mult termo'
+        'expressao_simples : expressao_simples soma termo'
         p[0] = Tree('expressao_simples_termo_com_soma',[p[1],p[2],p[3]])  
 
     def p_expressao_simples_2(self,p):
@@ -258,7 +265,7 @@ class AnaliseSintatica:
 
 
     def p_termo_2(self,p):
-        'termo : fator soma fator'
+        'termo : termo mult fator'
         p[0] = Tree('fator_mult', [p[1],p[2], p[3]])
 
 
@@ -277,7 +284,7 @@ class AnaliseSintatica:
             fator : expressao_numero
                   | expressao_identificador
         '''
-        p[0] = Tree('fator_1',[p[1]])
+        p[0] = Tree('fator_expressao_generica',[p[1]])
 
     def p_expressao_identificador(self, p):
         'expressao_identificador : IDENTIFICADOR'

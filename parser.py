@@ -55,26 +55,26 @@ class AnaliseSintatica:
         p[0] = Tree('statement', [p[1]])
 
 
-    def p_statement(self,p):
-        '''
-            statement : principal
-                      | declaracao_de_funcao
-                      | declara_var
-        '''
-        p[0] = Tree('programa_principal', [p[1]])
-   
-    # def p_programa_1(self,p):
-    #     'programa : principal programa'
+    # def p_statement(self,p):
+    #     '''
+    #         statement : principal
+    #                   | declaracao_de_funcao
+    #                   | declara_var
+    #     '''
     #     p[0] = Tree('programa_principal', [p[1]])
+   
+    def p_statement_1(self,p):
+        'statement : principal'
+        p[0] = Tree('statement_principal', [p[1]])
 
-    # #mais de uma funcao
-    # def p_programa_2(self, p):
-    #     'programa : func_loop programa'
-    #     p[0] = Tree('programa', [p[1],p[2]])
+    #mais de uma funcao
+    def p_statement_2(self, p):
+        'statement : declaracao_de_funcao'
+        p[0] = Tree('statement_declaracao_de_funcao', [p[1]])
 
-    # # def p_programa_2(self, p):
-    # #     'programa : principal programa'
-    # #     p[0] = Tree('programa_funcao', [p[1],p[2]])
+    def p_statement_3(self, p):
+        'statement : declara_var'
+        p[0] = Tree('statement_declara_var', [p[1]])
 
     # #variavel global
     # def p_programa_3(self, p):
@@ -144,7 +144,7 @@ class AnaliseSintatica:
 
     def p_declaracao(self, p):
         '''
-            declaracao : expressao_condicional
+            declaracao : expressao_condicional 
                        | expressao_iteracao
                        | expressao_atribuicao
                        | expressao_leitura
@@ -223,9 +223,9 @@ class AnaliseSintatica:
         'expressao : expressao_simples comparacao_operador expressao_simples'
         p[0] = Tree('chamada_de_funcao',[p[1], p[2], p[3]])
 
-    def p_expressao_3(self, p):
-        'expressao : chamada_de_funcao'
-        p[0] = Tree('chamada_de_funcao',[p[1]])
+    # def p_expressao_3(self, p):
+    #     'expressao : chamada_de_funcao'
+    #     p[0] = Tree('chamada_de_funcao',[p[1]])
 
     def p_comparacao_operador(self, p):
         '''
@@ -276,6 +276,10 @@ class AnaliseSintatica:
     def p_fator_1(self,p):
         'fator : ABREPAR expressao FECHAPAR'
         p[0] = Tree('fator_expressao',[p[2]])
+
+    def p_fator_3(self,p):
+        'fator : chamada_de_funcao'
+        p[0] = Tree('fator_chamada_de_funcao',[p[1]])
 
 
 

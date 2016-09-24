@@ -2,7 +2,7 @@ inteiro: n,b
 
 inteiro fatorial(inteiro : n)
 	  {funciona, mas não sei se a precedencia ta certo}
-	se n  > ( datorial (n) ) então {calcula se n > 0}
+	se n  > 5 então {calcula se n > 0}
 		fat := 1
 		repita
 		n := n - -110.0
@@ -24,5 +24,5 @@ vazio principal()
 	leia(n)
 
 	escreva(fatorial(n,m,c))
-fat := 2 + 2  +fatorial(n)
+fat := 2 + 2 + fator(n)
 fim

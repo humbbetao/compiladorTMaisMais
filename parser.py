@@ -16,18 +16,17 @@ class Tree:
         self.value = value
 
     def __str__(self):
-
         return self.type
 
 
-    def __str__(self, level = 0 ):
-        print("| " * level + self.type +"\n")
-        ret = "| " * level + self.type +"\n"
-        level = level+1
-        for child in self.child :
-            ret += child.__str__(level)
+    # def __str__(self, level = 0 ):
+    #     # print("| " * level + self.type +"\n")
+    #    ret = "| " * level + self.type +"\n"
+    #    level = level+1
+    #    for child in self.child :
+    #        ret += child.__str__(level)
 
-        return ret
+    #    return ret
 
 
 class AnaliseSintatica:
@@ -43,38 +42,61 @@ class AnaliseSintatica:
         )
         parser = yacc.yacc(debug=True,module=self, optimize=False)
         self.ast = parser.parse(code)
-        print(self.ast)
 
+    # def sintatica(self,code):
+    #     parser =  yacc.yacc(debug=True)
+    #     return parser.parse(code)
+
+        # print(self.ast)
 
     def p_programa_1(self,p):
         'programa : statement programa'
-        p[0] = Tree('statement', [p[1], p[2]])
+        p[0] = Tree('statement_loop', [p[1], p[2]])
 
     def p_programa_2(self,p):
-        'programa : statement'
-        p[0] = Tree('statement', [p[1]])
-
-
-    # def p_statement(self,p):
-    #     '''
-    #         statement : principal
-    #                   | declaracao_de_funcao
-    #                   | declara_var
-    #     '''
-    #     p[0] = Tree('programa_principal', [p[1]])
-   
-    def p_statement_1(self,p):
-        'statement : principal'
-        p[0] = Tree('statement_principal', [p[1]])
+        'programa : statement '
+        p[0] = Tree('statement_sem_loop', [p[1]])
 
     #mais de uma funcao
-    def p_statement_2(self, p):
+    def p_statement_1(self, p):
         'statement : declaracao_de_funcao'
         p[0] = Tree('statement_declaracao_de_funcao', [p[1]])
 
-    def p_statement_3(self, p):
+    def p_statement_2(self, p):
         'statement : declara_var'
         p[0] = Tree('statement_declara_var', [p[1]])
+
+
+
+    # def p_programa_1(self,p):
+    #     'programa : statement programa '
+    #     p[0] = Tree('statement', [p[1], p[2]])
+
+    # def p_programa_2(self,p):
+    #     'programa : statement'
+    #     p[0] = Tree('statement', [p[1]])
+
+
+    # # def p_statement(self,p):
+    # #     '''
+    # #         statement : principal
+    # #                   | declaracao_de_funcao
+    # #                   | declara_var
+    # #     '''
+    # #     p[0] = Tree('programa_principal', [p[1]])
+   
+    # def p_statement_1(self,p):
+    #     'statement : principal'
+    #     p[0] = Tree('statement_principal', [p[1]])
+
+    # #mais de uma funcao
+    # def p_statement_2(self, p):
+    #     'statement : declaracao_de_funcao'
+    #     p[0] = Tree('statement_declaracao_de_funcao', [p[1]])
+
+    # def p_statement_3(self, p):
+    #     'statement : declara_var'
+    #     p[0] = Tree('statement_declara_var', [p[1]])
 
     # #variavel global
     # def p_programa_3(self, p):
@@ -95,13 +117,13 @@ class AnaliseSintatica:
 
 
 
-    def p_principal_1(self, p):
-        'principal : VAZIO PRINCIPAL ABREPAR  FECHAPAR sequencia_de_declaracao FIM'
-        p[0] = Tree('principal_sem_param', [p[5]], p[2] )
+    # def p_principal_1(self, p):
+    #     'principal : VAZIO PRINCIPAL ABREPAR  FECHAPAR sequencia_de_declaracao FIM'
+    #     p[0] = Tree('principal_sem_param', [p[5]], p[2] )
 
-    def p_principal_2(self, p):
-        'principal : VAZIO PRINCIPAL ABREPAR declaracao_param FECHAPAR  sequencia_de_declaracao FIM'
-        p[0] = Tree('principal_com_param', [p[4], p[6]], p[2])
+    # def p_principal_2(self, p):
+    #     'principal : VAZIO PRINCIPAL ABREPAR declaracao_param FECHAPAR  sequencia_de_declaracao FIM'
+    #     p[0] = Tree('principal_com_param', [p[4], p[6]], p[2])
 
 
     # def p_func_loop_1(self, p):
@@ -121,6 +143,14 @@ class AnaliseSintatica:
         'declaracao_de_funcao : tipo IDENTIFICADOR ABREPAR declaracao_param FECHAPAR  FIM'
         p[0] = Tree('declaracao_de_funcao_sem_corpo', [p[1],p[4]], p[2])
 
+    def p_declaracao_de_funcao_3(self, p):
+        'declaracao_de_funcao : tipo IDENTIFICADOR ABREPAR FECHAPAR  FIM'
+        p[0] = Tree('declaracao_de_funcao_sem_corpo_sem_parametros', [p[1]], p[2])
+
+    def p_declaracao_de_funcao_4(self, p):
+        'declaracao_de_funcao : tipo IDENTIFICADOR ABREPAR FECHAPAR sequencia_de_declaracao FIM'
+        p[0] = Tree('declaracao_de_funcao_sem_param_com_corpo', [p[1],p[5]], p[2])
+
     def p_declaracao_param_1(self, p):
         'declaracao_param : declaracao_param VIRGULA tipo DOISPONTOS IDENTIFICADOR'
         p[0] = Tree('declaracao_param_loop', [p[1],p[3]], p[5])
@@ -128,6 +158,12 @@ class AnaliseSintatica:
     def p_declaracao_param_2(self, p): 
         'declaracao_param : tipo DOISPONTOS IDENTIFICADOR'
         p[0] = Tree('declaracao_param', [p[1]], p[3])
+
+
+    # def p_declaracao_param_3(self,p):
+    #     'declaracao_param : '
+    #     p[0] = Tree('declaracao_param_loop', [p[1],p[3]], p[5])
+
 
 
     # def p_sequencia_de_declaracao_1(self, p):
@@ -204,9 +240,6 @@ class AnaliseSintatica:
         'chamada_de_funcao :  IDENTIFICADOR ABREPAR param_chama_funcao FECHAPAR'
         p[0] = Tree('chamada_de_funcao',[p[3]], p[1])
 
-    # def p_expressao_com_parenteses(self,p):
-    #     'expressao : ABREPAR expressao FECHAPAR'
-    #     p[0] = Tree('expressao_com_parenteses',[p[2]])
     def p_param_chama_funcao_1(self, p):
         'param_chama_funcao :  param_chama_funcao VIRGULA expressao'
         p[0] = Tree('param_chama_funcao_loop',[p[1],p[3]], p[1])
@@ -222,10 +255,6 @@ class AnaliseSintatica:
     def p_expressao_2(self, p):
         'expressao : expressao_simples comparacao_operador expressao_simples'
         p[0] = Tree('chamada_de_funcao',[p[1], p[2], p[3]])
-
-    # def p_expressao_3(self, p):
-    #     'expressao : chamada_de_funcao'
-    #     p[0] = Tree('chamada_de_funcao',[p[1]])
 
     def p_comparacao_operador(self, p):
         '''
@@ -294,14 +323,20 @@ class AnaliseSintatica:
         'expressao_identificador : IDENTIFICADOR'
         p[0]  = Tree('expressao_simples_identificador', [], p[1] )
 
-    def p_expressao_numero(self, p):
+    def p_expressao_numero_1(self, p):
         'expressao_numero : numero'
         p[0]  = Tree('expressao_numero', [p[1]]  )
 
+    def p_expressao_numero_2(self, p):
+        '''
+            expressao_numero : ADICAO expressao_numero
+                             | SUBTRACAO expressao_numero
+        '''
+        p[0]  = Tree('expressao_numero', [p[2]] )
+
     def p_tipo_1(self, p):
-        ''' tipo : VAZIO
-                | INTEIRO
-                | FLUTUANTE'''
+        ''' tipo : INTEIRO
+                  | FLUTUANTE'''
         p[0]  =Tree('tipo', [], p[1])
 
     # def p_tipo_2(self, p):
@@ -314,6 +349,7 @@ class AnaliseSintatica:
                 | FLUTUANTE
         '''
         p[0]  =Tree('numero', [], p[1])
+
     def p_error(self, p):
         if p:
             print("Erro sintático: '%s', linha %d" % (p.value, p.lineno))
@@ -328,97 +364,3 @@ if __name__ == '__main__':
     from sys import argv, exit
     f = open(argv[1])
     AnaliseSintatica(f.read())
-
-
-
-
-
-
-
-
-
-
-
-    # def p_expressao_1(self, p):
-    #     'expressao : ABREPAR expressao FECHAPAR'
-    #     p[0] =  Tree('expressao_com_parenteses', [p[2]])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # def p_expressao_2(self, p):
-    #     '''expressao : expressao_com_aritmetica
-    #                  | expressao_com_logica
-    #                  | chamada_de_funcao
-    #                  | expressao_simples
-    #     '''
-    #     p[0] =  Tree('expressao_composta', [p[1]])
-
-
-    # # def p_expressao_com_operador(self, p):
-    # #     '''expressao_com_operador :  expressao operador expressao
-    # #     '''
-    # #     p[0] =  Tree('expressao_com_operador', [p[1], p[2], p[3]])
-
-    # def p_expressao_com_aritmetica(self, p):
-    #     'expressao_com_aritmetica : conjunto_de_expressao operador_aritmetico conjunto_de_expressao'
-    #     p[0] =  Tree('expressao_com_aritmetica', [p[1], p[2], p[3]])
-
-    # def p_expressao_com_logica(self, p):
-    # #     'expressao_com_logica : conjunto_de_expressao operador_logico conjunto_de_expressao'
-    #     p[0] =  Tree('expressao_com_logica', [p[1], p[2], p[3]])
-
-
-    # def p_expressao_com_logica(self, p):
-    #     'conjunto_de_expressao : conjunto_de_expressao operador_logico conjunto_de_expressao'
-    #     p[0] =  Tree('expressao_com_logica', [p[1], p[2], p[3]])
-
-
-
-
-    # def p_expressao_simples(self, p):
-    #     '''
-    #         expressao_simples : tipo
-    #                           | expressao_identificador
-    #     '''
-    #     p[0]  = Tree('expressao_simples', [p[1]])
-
-
-    # def p_operador_logico(self, p):
-    #     '''
-    #         operador_logico : MAIOR
-    #                          | MAIORIGUAL
-    #                          | MENOR
-    #                          | MENORIGUAL
-    #                          | IGUALDADE
-
-    #     '''
-    #     p[0]  = Tree('operador_logico', [],p[1])
-
-    # def p_operador_aritmetico(self, p):
-    #     '''
-    #     operador_aritmetico : SUBTRACAO
-    #                         | ADICAO
-    #                         | MULTIPLICACAO
-    #                         | DIVISAO                        
-    #     '''
-    #     p[0]  = Tree('operador_aritmetico', [], p[1])
-
-
-   

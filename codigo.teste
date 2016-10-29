@@ -1,0 +1,472 @@
+statement
+
+| statement_declara_var
+
+| | declara_var_loop
+
+| | | tipo
+
+| | | declara_outra_var
+
+| statement
+
+| | statement_declaracao_de_funcao
+
+| | | declaracao_de_funcao
+
+| | | | tipo
+
+| | | | declaracao_param_loop
+
+| | | | | declaracao_param_loop
+
+| | | | | | declaracao_param
+
+| | | | | | | tipo
+
+| | | | | | tipo
+
+| | | | | tipo
+
+| | | | sequencia_de_declaracao_sem_loop
+
+| | | | | declaracao
+
+| | | | | | expressao_condicional
+
+| | | | | | | chamada_de_funcao
+
+| | | | | | | | expressao_simples_termo
+
+| | | | | | | | | fator
+
+| | | | | | | | | | fator_expressao_generica
+
+| | | | | | | | | | | expressao_simples_identificador
+
+| | | | | | | | comparacao_operador
+
+| | | | | | | | expressao_simples_termo
+
+| | | | | | | | | fator
+
+| | | | | | | | | | fator_expressao_generica
+
+| | | | | | | | | | | expressao_numero
+
+| | | | | | | | | | | | numero
+
+| | | | | | | sequencia_de_declaracao_loop
+
+| | | | | | | | declaracao
+
+| | | | | | | | | expressao_atribuicao
+
+| | | | | | | | | | expressao_simples
+
+| | | | | | | | | | | expressao_simples_termo
+
+| | | | | | | | | | | | fator
+
+| | | | | | | | | | | | | fator_expressao_generica
+
+| | | | | | | | | | | | | | expressao_numero
+
+| | | | | | | | | | | | | | | numero
+
+| | | | | | | | sequencia_de_declaracao_loop
+
+| | | | | | | | | declaracao
+
+| | | | | | | | | | expressao_iteracao
+
+| | | | | | | | | | | sequencia_de_declaracao_sem_loop
+
+| | | | | | | | | | | | declaracao
+
+| | | | | | | | | | | | | expressao_atribuicao
+
+| | | | | | | | | | | | | | expressao_simples
+
+| | | | | | | | | | | | | | | expressao_simples_termo_com_soma
+
+| | | | | | | | | | | | | | | | expressao_simples_termo
+
+| | | | | | | | | | | | | | | | | fator
+
+| | | | | | | | | | | | | | | | | | fator_expressao_generica
+
+| | | | | | | | | | | | | | | | | | | expressao_simples_identificador
+
+| | | | | | | | | | | | | | | | soma_termo
+
+| | | | | | | | | | | | | | | | fator
+
+| | | | | | | | | | | | | | | | | fator_expressao_generica
+
+| | | | | | | | | | | | | | | | | | expressao_numero
+
+| | | | | | | | | | | | | | | | | | | numero
+
+| | | | | | | | | | | chamada_de_funcao
+
+| | | | | | | | | | | | expressao_simples_termo
+
+| | | | | | | | | | | | | fator
+
+| | | | | | | | | | | | | | fator_expressao_generica
+
+| | | | | | | | | | | | | | | expressao_simples_identificador
+
+| | | | | | | | | | | | comparacao_operador
+
+| | | | | | | | | | | | expressao_simples_termo
+
+| | | | | | | | | | | | | fator
+
+| | | | | | | | | | | | | | fator_expressao_generica
+
+| | | | | | | | | | | | | | | expressao_numero
+
+| | | | | | | | | | | | | | | | numero
+
+| | | | | | | | | sequencia_de_declaracao_sem_loop
+
+| | | | | | | | | | declaracao
+
+| | | | | | | | | | | retorna
+
+| | | | | | | | | | | | expressao_simples
+
+| | | | | | | | | | | | | expressao_simples_termo
+
+| | | | | | | | | | | | | | fator
+
+| | | | | | | | | | | | | | | fator_expressao_generica
+
+| | | | | | | | | | | | | | | | expressao_simples_identificador
+
+| | | | | | | sequencia_de_declaracao_sem_loop
+
+| | | | | | | | declaracao
+
+| | | | | | | | | retorna
+
+| | | | | | | | | | expressao_simples
+
+| | | | | | | | | | | expressao_simples_termo_com_soma
+
+| | | | | | | | | | | | expressao_simples_termo
+
+| | | | | | | | | | | | | fator
+
+| | | | | | | | | | | | | | fator_expressao_generica
+
+| | | | | | | | | | | | | | | expressao_numero
+
+| | | | | | | | | | | | | | | | numero
+
+| | | | | | | | | | | | soma_termo
+
+| | | | | | | | | | | | fator
+
+| | | | | | | | | | | | | fator_chamada_de_funcao
+
+| | | | | | | | | | | | | | chamada_de_funcao
+
+| | | | | | | | | | | | | | | param_chama_funcao_loop
+
+| | | | | | | | | | | | | | | | expressao_simples
+
+| | | | | | | | | | | | | | | | | expressao_simples_termo
+
+| | | | | | | | | | | | | | | | | | fator
+
+| | | | | | | | | | | | | | | | | | | fator_expressao_generica
+
+| | | | | | | | | | | | | | | | | | | | expressao_simples_identificador
+
+| | statement
+
+| | | statement_declara_var
+
+| | | | declara_var_so_declara
+
+| | | | | tipo
+
+| | | statement
+
+| | | | statement_declaracao_de_funcao
+
+| | | | | declaracao_de_funcao_sem_corpo
+
+| | | | | | tipo
+
+| | | | | | declaracao_param
+
+| | | | | | | tipo
+
+| | | | statement
+
+| | | | | statement_declaracao_de_funcao
+
+| | | | | | declaracao_de_funcao_sem_param_com_corpo
+
+| | | | | | | tipo
+
+| | | | | | | sequencia_de_declaracao_loop
+
+| | | | | | | | declaracao
+
+| | | | | | | | | expressao_leitura
+
+| | | | | | | | sequencia_de_declaracao_loop
+
+| | | | | | | | | declaracao
+
+| | | | | | | | | | expressao_escreva
+
+| | | | | | | | | | | expressao_simples
+
+| | | | | | | | | | | | expressao_simples_termo
+
+| | | | | | | | | | | | | fator
+
+| | | | | | | | | | | | | | fator_chamada_de_funcao
+
+| | | | | | | | | | | | | | | chamada_de_funcao
+
+| | | | | | | | | | | | | | | | param_chama_funcao_loop
+
+| | | | | | | | | | | | | | | | | expressao_simples
+
+| | | | | | | | | | | | | | | | | | expressao_simples_termo_com_soma
+
+| | | | | | | | | | | | | | | | | | | expressao_simples_termo
+
+| | | | | | | | | | | | | | | | | | | | fator
+
+| | | | | | | | | | | | | | | | | | | | | fator_expressao_generica
+
+| | | | | | | | | | | | | | | | | | | | | | expressao_simples_identificador
+
+| | | | | | | | | | | | | | | | | | | soma_termo
+
+| | | | | | | | | | | | | | | | | | | fator
+
+| | | | | | | | | | | | | | | | | | | | fator_expressao_generica
+
+| | | | | | | | | | | | | | | | | | | | | expressao_numero
+
+| | | | | | | | | | | | | | | | | | | | | | numero
+
+| | | | | | | | | sequencia_de_declaracao_sem_loop
+
+| | | | | | | | | | declaracao
+
+| | | | | | | | | | | expressao_atribuicao
+
+| | | | | | | | | | | | expressao_simples
+
+| | | | | | | | | | | | | expressao_simples_termo_com_soma
+
+| | | | | | | | | | | | | | expressao_simples_termo_com_soma
+
+| | | | | | | | | | | | | | | expressao_simples_termo
+
+| | | | | | | | | | | | | | | | fator
+
+| | | | | | | | | | | | | | | | | fator_expressao_generica
+
+| | | | | | | | | | | | | | | | | | expressao_numero
+
+| | | | | | | | | | | | | | | | | | | numero
+
+| | | | | | | | | | | | | | | soma_termo
+
+| | | | | | | | | | | | | | | fator
+
+| | | | | | | | | | | | | | | | fator_expressao_generica
+
+| | | | | | | | | | | | | | | | | expressao_numero
+
+| | | | | | | | | | | | | | | | | | numero
+
+| | | | | | | | | | | | | | soma_termo
+
+| | | | | | | | | | | | | | fator
+
+| | | | | | | | | | | | | | | fator_chamada_de_funcao
+
+| | | | | | | | | | | | | | | | chamada_de_funcao
+
+| | | | | | | | | | | | | | | | | param_chama_funcao_loop
+
+| | | | | | | | | | | | | | | | | | expressao_simples
+
+| | | | | | | | | | | | | | | | | | | expressao_simples_termo
+
+| | | | | | | | | | | | | | | | | | | | fator
+
+| | | | | | | | | | | | | | | | | | | | | fator_expressao_generica
+
+| | | | | | | | | | | | | | | | | | | | | | expressao_simples_identificador
+
+statement
+| statement_declara_var
+| | declara_var_loop
+| | | tipo
+| | | declara_outra_var
+| statement
+| | statement_declaracao_de_funcao
+| | | declaracao_de_funcao
+| | | | tipo
+| | | | declaracao_param_loop
+| | | | | declaracao_param_loop
+| | | | | | declaracao_param
+| | | | | | | tipo
+| | | | | | tipo
+| | | | | tipo
+| | | | sequencia_de_declaracao_sem_loop
+| | | | | declaracao
+| | | | | | expressao_condicional
+| | | | | | | chamada_de_funcao
+| | | | | | | | expressao_simples_termo
+| | | | | | | | | fator
+| | | | | | | | | | fator_expressao_generica
+| | | | | | | | | | | expressao_simples_identificador
+| | | | | | | | comparacao_operador
+| | | | | | | | expressao_simples_termo
+| | | | | | | | | fator
+| | | | | | | | | | fator_expressao_generica
+| | | | | | | | | | | expressao_numero
+| | | | | | | | | | | | numero
+| | | | | | | sequencia_de_declaracao_loop
+| | | | | | | | declaracao
+| | | | | | | | | expressao_atribuicao
+| | | | | | | | | | expressao_simples
+| | | | | | | | | | | expressao_simples_termo
+| | | | | | | | | | | | fator
+| | | | | | | | | | | | | fator_expressao_generica
+| | | | | | | | | | | | | | expressao_numero
+| | | | | | | | | | | | | | | numero
+| | | | | | | | sequencia_de_declaracao_loop
+| | | | | | | | | declaracao
+| | | | | | | | | | expressao_iteracao
+| | | | | | | | | | | sequencia_de_declaracao_sem_loop
+| | | | | | | | | | | | declaracao
+| | | | | | | | | | | | | expressao_atribuicao
+| | | | | | | | | | | | | | expressao_simples
+| | | | | | | | | | | | | | | expressao_simples_termo_com_soma
+| | | | | | | | | | | | | | | | expressao_simples_termo
+| | | | | | | | | | | | | | | | | fator
+| | | | | | | | | | | | | | | | | | fator_expressao_generica
+| | | | | | | | | | | | | | | | | | | expressao_simples_identificador
+| | | | | | | | | | | | | | | | soma_termo
+| | | | | | | | | | | | | | | | fator
+| | | | | | | | | | | | | | | | | fator_expressao_generica
+| | | | | | | | | | | | | | | | | | expressao_numero
+| | | | | | | | | | | | | | | | | | | numero
+| | | | | | | | | | | chamada_de_funcao
+| | | | | | | | | | | | expressao_simples_termo
+| | | | | | | | | | | | | fator
+| | | | | | | | | | | | | | fator_expressao_generica
+| | | | | | | | | | | | | | | expressao_simples_identificador
+| | | | | | | | | | | | comparacao_operador
+| | | | | | | | | | | | expressao_simples_termo
+| | | | | | | | | | | | | fator
+| | | | | | | | | | | | | | fator_expressao_generica
+| | | | | | | | | | | | | | | expressao_numero
+| | | | | | | | | | | | | | | | numero
+| | | | | | | | | sequencia_de_declaracao_sem_loop
+| | | | | | | | | | declaracao
+| | | | | | | | | | | retorna
+| | | | | | | | | | | | expressao_simples
+| | | | | | | | | | | | | expressao_simples_termo
+| | | | | | | | | | | | | | fator
+| | | | | | | | | | | | | | | fator_expressao_generica
+| | | | | | | | | | | | | | | | expressao_simples_identificador
+| | | | | | | sequencia_de_declaracao_sem_loop
+| | | | | | | | declaracao
+| | | | | | | | | retorna
+| | | | | | | | | | expressao_simples
+| | | | | | | | | | | expressao_simples_termo_com_soma
+| | | | | | | | | | | | expressao_simples_termo
+| | | | | | | | | | | | | fator
+| | | | | | | | | | | | | | fator_expressao_generica
+| | | | | | | | | | | | | | | expressao_numero
+| | | | | | | | | | | | | | | | numero
+| | | | | | | | | | | | soma_termo
+| | | | | | | | | | | | fator
+| | | | | | | | | | | | | fator_chamada_de_funcao
+| | | | | | | | | | | | | | chamada_de_funcao
+| | | | | | | | | | | | | | | param_chama_funcao_loop
+| | | | | | | | | | | | | | | | expressao_simples
+| | | | | | | | | | | | | | | | | expressao_simples_termo
+| | | | | | | | | | | | | | | | | | fator
+| | | | | | | | | | | | | | | | | | | fator_expressao_generica
+| | | | | | | | | | | | | | | | | | | | expressao_simples_identificador
+| | statement
+| | | statement_declara_var
+| | | | declara_var_so_declara
+| | | | | tipo
+| | | statement
+| | | | statement_declaracao_de_funcao
+| | | | | declaracao_de_funcao_sem_corpo
+| | | | | | tipo
+| | | | | | declaracao_param
+| | | | | | | tipo
+| | | | statement
+| | | | | statement_declaracao_de_funcao
+| | | | | | declaracao_de_funcao_sem_param_com_corpo
+| | | | | | | tipo
+| | | | | | | sequencia_de_declaracao_loop
+| | | | | | | | declaracao
+| | | | | | | | | expressao_leitura
+| | | | | | | | sequencia_de_declaracao_loop
+| | | | | | | | | declaracao
+| | | | | | | | | | expressao_escreva
+| | | | | | | | | | | expressao_simples
+| | | | | | | | | | | | expressao_simples_termo
+| | | | | | | | | | | | | fator
+| | | | | | | | | | | | | | fator_chamada_de_funcao
+| | | | | | | | | | | | | | | chamada_de_funcao
+| | | | | | | | | | | | | | | | param_chama_funcao_loop
+| | | | | | | | | | | | | | | | | expressao_simples
+| | | | | | | | | | | | | | | | | | expressao_simples_termo_com_soma
+| | | | | | | | | | | | | | | | | | | expressao_simples_termo
+| | | | | | | | | | | | | | | | | | | | fator
+| | | | | | | | | | | | | | | | | | | | | fator_expressao_generica
+| | | | | | | | | | | | | | | | | | | | | | expressao_simples_identificador
+| | | | | | | | | | | | | | | | | | | soma_termo
+| | | | | | | | | | | | | | | | | | | fator
+| | | | | | | | | | | | | | | | | | | | fator_expressao_generica
+| | | | | | | | | | | | | | | | | | | | | expressao_numero
+| | | | | | | | | | | | | | | | | | | | | | numero
+| | | | | | | | | sequencia_de_declaracao_sem_loop
+| | | | | | | | | | declaracao
+| | | | | | | | | | | expressao_atribuicao
+| | | | | | | | | | | | expressao_simples
+| | | | | | | | | | | | | expressao_simples_termo_com_soma
+| | | | | | | | | | | | | | expressao_simples_termo_com_soma
+| | | | | | | | | | | | | | | expressao_simples_termo
+| | | | | | | | | | | | | | | | fator
+| | | | | | | | | | | | | | | | | fator_expressao_generica
+| | | | | | | | | | | | | | | | | | expressao_numero
+| | | | | | | | | | | | | | | | | | | numero
+| | | | | | | | | | | | | | | soma_termo
+| | | | | | | | | | | | | | | fator
+| | | | | | | | | | | | | | | | fator_expressao_generica
+| | | | | | | | | | | | | | | | | expressao_numero
+| | | | | | | | | | | | | | | | | | numero
+| | | | | | | | | | | | | | soma_termo
+| | | | | | | | | | | | | | fator
+| | | | | | | | | | | | | | | fator_chamada_de_funcao
+| | | | | | | | | | | | | | | | chamada_de_funcao
+| | | | | | | | | | | | | | | | | param_chama_funcao_loop
+| | | | | | | | | | | | | | | | | | expressao_simples
+| | | | | | | | | | | | | | | | | | | expressao_simples_termo
+| | | | | | | | | | | | | | | | | | | | fator
+| | | | | | | | | | | | | | | | | | | | | fator_expressao_generica
+| | | | | | | | | | | | | | | | | | | | | | expressao_simples_identificador
+

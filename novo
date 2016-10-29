@@ -1,0 +1,78 @@
+<programa> ::= <statement> <programa>
+			|  <statement>
+
+<statement> ::= <declaracao_de_funcao>
+			 |  <declara_var>
+
+
+<declaracao_de_funcao> ::= <tipo> IDENTIFICADOR ABREPAR <declaracao_param> FECHAPAR <sequencia_de_declaracao> FIM
+					    |  <tipo> IDENTIFICADOR ABREPAR <declaracao_param> FECHAPAR  FIM
+ 						|  <tipo> IDENTIFICADOR ABREPAR FECHAPAR  FIM
+                        |  <tipo> IDENTIFICADOR ABREPAR FECHAPAR <sequencia_de_declaracao> FIM
+
+
+<declaracao_param> ::= <declaracao_param> VIRGULA <tipo> DOISPONTOS IDENTIFICADOR
+					|   <tipo> DOISPONTOS IDENTIFICADOR
+
+<sequencia_de_declaracao> ::= <declaracao>
+							| <declaracao> <sequencia_de_declaracao>
+
+
+<declaracao> ::= <expressao_condicional> 
+             |   <expressao_iteracao>
+             |   <expressao_atribuicao>
+             |   <expressao_leitura>
+             |   <expressao_escreva>
+             |   <declara_var>
+             |   <retorna>
+             |   <chamada_de_funcao>
+
+
+<expressao_condicional> ::= SE <expressao> ENTAO <sequencia_de_declaracao> SENAO <sequencia_de_declaracao> FIM
+						|   SE <expressao> ENTAO <sequencia_de_declaracao> FIM
+
+<expressao_iteracao> ::= REPITA <sequencia_de_declaracao> ATE <expressao>
+<expressao_atribuicao> ::= IDENTIFICADOR ATRIBUICAO <expressao>
+<expressao_leitura ::= LEIA ABREPAR IDENTIFICADOR FECHAPAR
+<expressao_escreva ::= ESCREVE ABREPAR <expressao> FECHAPAR
+<declara_var ::= <tipo> DOISPONTOS IDENTIFICADOR
+			 |	<tipo> DOISPONTOS IDENTIFICADOR VIRGULA <declara_outra_var>
+			 |	<tipo>  DOISPONTOS IDENTIFICADOR ATRIBUICAO <expressao>
+<declara_outra_var> ::= IDENTIFICADOR
+
+
+<retorna> ::= RETORNA ABREPAR <expressao> FECHAPAR  
+<chamada_de_funcao> ::=  IDENTIFICADOR ABREPAR <param_chama_funcao> FECHAPAR
+
+<param_chama_funcao> ::=  <param_chama_funcao> VIRGULA <expressao>
+					   |  <expressao>
+<expressao> ::= <expressao_simples>
+			|   <expressao_simples> <comparacao_operador> <expressao_simples>
+
+<comparacao_operador  ::= MAIOR
+                        | MAIORIGUAL
+                        | MENOR
+                        | MENORIGUAL
+                        | IGUALDADE
+
+<expressao_simples> ::= <expressao_simples> <soma> <termo>
+					|   <termo>
+<soma> ::= ADICAO
+         | SUBTRACAO
+<mult> ::= MULTIPLICACAO
+        | DIVISAO
+<termo> ::= <fator>
+		| <termo> <mult> <fator>
+<fator> ::= ABREPAR <expressao> FECHAPAR
+        |   <chamada_de_funcao>
+		| 	<expressao_numero>
+        | 	<expressao_identificador>
+<expressao_identificador> ::= IDENTIFICADOR
+
+<expressao_numero> ::= 	<numero>
+
+<tipo> ::= INTEIRO
+       |    FLUTUANTE
+
+<numero> ::= INTEIRO
+           | FLUTUANTE	

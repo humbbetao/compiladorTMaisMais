@@ -31,7 +31,7 @@ class Tree:
 
 class AnaliseSintatica:
 
-    def __init__(self, code):
+    def __init__(self):
         lex = AnaliseLexica()
         self.tokens = lex.tokens
         self.precedence = (
@@ -40,8 +40,10 @@ class AnaliseSintatica:
             ('left', 'MULTIPLICACAO', 'DIVISAO'),
             ('left', 'ABREPAR','FECHAPAR'),
         )
-        parser = yacc.yacc(debug=True,module=self, optimize=False)
-        self.ast = parser.parse(code)
+        # parser = yacc.yacc(debug=True,module=self, optimize=False)
+        # self.ast = parser.parse(code)
+
+
 
     # def sintatica(self,code):
     #     parser =  yacc.yacc(debug=True)
@@ -68,71 +70,6 @@ class AnaliseSintatica:
 
 
 
-    # def p_programa_1(self,p):
-    #     'programa : statement programa '
-    #     p[0] = Tree('statement', [p[1], p[2]])
-
-    # def p_programa_2(self,p):
-    #     'programa : statement'
-    #     p[0] = Tree('statement', [p[1]])
-
-
-    # # def p_statement(self,p):
-    # #     '''
-    # #         statement : principal
-    # #                   | declaracao_de_funcao
-    # #                   | declara_var
-    # #     '''
-    # #     p[0] = Tree('programa_principal', [p[1]])
-   
-    # def p_statement_1(self,p):
-    #     'statement : principal'
-    #     p[0] = Tree('statement_principal', [p[1]])
-
-    # #mais de uma funcao
-    # def p_statement_2(self, p):
-    #     'statement : declaracao_de_funcao'
-    #     p[0] = Tree('statement_declaracao_de_funcao', [p[1]])
-
-    # def p_statement_3(self, p):
-    #     'statement : declara_var'
-    #     p[0] = Tree('statement_declara_var', [p[1]])
-
-    # #variavel global
-    # def p_programa_3(self, p):
-    #     'programa : declara_var programa'
-    #     p[0] = Tree('declara_var_global', [p[1],p[2]])
-
-    # def p_programa_4(self, p):
-    #     'programa : principal'
-    #     p[0] = Tree('principal', [p[1]])
-
-    # def p_programa_5(self, p):
-    #     'programa : func_loop'
-    #     p[0] = Tree('programa_funcao', [p[1]])
-
-    # def p_programa_6(self, p):
-    #     'programa : declara_var'
-    #     p[0] = Tree('declara_var', [p[1]]) 
-
-
-
-    # def p_principal_1(self, p):
-    #     'principal : VAZIO PRINCIPAL ABREPAR  FECHAPAR sequencia_de_declaracao FIM'
-    #     p[0] = Tree('principal_sem_param', [p[5]], p[2] )
-
-    # def p_principal_2(self, p):
-    #     'principal : VAZIO PRINCIPAL ABREPAR declaracao_param FECHAPAR  sequencia_de_declaracao FIM'
-    #     p[0] = Tree('principal_com_param', [p[4], p[6]], p[2])
-
-
-    # def p_func_loop_1(self, p):
-    #     'func_loop : declaracao_de_funcao func_loop'
-    #     p[0] = Tree('func_loop', [p[1], p[2]])
-
-    # def p_func_loop_2(self, p):
-    #     'func_loop : declaracao_de_funcao'
-    #     p[0] = Tree('declaracao_de_funcao_sem_loop',[p[1]])
 
 
     def p_declaracao_de_funcao_1(self, p):
@@ -159,16 +96,6 @@ class AnaliseSintatica:
         'declaracao_param : tipo DOISPONTOS IDENTIFICADOR'
         p[0] = Tree('declaracao_param', [p[1]], p[3])
 
-
-    # def p_declaracao_param_3(self,p):
-    #     'declaracao_param : '
-    #     p[0] = Tree('declaracao_param_loop', [p[1],p[3]], p[5])
-
-
-
-    # def p_sequencia_de_declaracao_1(self, p):
-    #     'sequencia_de_declaracao : ABREPAR declaracao FECHAPAR'
-    #     p[0] = Tree('sequencia_de_declaracao_com_parenteses', [p[2]])
 
     def p_sequencia_de_declaracao_1(self, p):
         'sequencia_de_declaracao : declaracao'
@@ -358,6 +285,18 @@ class AnaliseSintatica:
             yacc.restart()
             print('Erro sintático: definições incompletas!')
             exit(1)
+
+    def parser_codigo(self,codigo):
+        lex = AnaliseLexica()
+        self.tokens = lex.tokens
+        self.precedence = (
+            ('left', 'ATRIBUICAO', 'MENORIGUAL', 'MAIORIGUAL', 'MAIOR', 'MENOR', 'IGUALDADE'),
+            ('left', 'ADICAO', 'SUBTRACAO'),
+            ('left', 'MULTIPLICACAO', 'DIVISAO'),
+            ('left', 'ABREPAR','FECHAPAR'),
+        )
+        parser = yacc.yacc(debug=True,module=self, optimize=False)
+        return parser.parse(codigo)
 
 
 if __name__ == '__main__':

@@ -105,23 +105,62 @@ class AnaliseSintatica:
         'sequencia_de_declaracao : declaracao sequencia_de_declaracao'
         p[0] = Tree('sequencia_de_declaracao_loop',[p[1], p[2]])
 
-    def p_declaracao(self, p):
-        '''
-            declaracao : expressao_condicional 
-                       | expressao_iteracao
-                       | expressao_atribuicao
-                       | expressao_leitura
-                       | expressao_escreva
-                       | declara_var
-                       | retorna
-                       | chamada_de_funcao
+    # def p_declaracao(self, p):
+    #     '''
+    #         declaracao : expressao_condicional 
+    #                    | expressao_iteracao
+    #                    | expressao_atribuicao
+    #                    | expressao_leitura
+    #                    | expressao_escreva
+    #                    | declara_var
+    #                    | retorna
+    #                    | chamada_de_funcao
                       
-        '''
-        p[0] = Tree('declaracao', [p[1]] )
+    #     '''
+    #     p[0] = Tree('declaracao', [p[1]] )
+
+
+    def p_declaracao_1(self, p):
+        'declaracao : expressao_condicional '
+        p[0] = Tree('declaracao_expressao_condicional', [p[1]] )
+
+
+    def p_declaracao_2(self, p):
+        'declaracao : expressao_iteracao '
+        p[0] = Tree('declaracao_expressao_iteracao', [p[1]] )
+
+    def p_declaracao_3(self, p):
+        'declaracao : expressao_atribuicao '
+        p[0] = Tree('declaracao_expressao_atribuicao', [p[1]] )
+
+
+    def p_declaracao_4(self, p):
+        'declaracao : expressao_leitura '
+        p[0] = Tree('declaracao_expressao_leitura', [p[1]] )
+
+
+    def p_declaracao_5(self, p):
+        'declaracao : expressao_escreva '
+        p[0] = Tree('declaracao_expressao_escreva', [p[1]] )
+
+
+    def p_declaracao_6(self, p):
+        'declaracao : declara_var '
+        p[0] = Tree('declaracao_declara_var', [p[1]] )
+
+
+    def p_declaracao_7(self, p):
+        'declaracao : retorna '
+        p[0] = Tree('declaracao_retorna', [p[1]] )
+
+
+    def p_declaracao_8(self, p):
+        'declaracao : chamada_de_funcao '
+        p[0] = Tree('declaracao_chamada_de_funcao', [p[1]] )
 
     def p_expressao_condicional_1(self, p):
         'expressao_condicional : SE expressao ENTAO sequencia_de_declaracao SENAO sequencia_de_declaracao FIM'
-        p[0] = Tree('expressao_condicional', [p[2],p[4],p[6]])
+        p[0] = Tree('expressao_condicional_com_senao', [p[2],p[4],p[6]])
     
     def p_expressao_condicional_2(self, p):
         'expressao_condicional : SE expressao ENTAO sequencia_de_declaracao FIM'
@@ -152,8 +191,8 @@ class AnaliseSintatica:
         p[0] = Tree('declara_var_loop', [p[1], p[5]], p[3])
 
     def p_declara_var3(self, p):
-        'declara_var : tipo  DOISPONTOS IDENTIFICADOR ATRIBUICAO expressao'
-        p[0] = Tree('declara_var_com_atribuicao', [p[1], p[5]], p[3])
+        'declara_var : tipo  DOISPONTOS IDENTIFICADOR'
+        p[0] = Tree('declara_var_com_atribuicao', [p[1]], p[3])
 
     def p_declara_outra_var(self, p):
         'declara_outra_var : IDENTIFICADOR'
@@ -177,11 +216,11 @@ class AnaliseSintatica:
 
     def p_expressao_1(self, p):
         'expressao : expressao_simples'
-        p[0] = Tree('expressao_simples',[p[1]])
+        p[0] = Tree('expressao_simples_simples',[p[1]])
 
     def p_expressao_2(self, p):
         'expressao : expressao_simples comparacao_operador expressao_simples'
-        p[0] = Tree('chamada_de_funcao',[p[1], p[2], p[3]])
+        p[0] = Tree('expressao_simples_composta',[p[1], p[2], p[3]])
 
     def p_comparacao_operador(self, p):
         '''
@@ -259,7 +298,7 @@ class AnaliseSintatica:
             expressao_numero : ADICAO expressao_numero
                              | SUBTRACAO expressao_numero
         '''
-        p[0]  = Tree('expressao_numero', [p[2]] )
+        p[0]  = Tree('expressao_numero_composta', [p[2]] )
 
     def p_tipo_1(self, p):
         ''' tipo : INTEIRO

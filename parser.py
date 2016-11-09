@@ -190,9 +190,7 @@ class AnaliseSintatica:
         'declara_var : tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var'
         p[0] = Tree('declara_var_loop', [p[1], p[5]], p[3])
 
-    def p_declara_var3(self, p):
-        'declara_var : tipo  DOISPONTOS IDENTIFICADOR'
-        p[0] = Tree('declara_var_com_atribuicao', [p[1]], p[3])
+
 
     def p_declara_outra_var(self, p):
         'declara_outra_var : IDENTIFICADOR'

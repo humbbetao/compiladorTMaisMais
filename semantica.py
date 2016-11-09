@@ -63,7 +63,7 @@ class Semantica():
             tipo = None
             if self.tipo(node.child[0]) == 1:
                 tipo ="INTEIRO"
-            if self.tipo(node.chil[0]) == 2:
+            if self.tipo(node.child[0]) == 2:
                 tipo = "FLUTUANTE"
             
             self.table[node.value] = {}
@@ -153,22 +153,24 @@ class Semantica():
             print("Erro Semântico, nome já utilizado : " + node.value )
             exit(1)
 
+        tipo = ""
+
         if(node.type == "declara_var_so_declara"):
             if self.tipo(node.child[0]) == 1:
-            tipo = "INTEIRO"
+                tipo = "INTEIRO"
 
-        elif self.tipo(node.child[0]) == 2:
-            tipo = "FLUTUANTE"
+            elif self.tipo(node.child[0]) == 2:
+                    tipo = "FLUTUANTE"
 
-        elif self.tipo(node.child[0]) == 3:
-            print("Erro Semântico, o parametro não pode ser do tipo VAZIO: " + node.value )
-            exit(1)
+            elif self.tipo(node.child[0]) == 3:
+                print("Erro Semântico, o parametro não pode ser do tipo VAZIO: " + node.value )
+                exit(1)
 
-        self.table[self.scope + "." + node.value] = {}
-        self.table[self.scope + "." + node.value]["var"] = True
-        self.table[self.scope + "." + node.value]["inicializada"] = False
-        self.table[self.scope + "." + node.value]["tipo"] = tipo
-        self.table[self.scope + "." + node.value]["valor"] = None
+            self.table[self.scope + "." + node.value] = {}
+            self.table[self.scope + "." + node.value]["var"] = True
+            self.table[self.scope + "." + node.value]["inicializada"] = False
+            self.table[self.scope + "." + node.value]["tipo"] = tipo
+            self.table[self.scope + "." + node.value]["valor"] = None
 
         if(node.type == "declara_var_loop"):
         # if(node.type == "declara_var_so_declara"):
@@ -182,15 +184,15 @@ class Semantica():
                 print("Erro Semântico, o parametro não pode ser do tipo VAZIO: " + node.value )
                 exit(1)
 
-        self.table[self.scope + "." + node.value] = {}
-        self.table[self.scope + "." + node.value]["var"] = True
-        self.table[self.scope + "." + node.value]["inicializada"] = False
-        self.table[self.scope + "." + node.value]["tipo"] = tipo
-        self.table[self.scope + "." + node.value]["valor"] = None
-        
-        self.declara_var(node.child[1])
-        
-        self.scope = node.value  
+            self.table[self.scope + "." + node.value] = {}
+            self.table[self.scope + "." + node.value]["var"] = True
+            self.table[self.scope + "." + node.value]["inicializada"] = False
+            self.table[self.scope + "." + node.value]["tipo"] = tipo
+            self.table[self.scope + "." + node.value]["valor"] = None
+            
+            self.declara_var(node.child[1])
+            
+            self.scope = node.value  
 
 
 
@@ -326,14 +328,14 @@ class Semantica():
 #         'expressao_iteracao : REPITA sequencia_de_declaracao ATE expressao'
 #         p[0] =  Tree('expressao_iteracao', [p[2], p[4]])
 
-    def repita_decl(self, node):
+    def expressao_iteracao(self, node):
         self.sequencia_de_declaracao(node.child[0])
         self.expressao(node.child[1], "nada")
 
   # 'expressao_atribuicao : IDENTIFICADOR ATRIBUICAO expressao'
         # p[0] =  Tree('expressao_atribuicao', [p[3]], p[1])
-    def expressao_atribuicao(self, p):
-        if self.scope + "." + node.value not in self.table.keys() and "global." + node.value not in self.table.keys():
+    def expressao_atribuicao(self, node):
+        if (self.scope + "." + node.value not in self.table.keys() and "global." + node.value not in self.table.keys()):
             print("Erro Semântico. Variável " + node.value + " não encontrada")
             exit(1)
 
@@ -448,12 +450,12 @@ class Semantica():
     #     p[0] = Tree('chamada_de_funcao',[p[1], p[2], p[3]])
 
     def expressao(self,node,nomeVariavel):
-          if( node.type == "expressao_simples_composta" ):
+        if( node.type == "expressao_simples_composta" ):
             self.expressao_simples(node.child[0], nomeVariavel)
             self.comparacao_operador(node.child[1])
             self.expressao_simples(node.child[2], nomeVariavel)
 
-        else :
+        else:
             self.expressao_simples(node.child[0], nomeVariavel)
 
  # def p_comparacao_operador(self, p):
@@ -476,7 +478,7 @@ class Semantica():
     # def p_expressao_simples_2(self,p):
     #     'expressao_simples : termo'
     #     p[0] = Tree('expressao_simples_termo',[p[1]])
-    def simples_exp(self, node, nomeVariavel) :
+    def expressao_simples(self, node, nomeVariavel) :
         if(node.type == "expressao_simples_termo_com_soma"):
             self.expressao_simples(node.child[0], nomeVariavel)
             self.soma(node.child[1])
@@ -509,11 +511,11 @@ class Semantica():
  #        'termo : fator'
  #        p[0] = Tree('fator',[p[1]])
 
-    def termo(self,node):
+    def termo(self,node, nomeVariavel):
         if(node.type == "fator"):
             self.fator(node.child[0])
         else:
-            self.termo(node.child[0])
+            self.termo(node.child[0],nomeVariavel)
             self.mult(node.child[1])
             self.fator(node.child[2])
 
@@ -537,7 +539,7 @@ class Semantica():
             self.chamada_de_funcao(node.child[0])
         else:
             self.expressao_numero(node.child[0])
-            self.expressao_identificador(node.child[1])
+            self.expressao_identificador(node.child[0])
 
 
     # def p_fator_2(self,p):
@@ -557,10 +559,10 @@ class Semantica():
     def expressao_numero(self,node):
         if(node.type=="expressao_numero_composta"):
              self.expressao_numero(node.child[0])
-        else:
+        if(node.type=="expressao_numero"):
             self.numero(node.child[0])
 
-        node.value
+        # node.value
 
     # def p_expressao_numero_1(self, p):
     #     'expressao_numero : numero'

@@ -14,7 +14,7 @@ class Semantica():
             self.programa(self.tree.child[1])
 
         if(self.tree.type == "statement_sem_loop"):
-            statement(self.tree.child[0])
+            self.statement(self.tree.child[0])
 
     def programa(self,node):
         if(node.type == "statement_loop"):
@@ -36,7 +36,7 @@ class Semantica():
             print("Erro Semântico, o nome "+  node.value + " já esta sendo utilizado")
             exit(1)        
 
-        print(node.type)
+        # print(node.type)
         if(node.type == "declaracao_de_funcao_td"):
             
             self.tabela[node.value] = {}
@@ -259,32 +259,34 @@ class Semantica():
   # 'expressao_atribuicao : IDENTIFICADOR ATRIBUICAO expressao'
         # p[0] =  Tree('expressao_atribuicao', [p[3]], p[1])
     def expressao_atribuicao(self, node):
-        if (self.escopo + "." + node.value not in self.tabela.keys()
-             and "global." + node.value not in self.tabela.keys() ):
+        if (self.escopo + "." + node.value not in self.tabela.keys() and "global." + node.value not in self.tabela.keys() ):
             print("Erro Semântico. Variável " + node.value + " não encontrada")
             exit(1)
 
         else :
-            tipo = self.expressao(node.child[0],"nada")
-            print(tipo)
             if self.escopo + "." + node.value in self.tabela.keys():
-                # print("aqui2")
+                tipo = self.expressao(node.child[0],"nada")
+                if self.tabela[self.escopo + '.' + node.value]["tipo"] != tipo:
+                    print("WARNING atribuição: variavel '" + node.value + "' é do tipo '" + self.tabela[self.escopo + '.' + node.value]["tipo"] +  "' está atribuindo uma expressão do tipo '" + tipo + "'")
+           
                 self.tabela[self.escopo + "." + node.value]["inicializada"] = True 
                 self.expressao(node.child[0], node.value) #passa o nome da variável
-
-                # print(tipo)
-                # if self.tabela[self.escopo + '.' + node.value]["tipo"] != :
-                #     print("WARNING atribuição: variavel '" + node.value + "' é do tipo '" + self.tabela[self.escopo + '.' + node.value]["tipo"] +  "' está atribuindo uma expressão do tipo '" + tipo + "'")
+                
             elif "global." + node.value in self.tabela.keys():
+                tipo = self.expressao(node.child[0],"nada")
+                
                 self.tabela["global." + node.value]["inicializada"] = True
                 self.expressao(node.child[0], node.value) 
-                # 'global.' + subarvore.value in self.tabela.keys():
-                # if self.tabela["global." + subarvore.value][1] != tipo:
-                #     print("WARNING atribuição: identificador '" + node.value + "' é do tipo '" +
-                #     self.tabela["global." + node.value][1] +
-                #     "' está atribuindo uma expressão do tipo '" + tipo + "'")
+                # if (self.tabela["global." + node.value]["inicializada"] == False):
+                #     print("WARNING atribuição: variavel '" + node.value + "' é do tipo '" + self.tabela[ola + node.value]["tipo"] +  "' está atribuindo uma expressão do tipo '" + tipo + "'")
 
 
+                # if self.tabela["global." + node.value]["tipo"] != tipo:
+                #     ola = "global."
+                #     print("WARNING atribuição: variavel '" + node.value + "' é do tipo '" + self.tabela[ola + node.value]["tipo"] +  "' está atribuindo uma expressão do tipo '" + tipo + "'")
+
+
+                
 
                 # = self.expressao(node.child[0], node.value) #passa o nome da variável
 
@@ -320,7 +322,10 @@ class Semantica():
 #         p[0] = Tree('retorna', [p[3]])
 
     def expressao_retorna(self,node):       
-        self.expressao(node.child[0], "nada")
+        tipo = self.expressao(node.child[0], "nada")
+        if(tipo!=self.tabela[self.escopo]["tipo"]):
+            print("Erro Semantico. Retorno de funcao "+self.escopo+" o certo eh "+self.tabela[self.escopo]["tipo"])
+
 
         # else:
         #     return node.value #retorna o id
@@ -330,18 +335,21 @@ class Semantica():
  #        p[0] = Tree('chamada_de_funcao',[p[3]], p[1])
 
     def chamada_de_funcao(self,node):
+        self.param_chama_funcao(node.child[0])
 
-        if(node.value not in self.tabela.keys()) :
-            print("Erro Semântico, nome de funcao não declarado : " + node.value )
-            exit(1)
+        # if(node.value not in self.tabela.keys()) :
+        #     print("Erro Semântico, nome de funcao não declarado : " + node.value )
+        #     exit(1)
 
-        if self.param_chama_funcao(node.child[0]) != self.tabela[node.value]["num_parametros"]:
-            print("Erro Semântico, número de parametros não correspondem com os da função : " + node.value )
-            exit(1)
+        # if self.param_chama_funcao(node.child[0]) != self.tabela[node.value]["num_parametros"]:
+        #     print("Erro Semântico, número de parametros não correspondem com os da função : " + node.value )
+        #     exit(1)
 
     def param_chama_funcao(self,node):
+        # print(valor)
         if node.type == "param_chama_funcao_loop":
             a = self.expressao(node.child[0],"nada")
+            # if(a!=self.tabela[valor+""]["parametro"])
             return self.param_chama_funcao(node.child[1]) + 1
         else:
             return 1
@@ -496,6 +504,7 @@ class Semantica():
             if esquerda == direita:
                 return esquerda
 
+
             # else:
             #     "flutuante"
 
@@ -518,7 +527,7 @@ class Semantica():
         if(node.type == "fator_chamada_de_funcao"):
             return self.chamada_de_funcao(node.child[0])
         if(node.type == "fato_expressao_numero"):
-            print(self.expressao_numero(node.child[0], nomeVariavel,False))
+            # print(self.expressao_numero(node.child[0], nomeVariavel,False))
             return self.expressao_numero(node.child[0], nomeVariavel,False)
 
             # if(nomeVariavel!="nada"):

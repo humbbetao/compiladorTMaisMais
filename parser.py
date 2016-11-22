@@ -176,7 +176,7 @@ class AnaliseSintatica:
 
     def p_expressao_leitura(self, p):
         'expressao_leitura : LEIA ABREPAR IDENTIFICADOR FECHAPAR'
-        p[0] = Tree('expressao_leitura', [], p[1])
+        p[0] = Tree('expressao_leitura', [], p[3])
 
     def p_expressao_escreva_1(self, p):
         'expressao_escreva : ESCREVE ABREPAR expressao FECHAPAR'

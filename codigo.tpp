@@ -1,10 +1,5 @@
-inteiro fatorial()
-    inteiro: n
-    n := -5
-fim
+inteiro: a, b
 
-inteiro principal()
-    {leia(n)}
-    {escreva(fatorial(n))}
-    {retorna(0)}
+inteiro fatorial(inteiro:n, inteiro:c)
+    inteiro
 fim

@@ -4,136 +4,83 @@ from parser import AnaliseSintatica
 class Semantica():
 
     def __init__(self,codigo):
-        self.table ={}
-        self.scope = "global"
+        self.tabela ={}
+        self.escopo = "global"
         self.tree = AnaliseSintatica().parser_codigo(codigo)
-        print(self.tree)
-
-
-    # def p_programa_1(self,p):
-    #     'programa : statement programa'
-    #     p[0] = Tree('statement_loop', [p[1], p[2]])
-
-    # def p_programa_2(self,p):
-    #     'programa : statement '
-    #     p[0] = Tree('statement_sem_loop', [p[1]])
 
     def raiz(self):
         if(self.tree.type == "statement_loop"):
-            # print("oi")
             self.statement(self.tree.child[0])
             self.programa(self.tree.child[1])
-            print("oi")
 
         if(self.tree.type == "statement_sem_loop"):
             statement(self.tree.child[0])
 
     def programa(self,node):
         if(node.type == "statement_loop"):
-            print("oi")
             self.statement(node.child[0])
             self.programa(node.child[1])
-            print("oi")
-
         if(node.type == "statement_sem_loop"):
-            statement(node.child[0])
-            
+            self.statement(node.child[0])          
 
     def statement(self,node):
         if(node.type == "statement_declaracao_de_funcao"):
-            print("statementeDeclara")
             self.declaracao_de_funcao(node.child[0])
+
         if(node.type == "statement_declara_var"):
-            print("declara_var")
             self.declara_var(node.child[0])
 
 
     def  declaracao_de_funcao(self,node):
-        if(node.value in self.table.keys()): #se ja tem funcao com esse nome na tabela
+        if(node.value in self.tabela.keys()): #se ja tem funcao com esse nome na tabela
             print("Erro Semântico, o nome "+  node.value + " já esta sendo utilizado")
-            exit(1)
+            exit(1)        
 
-
-        
-
-        # if (self.tipo(node.child[0])==1):
-
-        if(node.type == "declaracao_de_funcao"):
-            print("delcarafunc")
-            tipo = None
-            if self.tipo(node.child[0]) == 1:
-                tipo ="INTEIRO"
-            if self.tipo(node.child[0]) == 2:
-                tipo = "FLUTUANTE"
+        print(node.type)
+        if(node.type == "declaracao_de_funcao_td"):
             
-            self.table[node.value] = {}
-            self.table[node.value]["var"] = False
-            self.table[node.value]["tipo"] = tipo
-            self.table[node.value]["num_parametros"] = 0
+            self.tabela[node.value] = {}
+            self.tabela[node.value]["variavel"] = False
+            self.tabela[node.value]["tipo"] = self.tipo(node.child[0])
+            self.tabela[node.value]["num_parametros"] = 0
 
+            self.escopo = node.value
+            self.tabela[node.value]["num_parametros"] = self.declaracao_param(node.child[1]) #recebe a quantidade de parametros declarados
             self.sequencia_de_declaracao(node.child[2])
-            self.scope = node.value  #escopo nome da função
-            self.table[node.value]["num_parametros"] = self.declaracao_param(node.child[1]) #recebe a quantidade de parametros declarados
-
-            self.scope = "global"
+            self.escopo = "global"
 
 
 
-        if(node.type == "declaracao_de_funcao_sem_corpo"):
-
-            tipo = None
-            if self.tipo(node.child[0]) == 1:
-                tipo ="INTEIRO"
-            if self.tipo(node.chil[0]) == 2:
-                tipo = "FLUTUANTE"
-            
-            self.table[node.value] = {}
-            self.table[node.value]["var"] = False
-            self.table[node.value]["tipo"] = tipo
-            self.table[node.value]["num_parametros"] = 0
-
-            # self.sequencia_de_declaracao(node.child[2])
-            self.scope = node.value  #escopo nome da função
-            self.table[node.value]["num_parametros"] = self.declaracao_param(node.child[1]) #recebe a quantidade de parametros declarados
-
-            self.scope = "global"
+        if(node.type == "declaracao_de_funcao_sem_corpo"):  
+            self.tabela[node.value] = {}
+            self.tabela[node.value]["variavel"] = False
+            self.tabela[node.value]["tipo"] = self.tipo(node.child[0])
+            self.tabela[node.value]["num_parametros"] = 0
+            self.escopo = node.value  #escopo nome da função
+            self.tabela[node.value]["num_parametros"] = self.declaracao_param(node.child[1]) #recebe a quantidade de parametros declarados
+            self.escopo = "global"
 
         if(self.tree.type == "declaracao_de_funcao_sem_corpo_sem_parametros"):
-            print("delcarafunc")
-            tipo = None
-            if self.tipo(node.child[0]) == 1:
-                tipo ="INTEIRO"
-            if self.tipo(node.chil[0]) == 2:
-                tipo = "FLUTUANTE"
             
-            self.table[node.value] = {}
-            self.table[node.value]["var"] = False
-            self.table[node.value]["tipo"] = tipo
-            self.table[node.value]["num_parametros"] = 0
+            self.tabela[node.value] = {}
+            self.tabela[node.value]["variavel"] = False
+            self.tabela[node.value]["tipo"] = self.tipo(node.child[0])
+            self.tabela[node.value]["num_parametros"] = 0
 
-            self.sequencia_de_declaracao(node.child[2])
-            self.scope = node.value  #escopo nome da função
-            # self.table[node.value]["num_parametros"] = self.declaracao_param(node.child[1]) #recebe a quantidade de parametros declarados
+            self.escopo = node.value  #escopo nome da função
+            self.escopo = "global"
 
-            self.scope = "global"
         if(node.type == "declaracao_de_funcao_sem_param_com_corpo"):
-            print("delcarafunc")
-            tipo = None
-            if self.tipo(node.child[0]) == 1:
-                tipo ="INTEIRO"
-            if self.tipo(node.chil[0]) == 2:
-                tipo = "FLUTUANTE"
-            
-            self.table[node.value] = {}
-            self.table[node.value]["var"] = False
-            self.table[node.value]["tipo"] = tipo
-            self.table[node.value]["num_parametros"] = 0
+    
+            self.tabela[node.value] = {}
+            self.tabela[node.value]["variavel"] = False
+            self.tabela[node.value]["tipo"] = self.tipo(node.child[0])
+            self.tabela[node.value]["num_parametros"] = 0
 
-            # self.sequencia_de_declaracao(node.child[2])
-            self.scope = node.value  #escopo nome da função
-            # self.table[node.value]["num_parametros"] = self.declaracao_param(node.child[1]) #recebe a quantidade de parametros declarados
+            self.escopo = node.value
+            self.sequencia_de_declaracao(node.child[1])
 
-            self.scope = "global"
+            self.escopo = "global"
 
     #     def p_declara_var1(self, p):
     #     'declara_var : tipo DOISPONTOS IDENTIFICADOR'
@@ -149,50 +96,51 @@ class Semantica():
 
     def declara_var(self,node):
 
-        if(self.scope + "." + node.value in self.table.keys()): #se ja tem variavel com esse nome na tabela
+        if(self.escopo + "." + node.value in self.tabela.keys()): #se ja tem variavel com esse nome na tabela
             print("Erro Semântico, nome já utilizado : " + node.value )
             exit(1)
 
-        tipo = ""
-
         if(node.type == "declara_var_so_declara"):
-            if self.tipo(node.child[0]) == 1:
-                tipo = "INTEIRO"
-
-            elif self.tipo(node.child[0]) == 2:
-                    tipo = "FLUTUANTE"
-
-            elif self.tipo(node.child[0]) == 3:
-                print("Erro Semântico, o parametro não pode ser do tipo VAZIO: " + node.value )
-                exit(1)
-
-            self.table[self.scope + "." + node.value] = {}
-            self.table[self.scope + "." + node.value]["var"] = True
-            self.table[self.scope + "." + node.value]["inicializada"] = False
-            self.table[self.scope + "." + node.value]["tipo"] = tipo
-            self.table[self.scope + "." + node.value]["valor"] = None
+            self.tabela[self.escopo + "." + node.value] = {}
+            self.tabela[self.escopo + "." + node.value]["variavel"] = True
+            self.tabela[self.escopo + "." + node.value]["inicializada"] = False
+            self.tabela[self.escopo + "." + node.value]["tipo"] = self.tipo(node.child[0])
+            self.tabela[self.escopo + "." + node.value]["valor"] = None
 
         if(node.type == "declara_var_loop"):
-        # if(node.type == "declara_var_so_declara"):
-            if self.tipo(node.child[0]) == 1:
-                tipo = "INTEIRO"
-
-            elif self.tipo(node.child[0]) == 2:
-                tipo = "FLUTUANTE"
-
-            elif self.tipo(node.child[0]) == 3:
-                print("Erro Semântico, o parametro não pode ser do tipo VAZIO: " + node.value )
-                exit(1)
-
-            self.table[self.scope + "." + node.value] = {}
-            self.table[self.scope + "." + node.value]["var"] = True
-            self.table[self.scope + "." + node.value]["inicializada"] = False
-            self.table[self.scope + "." + node.value]["tipo"] = tipo
-            self.table[self.scope + "." + node.value]["valor"] = None
+            self.tabela[self.escopo + "." + node.value] = {}
+            self.tabela[self.escopo + "." + node.value]["variavel"] = True
+            self.tabela[self.escopo + "." + node.value]["inicializada"] = False
+            self.tabela[self.escopo + "." + node.value]["tipo"] = self.tipo(node.child[0])
+            self.tabela[self.escopo + "." + node.value]["valor"] = None
             
-            self.declara_var(node.child[1])
-            
-            self.scope = node.value  
+            # print(node.child[0])
+            self.declara_outra_var(node.child[1], self.tipo(node.child[0]))          
+            # self.escopo = node.value  
+
+
+    def declara_outra_var(self,node,tipo):
+        if(self.escopo + "." + node.value in self.tabela.keys()): #se ja tem variavel com esse nome na tabela
+            print("Erro Semântico, nome já utilizado : " + node.value )
+            exit(1)
+
+        # print(node.value)
+        if(node.type == "declara_outra_var_1"):
+            self.tabela[self.escopo + "." + node.value] = {}
+            self.tabela[self.escopo + "." + node.value]["variavel"] = True
+            self.tabela[self.escopo + "." + node.value]["inicializada"] = False
+            self.tabela[self.escopo + "." + node.value]["tipo"] = tipo
+            self.tabela[self.escopo + "." + node.value]["valor"] = None
+            self.declara_outra_var(node.child[0],tipo)  
+
+        if(node.type == "declara_outra_var_2"):
+            self.tabela[self.escopo + "." + node.value] = {}
+            self.tabela[self.escopo + "." + node.value]["variavel"] = True
+            self.tabela[self.escopo + "." + node.value]["inicializada"] = False
+            self.tabela[self.escopo + "." + node.value]["tipo"] = tipo
+            self.tabela[self.escopo + "." + node.value]["valor"] = None
+
+  
 
 
 
@@ -206,52 +154,27 @@ class Semantica():
     #     p[0] = Tree('declaracao_param', [p[1]], p[3])
 
     def declaracao_param(self,node):
+        if( self.escopo + "." + node.value in self.tabela.keys()): #se ja tem variavel com esse nome na tabela
+            print("Erro Semântico, nome já utilizado :" + node.value )
+            exit(1)
+
         if(node.type == "declaracao_param_loop"):
-            if( self.scope + "." + node.value in self.table.keys()): #se ja tem variavel com esse nome na tabela
-                print("Erro Semântico, nome já utilizado :" + node.value )
-                exit(1)
+            # print(node.value)
+            self.tabela[self.escopo + "." + node.value] = {}
+            self.tabela[self.escopo + "." + node.value]["variavel"] = True
+            self.tabela[self.escopo + "." + node.value]["inicializada"] = True
+            self.tabela[self.escopo + "." + node.value]["tipo"] = self.tipo(node.child[0])
+            self.tabela[self.escopo + "." + node.value]["valor"] = None
 
-            tipo = ""
-
-            if self.tipo(node.child[1]) == 1:
-                tipo = "INTEIRO"
-
-            elif self.tipo(node.child[1]) == 2:
-                tipo = "FLUTUANTE"
-
-            elif self.tipo(node.child[1]) == 3:
-                print("Erro Semântico, o parametro não pode ser do tipo VAZIO: " + node.value )
-                exit(1)
-
-            self.table[self.scope + "." + node.value] = {}
-            self.table[self.scope + "." + node.value]["var"] = True
-            self.table[self.scope + "." + node.value]["inicializada"] = True
-            self.table[self.scope + "." + node.value]["tipo"] = tipo
-            self.table[self.scope + "." + node.value]["valor"] = None
-
-            return self.declaracao_param(node.child[0]) + 1
+            return self.declaracao_param(node.child[1]) + 1
 
         else: #se for só um parametro
-
-            if( (self.scope + "." + node.value) in self.table.keys()): #se ja tem variavel com esse nome na tabela
-                print("Erro Semântico, nome já utilizado : " + node.value )
-                exit(1)
-
-            elif self.tipo(node.child[0]) == 1:
-                tipo = "INTEIRO"
-
-            elif self.tipo(node.child[0]) == 2:
-                tipo = "FLUTUANTE"
-
-            elif self.tipo(node.child[0]) == 3:
-                print("Erro Semântico, o parametro não pode ser do tipo VAZIO: " + node.value )
-                exit(1)
-
-            self.table[self.scope + "." + node.value] = {}
-            self.table[self.scope + "." + node.value]["var"] = True
-            self.table[self.scope + "." + node.value]["inicializada"] = True
-            self.table[self.scope + "." + node.value]["tipo"] = tipo
-            self.table[self.scope + "." + node.value]["valor"] = None
+            # print(node.value)
+            self.tabela[self.escopo + "." + node.value] = {}
+            self.tabela[self.escopo + "." + node.value]["variavel"] = True
+            self.tabela[self.escopo + "." + node.value]["inicializada"] = True
+            self.tabela[self.escopo + "." + node.value]["tipo"] = self.tipo(node.child[0])
+            self.tabela[self.escopo + "." + node.value]["valor"] = None
 
             return 1
 
@@ -289,6 +212,7 @@ class Semantica():
             self.expressao_iteracao(node.child[0])
 
         if(node.type == "declaracao_expressao_atribuicao") :
+
             self.expressao_atribuicao(node.child[0])
 
         if(node.type == "declaracao_expressao_leitura") :
@@ -301,7 +225,7 @@ class Semantica():
             self.declara_var(node.child[0])
 
         if(node.type == "declaracao_retorna") :
-            self.retorna(node.child[0])
+            self.expressao_retorna(node.child[0])
 
         if(node.type == "declaracao_chamada_de_funcao") :
             self.chamada_de_funcao(node.child[0])
@@ -317,11 +241,11 @@ class Semantica():
 
     def expressao_condicional(self,node):
         if(node.type=="expressao_condicional_com_senao"):
-            self.expressao(node.child[0], "nada")
+            self.expressao(node.child[0],"nada")
             self.sequencia_de_declaracao(node.child[1])
             self.sequencia_de_declaracao(node.child[2])
         else:
-            self.expressao(node.child[0], "nada")
+            self.expressao(node.child[0])
             self.sequencia_de_declaracao(node.child[1])
 
 # def p_expressao_iteracao(self, p):
@@ -330,32 +254,56 @@ class Semantica():
 
     def expressao_iteracao(self, node):
         self.sequencia_de_declaracao(node.child[0])
-        self.expressao(node.child[1], "nada")
+        self.expressao(node.child[1],"nada")
 
   # 'expressao_atribuicao : IDENTIFICADOR ATRIBUICAO expressao'
         # p[0] =  Tree('expressao_atribuicao', [p[3]], p[1])
     def expressao_atribuicao(self, node):
-        if (self.scope + "." + node.value not in self.table.keys() and "global." + node.value not in self.table.keys()):
+        if (self.escopo + "." + node.value not in self.tabela.keys()
+             and "global." + node.value not in self.tabela.keys() ):
             print("Erro Semântico. Variável " + node.value + " não encontrada")
             exit(1)
 
         else :
-            if self.scope + "." + node.value in self.table.keys():
-                self.table[self.scope + "." + node.value]["inicializada"] = True 
+            tipo = self.expressao(node.child[0],"nada")
+            print(tipo)
+            if self.escopo + "." + node.value in self.tabela.keys():
+                # print("aqui2")
+                self.tabela[self.escopo + "." + node.value]["inicializada"] = True 
                 self.expressao(node.child[0], node.value) #passa o nome da variável
 
-            elif "global." + node.value in self.table.keys():
-                self.table["global." + node.value]["inicializada"] = True
-                self.expressao(node.child[0], node.value) #passa o nome da variável
+                # print(tipo)
+                # if self.tabela[self.escopo + '.' + node.value]["tipo"] != :
+                #     print("WARNING atribuição: variavel '" + node.value + "' é do tipo '" + self.tabela[self.escopo + '.' + node.value]["tipo"] +  "' está atribuindo uma expressão do tipo '" + tipo + "'")
+            elif "global." + node.value in self.tabela.keys():
+                self.tabela["global." + node.value]["inicializada"] = True
+                self.expressao(node.child[0], node.value) 
+                # 'global.' + subarvore.value in self.tabela.keys():
+                # if self.tabela["global." + subarvore.value][1] != tipo:
+                #     print("WARNING atribuição: identificador '" + node.value + "' é do tipo '" +
+                #     self.tabela["global." + node.value][1] +
+                #     "' está atribuindo uma expressão do tipo '" + tipo + "'")
+
+
+
+                # = self.expressao(node.child[0], node.value) #passa o nome da variável
+
+            # elif "global." + node.value in self.tabela.keys():
+            #     self.tabela["global." + node.value]["valor"] = True
+            #     self.tabela[self.escopo + "." + node.value]["valor"]=self.expressao(node.child[0], node.value) #passa o nome da variável
       
     # def p_expressao_leitura(self, p):
     #     'expressao_leitura : LEIA ABREPAR IDENTIFICADOR FECHAPAR'
     #     p[0] = Tree('expressao_leitura', [], p[1])
 
     def expressao_leitura(self,node):
-          if self.scope + "." + node.value not in self.table.keys() and "global." + node.value not in self.table.keys():
+        if self.escopo + "." + node.value not in self.tabela.keys() and "global." + node.value not in self.tabela.keys():
             print("Erro Semântico. Variável " + node.value + " não encontrada")
             exit(1)
+        elif self.escopo + '.' + node.value in self.tabela.keys():
+            self.tabela[self.escopo + '.' + node.value]["inicializada"] = True
+        else:
+            self.tabela['global.' + node.value]["inicializada"] = True
 
 
     # def p_expressao_escreva_1(self, p):
@@ -363,8 +311,7 @@ class Semantica():
     #     p[0] = Tree('expressao_escreva', [p[3]], p[1])
 
     def expressao_escreva(self,node):
-        # if(node.type == "escreva_decl_exp"):
-            self.expressao(node.child[0], "nada")
+        self.expressao(node.child[0], "nada")
         # else :
         #     self.chamada_func_escreva(node.child[1])
 
@@ -372,10 +319,9 @@ class Semantica():
 #         'retorna : RETORNA ABREPAR expressao FECHAPAR'  
 #         p[0] = Tree('retorna', [p[3]])
 
-    def expressao_retorna(self,node):
-         # if (node.type == ""):
+    def expressao_retorna(self,node):       
+        self.expressao(node.child[0], "nada")
 
-        tipo = self.expressao(node.child[0])
         # else:
         #     return node.value #retorna o id
 
@@ -384,35 +330,44 @@ class Semantica():
  #        p[0] = Tree('chamada_de_funcao',[p[3]], p[1])
 
     def chamada_de_funcao(self,node):
-        if(node.value not in self.table.keys()) :
+
+        if(node.value not in self.tabela.keys()) :
             print("Erro Semântico, nome de funcao não declarado : " + node.value )
             exit(1)
 
-        if self.param_chama_funcao(node.child[0]) != self.table[node.value]["num_parametros"]:
+        if self.param_chama_funcao(node.child[0]) != self.tabela[node.value]["num_parametros"]:
             print("Erro Semântico, número de parametros não correspondem com os da função : " + node.value )
             exit(1)
 
     def param_chama_funcao(self,node):
-         if node.type == "parametro_chama_func_paramentros":
-            if self.scope + "." + node.value not in self.table.keys() and "global" + "." + node.value not in self.table.keys():
-                print("Erro semântico : Variável não declarada  " + node.value)
-                exit(1)
+        if node.type == "param_chama_funcao_loop":
+            a = self.expressao(node.child[0],"nada")
+            return self.param_chama_funcao(node.child[1]) + 1
+        else:
+            return 1
+            a = self.expressao(node.child[0],"nada") 
+         # node.type == "param_chama_funcao_loop_stop":
+        
 
-            elif self.scope + "." + node.value in self.table.keys():
-                if self.table[self.scope + "." + node.value]["inicializada"] == False:
-                    print("Erro semântico : Variável não inicializada " + node.value)
-                    exit(1)
+            # if self.escopo + "." + node.value not in self.tabela.keys() and "global" + "." + node.value not in self.tabela.keys():
+            #     print("Erro semântico : Variável não declarada  " + node.value)
+            #     exit(1)
 
-                else:
-                    return self.param_chama_funcao(node.child[0]) + 1
+            # elif self.escopo + "." + node.value in self.tabela.keys():
+            #     if self.tabela[self.escopo + "." + node.value]["inicializada"] == False:
+            #         print("Erro semântico : Variável não inicializada " + node.value)
+            #         exit(1)
 
-            elif "global" + "." + node.value in self.table.keys():
-                if self.table["global" + "." + node.value]["inicializada"] == False:
-                    print("Erro semântico : Variável não inicializada " + node.value)
-                    exit(1)
+            #     else:
+            #         return self.param_chama_funcao(node.child[0]) + 1
 
-                else:
-                    return self.param_chama_funcao(node.child[0]) + 1
+            # elif "global" + "." + node.value in self.tabela.keys():
+            #     if self.tabela["global" + "." + node.value]["inicializada"] == False:
+            #         print("Erro semântico : Variável não inicializada " + node.value)
+            #         exit(1)
+
+            #     else:
+            #         return self.param_chama_funcao(node.child[0]) + 1
 
         # elif node.type == "parametro_chama_func_numeros":
         #     self.numero_decl(node.child[0])
@@ -423,19 +378,19 @@ class Semantica():
         #     return 1
 
         # elif node.type == "param_chama_funcao":
-        #     if self.scope + "." + node.value not in self.table.keys() and "global." + node.value not in self.table.keys():
+        #     if self.escopo + "." + node.value not in self.tabela.keys() and "global." + node.value not in self.tabela.keys():
         #         print("Erro semântico : Variável não declarada " + node.value)
         #         exit(1)
 
-        #     elif self.scope + "." + node.value in self.table.keys():
-        #         if self.table[self.scope + "." + node.value]["inicializada"] == False:
+        #     elif self.escopo + "." + node.value in self.tabela.keys():
+        #         if self.tabela[self.escopo + "." + node.value]["inicializada"] == False:
         #             print("Erro semântico : Variável não inicializada " + node.value)
         #             exit(1)
         #         else:
         #             return 1
 
-        #     elif "global" + "." + node.value in self.table.keys():
-        #         if self.table["global" + "." + node.value]["inicializada"] == False:
+        #     elif "global" + "." + node.value in self.tabela.keys():
+        #         if self.tabela["global" + "." + node.value]["inicializada"] == False:
         #             print("Erro semântico : Variável não inicializada " + node.value)
         #             exit(1)
         #         else:
@@ -450,13 +405,16 @@ class Semantica():
     #     p[0] = Tree('chamada_de_funcao',[p[1], p[2], p[3]])
 
     def expressao(self,node,nomeVariavel):
-        if( node.type == "expressao_simples_composta" ):
-            self.expressao_simples(node.child[0], nomeVariavel)
-            self.comparacao_operador(node.child[1])
-            self.expressao_simples(node.child[2], nomeVariavel)
 
-        else:
-            self.expressao_simples(node.child[0], nomeVariavel)
+        if( node.type == "expressao_simples_composta" ):
+            esquerda = self.expressao_simples(node.child[0],nomeVariavel)
+            self.comparacao_operador(node.child[1])
+            direita = self.expressao_simples(node.child[2],nomeVariavel)
+            if esquerda ==direita:
+                return "inteiro"
+
+        else:          
+            return self.expressao_simples(node.child[0],nomeVariavel)
 
  # def p_comparacao_operador(self, p):
  #        '''
@@ -478,14 +436,19 @@ class Semantica():
     # def p_expressao_simples_2(self,p):
     #     'expressao_simples : termo'
     #     p[0] = Tree('expressao_simples_termo',[p[1]])
-    def expressao_simples(self, node, nomeVariavel) :
+    def expressao_simples(self, node,nomeVariavel) :
         if(node.type == "expressao_simples_termo_com_soma"):
-            self.expressao_simples(node.child[0], nomeVariavel)
+            esquerda =self.expressao_simples(node.child[0],nomeVariavel)
             self.soma(node.child[1])
-            self.termo(node.child[2], nomeVariavel)
+            direita =self.termo(node.child[2],nomeVariavel)
+
+            if esquerda == direita:
+                return esquerda
+            # else:
+            #     return "flutuante"
 
         else :
-            self.termo(node.child[0], nomeVariavel)
+            return self.termo(node.child[0], nomeVariavel)
 
  #     def  p_soma(self,p):
  #        '''soma : ADICAO
@@ -499,6 +462,7 @@ class Semantica():
 
 # def p_mult(self,p):
  #        '''mult : MULTIPLICACAO
+
  #                | DIVISAO
  #        '''
  #        p[0] = Tree('mult_termo',[],p[1])
@@ -511,13 +475,29 @@ class Semantica():
  #        'termo : fator'
  #        p[0] = Tree('fator',[p[1]])
 
-    def termo(self,node, nomeVariavel):
+    def termo(self,node,nomeVariavel):
+        # print(node.child[0])
         if(node.type == "fator"):
-            self.fator(node.child[0])
+           return self.fator(node.child[0],nomeVariavel)
         else:
-            self.termo(node.child[0],nomeVariavel)
-            self.mult(node.child[1])
-            self.fator(node.child[2])
+            esquerda = self.termo(node.child[0],nomeVariavel)
+           
+            # if self.mult(node.child[1]) =="/":
+            #     if self.escopo + "." + nomeVariavel in self.tabela.keys() :
+            #         if self.tabela[self.escopo+"."+nomeVariavel]["tipo"]!= "flutuante":
+            #             print("Warning de cast")
+            direita = self.fator(node.child[2],nomeVariavel)
+            # print(self.mult(node.child[1]))
+            if self.mult(node.child[1]) == "/":
+                if self.escopo + "." + nomeVariavel in self.tabela.keys():
+                     if self.tabela[self.escopo+"."+nomeVariavel]["tipo"]!= "flutuante":
+                        print("Warning de cast")
+
+            if esquerda == direita:
+                return esquerda
+
+            # else:
+            #     "flutuante"
 
  #    def p_termo_2(self,p):
  #        'termo : termo mult fator'
@@ -532,14 +512,78 @@ class Semantica():
     # def p_fator_3(self,p):
     #     'fator : chamada_de_funcao'
     #     p[0] = Tree('fator_chamada_de_funcao',[p[1]])
-    def fator(self,node):
+    def fator(self,node, nomeVariavel):
         if(node.type == "fator_expressao"):
-            self.expressao(node.child[0])
+            return self.expressao(node.child[0],nomeVariavel)
         if(node.type == "fator_chamada_de_funcao"):
-            self.chamada_de_funcao(node.child[0])
-        else:
-            self.expressao_numero(node.child[0])
-            self.expressao_identificador(node.child[0])
+            return self.chamada_de_funcao(node.child[0])
+        if(node.type == "fato_expressao_numero"):
+            print(self.expressao_numero(node.child[0], nomeVariavel,False))
+            return self.expressao_numero(node.child[0], nomeVariavel,False)
+
+            # if(nomeVariavel!="nada"):
+            #     if self.escopo + "." + node.expressao_numero(node.child[0],nomeVariavel) not in self.tabela.keys() and "global." + node.expressao_numero(node.child[0],nomeVariavel)  not in self.tabela.keys():
+            #        print("Erro semântico : Variável não declarada : " + node.value)
+            #        exit(1)
+                # else:
+                #     if self.escopo + "." + node.value in self.tabela.keys() :
+                #         if self.escopo + "." + nomeVariavel in self.tabela.keys():
+                #             if self.tabela[escopo + "." + node.value]["inicializada"] == True # ja recebendo numa variavel inicializada
+                #                 if self.tabela[self.escopo + "." + nomeVariavel]["tipo"] == "INTEIRO" and self.tabela[self.escopo + "." + node.value]["tipo"] == "FLUTUANTE": #inteiro e float
+                #                     print("Warning : Voce está associando um tipo FLUTUANTE a um tipo INTEIRO : " + nomeVariavel)
+
+                #                 elif self.tabela[self.escopo + "." + nomeVariavel]["tipo"] == "FLUTUANTE" and self.tabela[self.escopo + "." + node.value]["tipo"] == "INTEIRO": #float e inteiro
+                #                     print("Warning : Voce está associando um tipo INTEIRO a um tipo FLUTUANTE : " + nomeVariavel)
+                #             else:
+                #                 print("Erro semântico : Variável não inicializada : " + node.value)
+                #                 exit(1)
+
+                #     elif "global." + node.value in self.tabela.keys() :
+                #          if "global." + nomeVariavel in self.tabela.keys():
+                #             if self.tabela["global." + node.value]["inicializada"] == True # ja recebendo numa variavel inicializada
+                #                 if self.tabela["global." + nomeVariavel]["tipo"] == "INTEIRO" and self.tabela["global." + node.value]["tipo"] == "FLUTUANTE": #inteiro e float
+                #                     print("Warning : Voce está associando um tipo FLUTUANTE a um tipo INTEIRO : " + nomeVariavel)
+
+                #                 elif self.tabela["global." + nomeVariavel]["tipo"] == "FLUTUANTE" and self.tabela["global." + node.value]["tipo"] == "INTEIRO": #float e inteiro
+                #                     print("Warning : Voce está associando um tipo INTEIRO a um tipo FLUTUANTE : " + nomeVariavel)
+                #             else:
+                #                 print("Erro semântico : Variável não inicializada : " + node.value)
+                #                 exit(1)
+
+                #         if self.escopo + "." + nomeVariavel in self.tabela.keys():
+
+                #             if self.tabela["global." + node.value]["inicializada"] == True: #recebenco ID inicializado 
+                #                 if self.tabela[self.escopo + "." + nomeVariavel]["tipo"] == "INTEIRO" and self.tabela["global." + node.value]["tipo"] == "FLUTUANTE": #inteiro e float
+                #                     print("Warning : Voce está associando um tipo FLUTUANTE a um tipo INTEIRO : " + nomeVariavel)
+
+                #                 elif self.tabela[self.escopo + "." + nomeVariavel]["tipo"] == "FLUTUANTE" and self.tabela["global." + node.value]["tipo"] == "INTEIRO": #float e inteiro
+                #                     print("Warning : Voce está associando um tipo INTEIRO a um tipo FLUTUANTE : " + nomeVariavel)
+                            
+                #             else:
+                #                 print("Erro semântico : Variável não inicializada : " + node.value)
+                #                 exit(1)
+
+                #      elif "global." + nomeVariavel in self.tabela.keys():
+                            
+                #             if self.tabela["global." + node.value]["inicializada"] == True: #recebenco ID inicializado 
+                                
+                #                 if self.tabela["global." + nomeVariavel]["tipo"] == "INTEIRO" and self.tabela["global." + node.value]["tipo"] == "FLUTUANTE": #inteiro e float
+                #                     print("Warning : Voce está associando um tipo FLUTUANTE a um tipo INTEIRO : " + nomeVariavel)
+
+                #                 elif self.tabela["global." + nomeVariavel]["tipo"] == "FLUTUANTE" and self.tabela["global." + node.value]["tipo"] == "INTEIRO": #float e inteiro
+                #                     print("Warning : Voce está associando um tipo INTEIRO a um tipo FLUTUANTE : " + nomeVariavel)
+                            
+                #             else:
+                #                 print("Erro semântico : Variável não inicializada : " + node.value)
+                #                 exit(1)
+                    
+
+
+
+
+        if(node.type == "fato_expressao_identificador"):
+            # print(self.expressao_identificador(node.child[0],nomeVariavel))
+            return self.expressao_identificador(node.child[0],nomeVariavel)
 
 
     # def p_fator_2(self,p):
@@ -553,14 +597,20 @@ class Semantica():
     #     'expressao_identificador : IDENTIFICADOR'
     #     p[0]  = Tree('expressao_simples_identificador', [], p[1] )
 
-    def expressao_identificador(self,node):
+    def expressao_identificador(self,node,nomeVariavel):
         return node.value
 
-    def expressao_numero(self,node):
+    def expressao_numero(self,node,nomeVariavel,boole):
         if(node.type=="expressao_numero_composta"):
-             self.expressao_numero(node.child[0])
+            # print(node.value)
+            if(node.value=="+"):
+                return self.expressao_numero(node.child[0],nomeVariavel,False)
+            else: 
+                return self.expressao_numero(node.child[0],nomeVariavel,True) 
+                
         if(node.type=="expressao_numero"):
-            self.numero(node.child[0])
+            # print(self.numero(node.child[0],boole),"oi")
+            return self.numero(node.child[0],boole)
 
         # node.value
 
@@ -593,22 +643,33 @@ class Semantica():
 
 
     def tipo(self, node) :
-        if(node.value == "INTEIRO"):
-            return 1
+        return node.value
 
-        if(node.value == "FLUTUANTE"):
-            return 2
+    def numero(self, node,boole):
+        x = node.value.isdigit()
+        if x is True:
+            return "inteiro"
+        else:
+            return "flutuante"   
+        # valor =0
+        # if boole == True:
+        #     valor = valor - float(node.value)
+        # print(valor)
+        # return valor 
+        # if(node.value =:
+        #     return 1
 
-    def numero(self, node) :
-        if(node.value == "INTEIRO"):
-            return 1
 
-        if(node.value == "FLUTUANTE"):
-            return 2
+
+        # if(node.value == "FLUTUANTE"):
+        #     return 2
 
 if __name__ == "__main__":
     import sys
     code = open(sys.argv[1])
     s = Semantica(code.read())
     s.raiz()
-    print("tabela de simbolos", s.table)
+    # print("tabela de simbolos", s.tabela)
+    for keys,values in s.tabela.items():
+        print(keys,values)
+        # print(values)

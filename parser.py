@@ -74,7 +74,7 @@ class AnaliseSintatica:
 
     def p_declaracao_de_funcao_1(self, p):
         'declaracao_de_funcao : tipo IDENTIFICADOR ABREPAR declaracao_param FECHAPAR sequencia_de_declaracao FIM'
-        p[0] = Tree('declaracao_de_funcao', [p[1],p[4], p[6]], p[2])
+        p[0] = Tree('declaracao_de_funcao_td', [p[1],p[4], p[6]], p[2])
 
     def p_declaracao_de_funcao_2(self, p):
         'declaracao_de_funcao : tipo IDENTIFICADOR ABREPAR declaracao_param FECHAPAR  FIM'
@@ -89,8 +89,8 @@ class AnaliseSintatica:
         p[0] = Tree('declaracao_de_funcao_sem_param_com_corpo', [p[1],p[5]], p[2])
 
     def p_declaracao_param_1(self, p):
-        'declaracao_param : declaracao_param VIRGULA tipo DOISPONTOS IDENTIFICADOR'
-        p[0] = Tree('declaracao_param_loop', [p[1],p[3]], p[5])
+        'declaracao_param : tipo DOISPONTOS IDENTIFICADOR VIRGULA declaracao_param '
+        p[0] = Tree('declaracao_param_loop', [p[1],p[5]], p[3])
 
     def p_declaracao_param_2(self, p): 
         'declaracao_param : tipo DOISPONTOS IDENTIFICADOR'
@@ -183,18 +183,22 @@ class AnaliseSintatica:
         p[0] = Tree('expressao_escreva', [p[3]], p[1])
 
     def p_declara_var1(self, p):
+        'declara_var : tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var'
+        p[0] = Tree('declara_var_loop', [p[1], p[5]], p[3])
+    
+    def p_declara_var2(self, p):
         'declara_var : tipo DOISPONTOS IDENTIFICADOR'
         p[0] = Tree('declara_var_so_declara', [p[1]], p[3])
 
-    def p_declara_var2(self, p):
-        'declara_var : tipo DOISPONTOS IDENTIFICADOR VIRGULA declara_outra_var'
-        p[0] = Tree('declara_var_loop', [p[1], p[5]], p[3])
+    def p_declara_outra_var_1(self, p):
+        'declara_outra_var : IDENTIFICADOR VIRGULA declara_outra_var'
+        p[0] = Tree('declara_outra_var_1', [p[3]], p[1])
 
-
-
-    def p_declara_outra_var(self, p):
+    def p_declara_outra_var_2(self, p):
         'declara_outra_var : IDENTIFICADOR'
-        p[0] = Tree('declara_outra_var', [], p[1])
+        p[0] = Tree('declara_outra_var_2', [], p[1])
+
+    
 
     def p_retorna(self, p):
         'retorna : RETORNA ABREPAR expressao FECHAPAR'  
@@ -205,12 +209,12 @@ class AnaliseSintatica:
         p[0] = Tree('chamada_de_funcao',[p[3]], p[1])
 
     def p_param_chama_funcao_1(self, p):
-        'param_chama_funcao :  param_chama_funcao VIRGULA expressao'
-        p[0] = Tree('param_chama_funcao_loop',[p[1],p[3]], p[1])
+        'param_chama_funcao :   expressao VIRGULA param_chama_funcao '
+        p[0] = Tree('param_chama_funcao_loop',[p[1],p[3]])
 
     def p_param_chama_funcao_2(self, p):
         'param_chama_funcao :  expressao'
-        p[0] = Tree('param_chama_funcao_loop',[p[1]])
+        p[0] = Tree('param_chama_funcao_loop_stop',[p[1]])
 
     def p_expressao_1(self, p):
         'expressao : expressao_simples'
@@ -270,18 +274,17 @@ class AnaliseSintatica:
         'fator : ABREPAR expressao FECHAPAR'
         p[0] = Tree('fator_expressao',[p[2]])
 
-    def p_fator_3(self,p):
+    def p_fator_2(self,p):
         'fator : chamada_de_funcao'
         p[0] = Tree('fator_chamada_de_funcao',[p[1]])
 
+    def p_fator_3(self,p):
+        'fator : expressao_numero'
+        p[0] = Tree('fato_expressao_numero',[p[1]])
 
-
-    def p_fator_2(self,p):
-        '''
-            fator : expressao_numero
-                  | expressao_identificador
-        '''
-        p[0] = Tree('fator_expressao_generica',[p[1]])
+    def p_fator_4(self,p):
+        'fator : expressao_identificador'
+        p[0] = Tree('fato_expressao_identificador',[p[1]])    
 
     def p_expressao_identificador(self, p):
         'expressao_identificador : IDENTIFICADOR'
@@ -296,7 +299,7 @@ class AnaliseSintatica:
             expressao_numero : ADICAO expressao_numero
                              | SUBTRACAO expressao_numero
         '''
-        p[0]  = Tree('expressao_numero_composta', [p[2]] )
+        p[0]  = Tree('expressao_numero_composta', [p[2]], p[1] )
 
     def p_tipo_1(self, p):
         ''' tipo : INTEIRO

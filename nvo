@@ -1,0 +1,54 @@
+          if self.scope + "." + node.expressao_numero(node.child[0],nomeVariavel) in self.table.keys() :
+                        if self.scope + "." + nomeVariavel in self.table.keys():
+                            if self.table[scope + "." + node.expressao_numero(node.child[0],nomeVariavel)]["inicializada"] == True # ja recebendo numa variavel inicializada
+                                if self.table[self.scope + "." + nomeVariavel]["tipo"] == "INTEIRO" and self.table[self.scope + "." + node.expressao_numero(node.child[0],nomeVariavel)]["tipo"] == "FLUTUANTE": #inteiro e float
+                                    print("Warning : Voce está associando um tipo FLUTUANTE a um tipo INTEIRO : " + nomeVariavel)
+
+                                elif self.table[self.scope + "." + nomeVariavel]["tipo"] == "FLUTUANTE" and self.table[self.scope + "." +node.expressao_numero(node.child[0],nomeVariavel)]["tipo"] == "INTEIRO": #float e inteiro
+                                    print("Warning : Voce está associando um tipo INTEIRO a um tipo FLUTUANTE : " + nomeVariavel)
+                            else:
+                                print("Erro semântico : Variável não inicializada : " + node.expressao_numero(node.child[0],nomeVariavel))
+                                exit(1)
+
+                    elif "global." + node.expressao_numero(node.child[0],nomeVariavel) in self.table.keys() :
+                         if "global." + nomeVariavel in self.table.keys():
+                            if self.table["global." + node.expressao_numero(node.child[0],nomeVariavel)]["inicializada"] == True # ja recebendo numa variavel inicializada
+                                if self.table["global." + nomeVariavel]["tipo"] == "INTEIRO" and self.table["global." + node.expressao_numero(node.child[0],nomeVariavel)]["tipo"] == "FLUTUANTE": #inteiro e float
+                                    print("Warning : Voce está associando um tipo FLUTUANTE a um tipo INTEIRO : " + nomeVariavel)
+
+                                elif self.table["global." + nomeVariavel]["tipo"] == "FLUTUANTE" and self.table["global." + node.expressao_numero(node.child[0],nomeVariavel)]["tipo"] == "INTEIRO": #float e inteiro
+                                    print("Warning : Voce está associando um tipo INTEIRO a um tipo FLUTUANTE : " + nomeVariavel)
+                            else:
+                                print("Erro semântico : Variável não inicializada : " + node.expressao_numero(node.child[0],nomeVariavel))
+                                exit(1)
+
+                        if self.scope + "." + nomeVariavel in self.table.keys():
+
+                            if self.table["global." + node.value]["inicializada"] == True: #recebenco ID inicializado 
+                                if self.table[self.scope + "." + nomeVariavel]["tipo"] == "INTEIRO" and self.table["global." + node.expressao_numero(node.child[0],nomeVariavel)]["tipo"] == "FLUTUANTE": #inteiro e float
+                                    print("Warning : Voce está associando um tipo FLUTUANTE a um tipo INTEIRO : " + nomeVariavel)
+
+                                elif self.table[self.scope + "." + nomeVariavel]["tipo"] == "FLUTUANTE" and self.table["global." + node.expressao_numero(node.child[0],nomeVariavel)]["tipo"] == "INTEIRO": #float e inteiro
+                                    print("Warning : Voce está associando um tipo INTEIRO a um tipo FLUTUANTE : " + nomeVariavel)
+                            
+                            else:
+                                print("Erro semântico : Variável não inicializada : " + node.value)
+                                exit(1)
+
+                     elif "global." + nomeVariavel in self.table.keys():
+                            
+                            if self.table["global." + node.expressao_numero(node.child[0],nomeVariavel)]["inicializada"] == True: #recebenco ID inicializado 
+                                
+                                if self.table["global." + nomeVariavel]["tipo"] == "INTEIRO" and self.table["global." + node.expressao_numero(node.child[0],nomeVariavel)]["tipo"] == "FLUTUANTE": #inteiro e float
+                                    print("Warning : Voce está associando um tipo FLUTUANTE a um tipo INTEIRO : " + nomeVariavel)
+
+                                elif self.table["global." + nomeVariavel]["tipo"] == "FLUTUANTE" and self.table["global." +node.expressao_numero(node.child[0],nomeVariavel)]["tipo"] == "INTEIRO": #float e inteiro
+                                    print("Warning : Voce está associando um tipo INTEIRO a um tipo FLUTUANTE : " + nomeVariavel)
+                            
+                            else:
+                                print("Erro semântico : Variável não inicializada : " + node.expressao_numero(node.child[0],nomeVariavel))
+                                exit(1)
+                    
+
+
+

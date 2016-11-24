@@ -9,7 +9,7 @@ inteiro fatorial(inteiro: n, flutuante: m)
 	m := 5
 	
 	se n>0 então
-		retorna(n)
+		retorna(5)
 	senão
 		repita 
 			flutuante: p
@@ -20,11 +20,11 @@ inteiro fatorial(inteiro: n, flutuante: m)
 	z := z+1 {ERRO, ID NAO FOI INICIALIZADO}
 
 	{WARNING DE RETORNO: PASSANDO TIPO DIFERENTE}
-	retorna(m)
+	retorna(9)
 fim
 
 inteiro principal()
-	{leia(n)}
+	leia(n)
 	escreva(fatorial(1, 1.0)) {TIPOS DOS PARAMETROS DIFERENTES, TESTAR E VER SE ACUSA UM WARNING}
 fim
 

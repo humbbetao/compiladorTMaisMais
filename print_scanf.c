@@ -1,11 +1,21 @@
 #include <stdio.h>
 
-void printf_f(float f){
-	printf("%f\n",f);
+void escrevaInteiro(int a) {
+	printf("%d\n", a);
 }
 
-float scanf_f(float num) {
-;
+void escrevaFlutuante(float a) {
+	printf("%f\n", a);
+}
+
+int leiaInteiro() {
+	int num;
+	scanf("%d", &num);
+	return num;
+}
+
+float leiaFlutuante() {
+	float num;
 	scanf("%f", &num);
-	return num;	
+	return num;
 }

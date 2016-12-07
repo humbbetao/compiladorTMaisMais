@@ -6,7 +6,9 @@ class Semantica():
     def __init__(self,codigo):
         self.tabela ={}
         self.escopo = "global"
-        self.tree = AnaliseSintatica().parser_codigo(codigo)
+        self.ast = AnaliseSintatica()
+        self.code = self.ast.parser_codigo(codigo)
+        self.tree = self.code
 
     def raiz(self):
         if(self.tree.type == "statement_loop"):
@@ -143,7 +145,7 @@ class Semantica():
             exit(1)
 
         if(node.type == "declaracao_param_loop"):
-            # print(node.value)
+            # print(node.value, "kkkkkkkkkkkk")
             self.tabela[self.escopo + "." + node.value] = {}
             self.tabela[self.escopo + "." + node.value]["variavel"] = True
             self.tabela[self.escopo + "." + node.value]["inicializada"] = True
@@ -153,6 +155,7 @@ class Semantica():
             return self.declaracao_param(node.child[1]) + 1
 
         else: 
+            # print(node.value, "kkkkkkkkkkkk")
             self.tabela[self.escopo + "." + node.value] = {}
             self.tabela[self.escopo + "." + node.value]["variavel"] = True
             self.tabela[self.escopo + "." + node.value]["inicializada"] = True
@@ -174,8 +177,8 @@ class Semantica():
         if(node.type == "sequencia_de_declaracao_sem_loop") :
             self.declaracao(node.child[0])
         else :
-            self. declaracao(node.child[0])
-            self.sequencia_de_declaracao(node.child[1])
+            self.sequencia_de_declaracao(node.child[0])
+            self.declaracao(node.child[1])
 
     def declaracao(self,node):
         if(node.type == "declaracao_expressao_condicional") :
@@ -222,37 +225,30 @@ class Semantica():
             print("Erro Semântico. Variável " + node.value + " não encontrada")
             exit(1)
 
-        else :
+        else:
             if self.escopo + "." + node.value in self.tabela.keys():
-                # print(self.escopo + "." + node.value)
                 tipo = self.expressao(node.child[0],node.value)
-                # print(tipo)
-
-                if self.tabela[self.escopo + '.' + node.value]["tipo"] != tipo:
-                    print("WARNING atribuição: variavel '" + node.value + "' é do tipo '" + self.tabela[self.escopo + '.' + node.value]["tipo"] +  " está atribuindo uma expressão do tipo "+ tipo )
-           
-                self.tabela[self.escopo + "." + node.value]["inicializada"] = True 
-                self.expressao(node.child[0], node.value) #passa o nome da variável
-                
+                self.tabela[self.escopo+"." + node.value]["inicializada"] = True
+                if self.tabela[self.escopo + '.' + node.value]["tipo"] != tipo and tipo!=None:
+                    print("WARNING atribuição: variavel " + node.value + " é do tipo " + self.tabela[self.escopo + '.' + node.value]["tipo"] +  " está atribuindo uma expressão do tipo "+ tipo )              
             elif "global." + node.value in self.tabela.keys():
                 tipo = self.expressao(node.child[0],node.value)
-                
                 self.tabela["global." + node.value]["inicializada"] = True
-                self.expressao(node.child[0], node.value) 
+                self.expressao(node.child[0], node.value)                 
+                if self.tabela['global.' + node.value]["tipo"] != tipo:
+                    print("WARNING atribuição: variavel " + node.value + " é do tipo " + self.tabela['global.' + node.value]["tipo"] +  " está atribuindo uma expressão do tipo "+ tipo )
+                
+                
 
     def expressao_leitura(self,node):
-        # print('global.' + node.value)
-        # print( self.escopo + '.' + node.value)
         if self.escopo + "." + node.value not in self.tabela.keys() and "global." + node.value not in self.tabela.keys():
             print("Erro Semântico. Variável " + node.value + " não encontrada")
             exit(1)
 
         elif self.escopo + '.' + node.value in self.tabela.keys():
-            # print(self.escopo + '.' + node.value+"n")
             self.tabela[self.escopo + '.' + node.value]["inicializada"] = True
         elif "global."+ node.value in self.tabela.keys():
-            # print("global."+ node.value+"m")
-            self.tabela['global.' + node.value]["inicializada"] = True
+            self.tabela["global." + node.value]["inicializada"] = True
 
     def expressao_escreva(self,node):
         self.expressao(node.child[0], None)
@@ -261,7 +257,6 @@ class Semantica():
         novo = self.expressao(node.child[0], None)
         if(self.escopo+"."+novo in self.tabela.keys() ):
             tipo  = self.tabela[self.escopo+"."+novo]["tipo"] 
-            # print(tipo)
             if(tipo != self.tabela[self.escopo]["tipo"]):
                 print("Erro Semantico. Retorno de funcao "+self.escopo+" o certo eh "+self.tabela[self.escopo]["tipo"])
                 exit(1)
@@ -272,26 +267,32 @@ class Semantica():
             print("Erro Semântico, nome de funcao não declarado : " + node.value )
             exit(1)
         
-        if self.param_chama_funcao(node.child[0],0) != self.tabela[node.value]["num_parametros"]:
+        if self.param_chama_funcao(node.child[0],0, node.value) != self.tabela[node.value]["num_parametros"]:
             print("Erro Semântico, número de parametros não correspondem com os da função : " + node.value )
             exit(1)
 
-    
+        self.param_chama_funcao(node.child[0],0, node.value)
 
 # 1,5 + 2 + 1,5 + 2 + 1 + 2
-    def param_chama_funcao(self,node,level):
-
+    def param_chama_funcao(self,node,level, nome):
         if node.type == "param_chama_funcao_loop":
-            # print(node.child[0])
-            if(self.tabela[self.escopo]["parametros"]!=[]):
-                if(self.tabela[self.escopo]["parametros"][level+1]!=self.expressao(node.child[0],None)):
+            if(self.tabela[nome]["num_parametros"] >= 1):
+                if(self.tabela[nome]["parametros"][level]!=self.expressao(node.child[0],None) and  self.expressao(node.child[0],None)!=None):
                     print("Erro Semantico: tipo de parametros incompativel") 
                     exit(1)
+
             level = level+1
 
-            # self.tabela[self.escopo+"."+node.value]["inicializada"]=True
+            self.expressao(node.child[0],None)
             return self.param_chama_funcao(node.child[1],level) + 1
         else:
+            self.expressao(node.child[0],None)
+            if(self.tabela[nome]["num_parametros"] >=1 ):
+                if(self.tabela[nome]["parametros"][level]!=self.expressao(node.child[0],None)):
+                    print("Erro Semantico: tipo de parametro incompativel") 
+                    exit(1)      
+                level = level+1
+            # verificar aqui os parametros
             return 1
 
 
@@ -307,7 +308,6 @@ class Semantica():
             else: 
                 return "inteiro"       
         else:          
-            # print(node.child[0])
             return self.expressao_simples(node.child[0],nomeVariavel)
 
     def comparacao_operador(self, node):
@@ -319,8 +319,6 @@ class Semantica():
             self.soma(node.child[1])
             direita =self.termo(node.child[2],nomeVariavel)
             
-
-
             if esquerda == "flutuante" or direita == "flutuante":
                 return "flutuante"
             else: 
@@ -366,20 +364,25 @@ class Semantica():
                    exit(1)
 
         elif(node.type == "fato_expressao_identificador"):
-
-            # print(self.expressao_identificador(node.child[0])+"kkkk")
             return self.expressao_identificador(node.child[0])
 
 
     def expressao_identificador(self,node):
-        # if(nomeVariavel!=None):
+        tipo=""
         if self.escopo+"."+node.value in  self.tabela.keys() :
+            tipo = self.tabela[self.escopo+"."+node.value]["tipo"]
+            if self.tabela[self.escopo+"."+node.value]["inicializada"] == False:
+                print("Erro: Variavel " +self.escopo+"."+node.value + " nao foi inicializada" )
+                exit(1)
             self.tabela[self.escopo+"."+node.value]["inicializada"]=True
-       
         elif "global."+node.value in  self.tabela.keys() :
+            tipo = self.tabela["global."+node.value]["tipo"]
+            if self.tabela["global."+node.value]["inicializada"] == False:
+                print("Erro: Variavel " +"global."+node.value + " nao foi inicializada" )
+                exit(1)
             self.tabela["global."+node.value]["inicializada"]=True
-        # print(node.value,"passou3333")
-        return node.value
+       
+        return tipo
        
 
     def expressao_numero(self,node,nomeVariavel,boole):
@@ -397,6 +400,7 @@ class Semantica():
         return node.value
 
     def numero(self, node,boole):
+        # print(node.value, "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk")
         x = node.value.isdigit()
         if x is True:
             return "inteiro"

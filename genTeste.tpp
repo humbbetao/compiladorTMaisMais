@@ -1,16 +1,17 @@
-inteiro: a,b
-flutuante: c,d
+inteiro: n
 
-inteiro novo()
-
-	retorna(2)
+inteiro fatorial(inteiro: n)
+    inteiro: fat
+    se n > 0 então {não calcula se n > 0}
+        fat := 1
+    senão
+    	fat:=2
+    fim
+    retorna(fat)
 fim
-flutuante principal()
-	flutuante: a,b,c
-	a := 5.0
-	b:= 5.0
-	c:=a+b
 
-	escreva(a)
-	retorna(a)
+inteiro principal()
+    leia(n)
+    escreva(fatorial(n))
+    retorna(0)
 fim
